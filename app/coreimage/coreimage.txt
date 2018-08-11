@@ -1,0 +1,3 @@
+├── coreimage.cpp
+├── coreimage.h
+└── coreimage.ui

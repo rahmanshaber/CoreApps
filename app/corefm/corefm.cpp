@@ -84,6 +84,8 @@ void corefm::startsetup()
     ui->viewDir->sizePolicy().setHorizontalStretch(2);
     ui->viewDir->setVisible(false);
     connect(ui->viewTree, SIGNAL(clicked(bool)), ui->viewDir, SLOT(setVisible(bool)));
+    qDebug()<< ui->splitter->size();
+
 
     modelView = new viewsSortProxyModel();
     modelView->setSourceModel(modelList);
@@ -596,6 +598,8 @@ void corefm::dragLauncher(const QMimeData *data, const QString &newPath,
     if (dragMode == myModel::DM_UNKNOWN) {
       QMessageBox box;
       box.setWindowTitle(tr("What do you want to do?"));
+      box.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
+      box.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
       QAbstractButton *move = box.addButton(tr("Move here"), QMessageBox::ActionRole);
       QAbstractButton *copy = box.addButton(tr("Copy here"), QMessageBox::ActionRole);
       QAbstractButton *link = box.addButton(tr("Link here"), QMessageBox::ActionRole);
@@ -649,7 +653,7 @@ void corefm::pasteLauncher(const QList<QUrl> &files, const QString &newPath,
     // File no longer exists?
     if (!QFile(files.at(0).path()).exists()) {
       QString msg = tr("File '%1' no longer exists!").arg(files.at(0).path());
-      QMessageBox::information(this, tr("No paste for you!"), msg);
+      messageEngine(msg, MessageType::Info);
       ui->actionPaste->setEnabled(0);
       ui->paste->setVisible(0);
       return;
@@ -671,6 +675,8 @@ void corefm::pasteLauncher(const QList<QUrl> &files, const QString &newPath,
         if (temp.isDir() && QFileInfo(newPath + QDir::separator() + temp.fileName()).exists()) {
           QString msg = QString("<b>%1</b><p>Already exists!<p>What do you want to do?").arg(newPath + QDir::separator() + temp.fileName());
           QMessageBox message(QMessageBox::Question, tr("Existing folder"), msg, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+          message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
+          message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
           message.button(QMessageBox::Yes)->setText(tr("Merge"));
           message.button(QMessageBox::No)->setText(tr("Replace"));
 
@@ -1016,9 +1022,13 @@ int corefm::showReplaceMsgBox(const QFileInfo &f1, const QFileInfo &f2)
          .arg(f2.filePath()).arg(f2.lastModified().toString()).arg(f2.size());
 
     // Show message
-    return QMessageBox::question(0, tr("Replace"), t, QMessageBox::Yes
+    QMessageBox message(QMessageBox::Question, tr("Replace"), t, QMessageBox::Yes
                                  | QMessageBox::YesToAll | QMessageBox::No
                                  | QMessageBox::NoToAll | QMessageBox::Cancel);
+    message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
+    message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
+
+    return message.exec();
 }
 
 void corefm::progressFinished(int ret,QStringList newFiles)
@@ -1053,8 +1063,8 @@ void corefm::progressFinished(int ret,QStringList newFiles)
         clearCutItems();
     }
 
-    if(ret == 1) QMessageBox::information(this,tr("Failed"),tr("Paste failed...do you have write permissions?"));
-    if(ret == 2) QMessageBox::warning(this,tr("Too big!"),tr("There is not enough space on the destination drive!"));
+    if(ret == 1) messageEngine("Paste failed\nDo you have write permissions?",MessageType::Warning);
+    if(ret == 2) messageEngine("Too big!\nThere is not enough space!",MessageType::Warning);
 }
 
 
@@ -1623,8 +1633,10 @@ void corefm::on_actionDelete_triggered()
           if (yesToAll == false) {
               QString title = tr("Careful");
               QString msg = tr("Are you sure you want to delete <p><b>\"") + file.filePath() + "</b>?";
-              int ret = QMessageBox::information(this, title, msg,
-                  QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll);
+              QMessageBox message(QMessageBox::Question, title, msg,QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll);
+              message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
+              message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
+              int ret = message.exec();
               if (ret == QMessageBox::YesToAll) yesToAll = true;
               if (ret == QMessageBox::No) return;
           }

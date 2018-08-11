@@ -1,0 +1,36 @@
+/*MessageBox */
+
+QWidget{
+    background-color: @color02;
+    color: @color07;
+    border: none;}
+
+QLabel{
+    background-color:transparent;
+    color: @color07;
+    padding: 1px 5px 1px 0px;}
+
+
+QToolButton{
+    background-color: transparent;
+    color: @color07;
+    padding: 3px 5px 3px 5px;
+    border: 1px solid @color05;}
+QToolButton:pressed{
+    background-color: @color04;
+    color: @color08;}
+QToolButton:hover {
+    background-color: @color04;
+    color: @color08;}
+
+QPushButton{
+    background-color: transparent;
+    color: @color07;
+    padding: 3px 5px 3px 5px;
+    border: 1px solid @color05;}
+QPushButton:pressed{
+    background-color: @color04;
+    color: @color08;}
+QPushButton:hover {
+    background-color: @color04;
+    color: @color08;}

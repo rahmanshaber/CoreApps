@@ -1,0 +1,14 @@
+└── historic
+├── BlackOnLightYellow.schema
+├── BlackOnRandomLight.colorscheme
+├── BlackOnWhite.schema
+├── BreezeModified.colorscheme
+├── color-schemes.qrc
+├── DarkPastels.colorscheme
+├── GreenOnBlack.colorscheme
+├── Linux.colorscheme
+├── Solarized.colorscheme
+├── SolarizedLight.colorscheme
+├── Tango.colorscheme
+├── Ubuntu.colorscheme
+└── WhiteOnBlack.schema

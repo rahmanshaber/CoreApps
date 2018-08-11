@@ -158,3 +158,4 @@ see the itemtotext function in corefm line 2452
 corefm  fileutilites.cpp 361
 fix movetotrsh
 compear the FileUtils::totalSize vs getSize
+open in corefm with select a folder

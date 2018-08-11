@@ -70,6 +70,8 @@ public:
     static QString getMultipleCountText(const QStringList &paths);
     static QString getCountText(const QString path);
     static SizeAndCountText getF(const QStringList &paths);
+
+
 };
 
 #endif // FILEUTILS_H

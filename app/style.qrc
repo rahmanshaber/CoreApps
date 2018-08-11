@@ -23,6 +23,7 @@
         <file>style/CoreBox.qss</file>
         <file>style/CoreAction.qss</file>
         <file>style/CoreTime.qss</file>
+        <file>style/MessageBox.qss</file>
     </qresource>
     <qresource prefix="/theme">
         <file>style/modeLight.ini</file>

@@ -1,0 +1,17 @@
+├── BlackOnLightColor.schema
+├── DarkPicture.schema
+├── Example.Schema
+├── GreenOnBlack.schema
+├── GreenTint.schema
+├── GreenTint_MC.schema
+├── LightPicture.schema
+├── Linux.schema
+├── README.default.Schema
+├── README.Schema
+├── syscolor.schema
+├── Transparent.schema
+├── Transparent_darkbg.schema
+├── Transparent_lightbg.schema
+├── Transparent_MC.schema
+├── vim.schema
+└── XTerm.schema

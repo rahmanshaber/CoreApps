@@ -23,6 +23,8 @@ myProgressDialog::myProgressDialog(QString title)
 {
    setWindowTitle(title);
 
+   messageEngine("myProgressDialoge", MessageType::Warning);
+
    filename = new QLabel(tr("Initializing..."));
    bar = new QProgressBar();
    button = new QPushButton("Cancel");

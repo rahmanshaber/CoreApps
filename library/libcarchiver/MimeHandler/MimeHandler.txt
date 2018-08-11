@@ -1,0 +1,16 @@
+├── NBMimeDatabase.cpp
+├── NBMimeDatabase.hpp
+├── NBMimeDatabase_p.hpp
+├── NBMimeGlobPattern.cpp
+├── NBMimeGlobPattern_p.hpp
+├── NBMimeMagicRule.cpp
+├── NBMimeMagicRule_p.hpp
+├── NBMimeMagicRuleMatcher.cpp
+├── NBMimeMagicRuleMatcher_p.hpp
+├── NBMimeProvider.cpp
+├── NBMimeProvider_p.hpp
+├── NBMimeType.cpp
+├── NBMimeType.hpp
+├── NBMimeType_p.hpp
+├── NBMimeTypeParser.cpp
+└── NBMimeTypeParser_p.hpp
