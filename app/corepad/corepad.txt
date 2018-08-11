@@ -1,7 +1,0 @@
-├── chighlighter.cpp
-├── chighlighter.h
-├── coreedit.cpp
-├── coreedit.h
-├── corepad.cpp
-├── corepad.h
-└── corepad.ui

@@ -1,5 +1,0 @@
-├── settings.cpp
-├── settings.h
-├── settings.ui
-├── settingsmanage.cpp
-└── settingsmanage.h

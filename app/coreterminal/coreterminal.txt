@@ -1,2 +1,0 @@
-├── coreterminal.cpp
-└── coreterminal.h

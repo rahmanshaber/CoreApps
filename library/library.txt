@@ -1,6 +1,0 @@
-├── libcarchiver
-├── libcpdf
-├── libcsys
-└── libcterminal
-├── library.pro
-└── README.md

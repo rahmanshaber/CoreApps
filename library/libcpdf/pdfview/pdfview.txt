@@ -1,9 +1,0 @@
-├── cmaps
-├── images
-└── locale
-├── debugger.js
-├── pdf.js
-├── pdf.worker.js
-├── viewer.css
-├── viewer.html
-└── viewer.js

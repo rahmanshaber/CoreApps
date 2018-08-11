@@ -1,8 +1,0 @@
-└── historic
-├── default.keytab
-├── kb-layouts.qrc
-├── linux.keytab
-├── macbook.keytab
-├── README
-├── solaris.keytab
-└── vt420pc.keytab

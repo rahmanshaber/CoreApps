@@ -1,2 +1,0 @@
-├── vt100.keytab
-└── x11r5.keytab

@@ -1,5 +1,0 @@
-├── control
-├── CoreBox
-├── corebox.dbp
-├── CoreBox_2.2_all.deb
-└── CoreBox_2.2_all.lintian

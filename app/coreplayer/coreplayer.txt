@@ -1,3 +1,0 @@
-├── coreplayer.cpp
-├── coreplayer.h
-└── coreplayer.ui

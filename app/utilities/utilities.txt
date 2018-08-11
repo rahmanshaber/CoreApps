@@ -1,4 +1,0 @@
-├── globalfunctions.cpp
-├── globalfunctions.h
-├── utilities.cpp
-└── utilities.h

@@ -1,4 +1,0 @@
-├── corerenamer.cpp
-├── corerenamer.h
-├── corerenamer.ui
-└── undocommands.h

@@ -1,3 +1,0 @@
-├── NBStandardPaths.cpp
-├── NBStandardPaths.hpp
-└── NBStandardPaths_unix.cpp

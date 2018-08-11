@@ -1,7 +1,0 @@
-└── screenshots
-├── buildinfo.txt
-├── ChangeLog
-├── docs.qrc
-├── PKGBUILD
-├── ReleaseNotes
-└── To-Do.txt
