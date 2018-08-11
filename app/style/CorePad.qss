@@ -1,0 +1,145 @@
+/*CorePad*/
+
+#appTitle{
+    background-color: transparent;
+    color: @color09;
+    border: none;}
+
+QWidget [accessibleName="shortcut"]{
+    background-color: @corepad;
+    color: @color09;
+    border: none;}
+
+QFrame [accessibleName="searchBox"]{
+    background-color: @color03;
+    color: @color07;
+    border: none;}
+
+
+QLineEdit{
+    background-color: transparent;
+    color: @color07;
+    height: 22px;
+    border: 1px solid @color05;
+    padding: 5px 5px 5px 10px;}
+
+
+QSpinBox {
+    background-color: transparent;
+    color: @color09;
+    border: 1px solid @color05;
+    padding: 5px 5px 5px 10px;}
+QSpinBox::up-button {
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+    width: 16px;
+    border-image: url(:/icons/up.svg) 1;
+    border-width: 1px;}
+QSpinBox::down-button {
+    subcontrol-origin: border;
+    subcontrol-position: bottom right;
+    width: 16px;
+    border-image: url(:/icons/down.svg) 1;
+    border-width: 1px;
+    border-top-width: 0;}
+
+
+QMenu {
+    background-color: @color01;
+    color: @color07;
+    border: 1px solid @color05;}
+QMenu::item {
+    background-color: transparent;}
+QMenu::item:selected {
+    background-color: @color04;
+    color: @color08;}
+QMenu::separator {
+    height: 1px;
+    background: @color05;
+    margin-left: 10px;
+    margin-right: 5px;}
+
+
+QToolButton{
+    background-color: transparent;
+    color: @color07;
+    padding: 3px 5px 3px 5px;
+    border: 1px solid @color05;}
+QToolButton:pressed{
+    background-color: @color04;
+    color: @color08;}
+QToolButton:hover {
+    background-color: @color04;
+    color: @color08;}
+
+
+QPushButton {
+    background-color: transparent;
+    color: @color09;
+    border: none;
+    Text-align:left;
+    padding: 5px 5px 5px 5px;}
+QPushButton:pressed {
+    background-color: @color04;
+    color: @color08;}
+QPushButton:hover{
+    background-color: @color04;
+    color: @color08;}
+
+
+QTabBar::tab:!selected{
+    background-color: @color01;
+    color:#B4B4B4;}
+QTabBar::tab:selected{
+    background-color: @color01;
+    font-weight: bold;
+    color:#0f5d90;
+    border-bottom: 2px solid #0f5d90;}
+QTabBar::close-button {
+    image: url(:/icons/close.svg);
+    subcontrol-position: right;}
+QTabBar::tab{
+    text-align:left;
+    background-color: @color01;
+    border-style: 1px #B4B4B4;
+    height:25px;
+    color: #136ba2;
+    padding: 0px 5px 0px 5px;}
+QTabBar{
+    background-color: @color01;
+    height: 25px;}
+
+
+QScrollBar:vertical {
+    background-color: transparent;
+    max-width: 8px;
+    border-radius: 4px;
+    padding: 1px; }
+QScrollBar::handle:vertical {
+    background-color: silver;
+    max-width: 6px;
+    min-height: 12px;
+    border-radius: 3px; }
+QScrollBar:horizontal {
+    background-color: transparent;
+    max-height: 8px;
+    border-radius: 4px;
+    padding: 1px; }
+QScrollBar::handle:horizontal {
+    background-color: silver;
+    max-height: 6px;
+    min-width: 12px;
+    border-radius: 3px; }
+QScrollBar::sub-page:horizontal,
+QScrollBar::sub-page:vertical {
+    background-color: transparent; }
+QScrollBar::add-page:horizontal,
+QScrollBar::add-page:vertical {
+    background-color: transparent; }
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    width: 0px; height: 0px; }
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    width: 0px; height: 0px; }
+

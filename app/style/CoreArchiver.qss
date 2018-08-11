@@ -1,0 +1,40 @@
+/*CoreArchiver */
+
+QWidget{
+    background-color: @color02;
+    color: @color07;
+    border: none;}
+
+
+QLineEdit{
+    background-color: transparent;
+    color: @color07;
+    border: 1px solid @color05;
+    padding: 5px 5px 5px 10px;}
+
+
+QToolButton{
+    background-color: transparent;
+    color: @color07;
+    padding: 3px 5px 3px 5px;
+    border: 1px solid @color05;}
+QToolButton:pressed{
+    background-color: @color04;
+    color: @color08;}
+QToolButton:hover {
+    background-color: @color04;
+    color: @color08;}
+
+
+QComboBox {
+    background-color: transparent;
+    color: @color07;
+    border: 1px solid @color05;
+    padding: 5px 5px 5px 10px;}
+QComboBox QAbstractItemView {
+    background-color: @color06;
+    border: 1px solid @color05;
+    color: @color07;
+    selection-background-color: @color04;}
+QComboBox::drop-down {
+    background-color: @color05;}

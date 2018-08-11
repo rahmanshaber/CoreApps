@@ -1,0 +1,264 @@
+
+Version 2.2
+
+- added coreterminal to be independent.
+- added corearchiver to archive file.
+- fixed search ui.
+- removed the icon path variable from saverecent function.
+- fixed the pages and there numbering.
+- updated the battery widget in dashboard and coreaction.
+- added delete selected area in corepaint.
+- added the opening terminal in current folder in corefm.
+- added extra and compress with corearciver in corefm.
+- mime list creation in qconcarent in settings.
+- move cImage label to code in coreimage.
+- image list in qconcarent in coreimage.
+- fixed coreterminal crashes on closing.
+- fixed the window size of coreterminal
+- fixed coreterminal's type "man ls" shows this "terminal is not ready"
+- fixed coreterminal background in black.
+- add active window screenshot option corescreenshot.
+- removed engrampa from dependencies.
+- fixed paste icon in corfm.
+- dark ui in corefm.
+- fixed search result ui.
+- fixed file trash problem in coreimage
+- fixed after install corebox icon fixed.
+- dark ui in corearchiver and added icon.
+- dark ui in bookmarkit dialog.
+- moved corearchiver ui in designer.
+- globalfunction add a app icon get option.
+- fixed getting filename at corearchiver.
+- fixed zooming problem of coreimage.
+- added backup option of coreapps & corebox settings and bookmark at settings.
+- fixed bookmarking home folder problem at corefm.
+- copy, paste shortcut at coreterminal.
+- coreshot at new ui.
+- added all the instruments icons.
+- search ui has some changes.
+- changed folder icon.
+- reduced font size in all app's sidebar.
+- fixed shot preview dialog ui.
+- ui changes in start.
+- added release note file in help app.
+- saved backup file path in setting
+- changed the settings toggle icon.
+- moved toolsize in status bar of corepaint.
+- added all the instrument cursor in corepaint.
+- added every library version in lib README.md.
+- separated all the ui config from constructor from every coreapps.
+- fixed linenumberwidth in corepad.
+- fixed appsIcon function.
+- moved all folder creation in one function in globalfunctions.
+- fixed the thumbnail view in coreimage.
+- added new app CoreRenamer.
+- added corerenamer integration with corefm.
+- removed duplicate declaration from header file of corefm.
+- fixed same tab close crashed.
+- removed libmagic from corefm dependency.
+- tabengine path in const.
+- fixed the reload function.
+- fixed recent activity dose not collecting the data.
+- fixed the recent activity option in settings.
+- fixed all open bkdialog function from bookmark
+- send path in const to bookmarkit.
+- fix the icon size in bookmarkdialog.
+- dashboard lib in separate folder named libcsys.
+- separate all the pages.
+- add library version of libcsys.
+- fixed search is always stuck at collecting information.
+- added search keyword saving.
+- search activity to treewidget at date wise.
+- send path to search in const.
+- fixed shortcut is not working.
+- qprocess output to text stream in search app.
+- get error message when process not done in search app.
+- backup now archive whole corbox folder in config folder.
+- fixed context menu open folder action in corefm.
+- fixed after saving a new file , book mark button dose not work.
+- linenumber area space to fit 999 number.
+- added syntax highlighting in corepad.
+- saving a new page>> saving dialog>name has a * ,fixed it.
+- remove the page whole border in corepad.
+- name box is in focus in corearchiver.
+- fixed active window capture is not working.
+- fixed active window and full screen in capturing also the choreshot window.
+- fixed delay is not working.
+- all widgets in separate ui.
+- notes widget text and recentactivities in separate file.
+- fixed search is not taking path from corefm.
+- fixed two terminal crash both terminal app.
+- fixed add files button dose not work in corerenamer and many ui and bug fixes.
+- round border in messageengine>>messagebox.
+- getfilesize in qconcarent.
+- fixed context menu open folder action in corefm.
+- fixed focus policy from the shortcut bar from all app.
+- added one scrollbar stylesheet across the app.
+- moved window buttons to sidebar and fixed the double click to window maximize.
+- fixed some bugs related to coreplayer playlist.
+- fixed many ui imperfection all the apps.
+- fixed issue related to executable in properties.
+- added sliding effect in start pages.
+- a big code cleanup and ui fixes.
+- added new option delete all text add a text and number at front
+- added option to restore the backup file .
+- delete recent activity when hidden.
+- switch case in setupfolder function.
+- auto fill the folder path and name from search activity.
+- Add button to delete the search activity
+- limit the openable window.
+- fixed coreterminal is not in focused after opening.
+- changed corepad scroll bar stylesheet.
+- make executable file permission with qt
+- rename in separate window in corefm.
+- limited the coreshot delay time.
+- font size in spin box in corepad.
+- delete recent activity when hidden.
+- fixed screen orientation showing number and added screen size in dashboard.
+- fixed mimetype background of settings app
+- fixed clicking enter the rename dose not complete in corefm renameDialog.
+- fixed drag a app icon from start is disappear.
+- added option to make file hidden in properties.
+- added esc key shortcut to exit slidshow in coreimage.
+- three click on both view buttons with thumbnails checked crash the app.
+- fixed clicking start dose not reload the session list.
+- message after saving and finishing of opening the session.
+- corepaint now support multiple page support.
+- properties now shows folder and file count of a folder.
+- limit the openable window to 10.
+- switch case in setupfolder function.
+- moved to universal theme management
+- added new Dark and light mode.
+- redesigned all the ui and sidebar color.
+- able to set the font family.
+- fixed submenu in context menu is not colored.
+- fixed the libterminal typo.
+- fixed image rotation size in coreimage.
+- fixed corefm lightmode sidecolor.
+
+
+Version 2.1,Released date Friday, June 1, 2018.
+
+- fixed battery pointer that caused compiling error in armv8 on dashboard app .
+- fixed button ui in corescreenshot app.
+- fixed extension crash for coreimage (File.File.File.png like files)
+- closeable tab for corepad.
+- tabengine moved to switch (for a better code functionality) and checking argument for validation
+- moved to non movable page in corefm.
+- changed open folder to screen shot folder.
+- reload button at bottom in start.
+- added support for multiple file's combined size in corefm.
+- if bookmark is booked it shows a message and show the section it was booked.
+- full trash support.
+- notes at coreaction is saved and restored in every restart.
+- Fixed Empty the trash.
+- battery properties converted to stringlistmodel.
+- improved openAppEngine.
+- added a button to set search folder in search app.
+- fixed corepad's tab related problems.
+- QScreen moved to golbalfunctions.
+- fixed coreaction focuseout problem.
+- redesigned coreaction.
+- coreaction's widget is now customizable.
+- fixed coreaction setting bug.
+- coreaction is now lighter in system resource.
+- battery widget in coreaction now updates every 5 second.
+- changed corepad page ui.
+- corefm's properties would open faster now
+- coreaction will automatically hide within 10 sec in startup.
+- added drive list in corefm with click to mount support.
+- option to make file executable via corefm's properties.
+- fixed recent path not opening with double click in start.
+- now opening a video file in coreplayer automatically plays it.
+- changed properties ui in corefm.
+- fixed double clicking file goes to rename mode in corefm.
+- dashborad now show used network in general section.
+- fixed if dir's file is changed corefm will detect now.
+- added sendto some common places(like desktop,downloads,home) in corefm.
+- added video details in properties of corefm.
+- removed format_util.h|.cpp to fix armv7h build.
+- bookmark now support and save the file icon by it's type.
+- speeddial items of start now shows icons of it's type.
+- fixed text view of properties of the whole app.
+- made all path function to const path.
+- shows all the media state info of coreplayer with messageEngine.
+- fixed rename mode is not going off when clicked outside.
+- fixed Run option of rightbutton menue of corefm.
+- addend option to send a file to a drive in corefm.
+- added option to open file in selected app in openAppEngine.
+- fixed mouse wheel >>next image not working sometimes in coreimage.
+- opening file with system apps now shows in recent activities in start.
+- change in some icons & removed unused icon from resources file.
+- mimelist save folder moved to .config/corebox.
+- fixed all the time opening start when opening other app.
+- fixed system app not showing in the recent activities.
+- trash a picture from coreimage, will also delete entry from path qstringlist.
+- fixed empty trash not working in corefm.
+- removed trash widget from corefm and default mime path from settings.
+- added show real file type in corefm and settings.
+- fixed coreaction settings and view mode settings.
+- now, app will update when clicked from window.(only coreboxapps).
+- fixed corefm keeps the multiple file size and count in status bar.
+- added resize icon and moved it to window button .
+- added new Coreapp ,CorePDF with it's library qpdflib.
+- redesigned corebox folder structure.
+- removed playercontrols.h/cpp & playlistmodel.h/.cpp from corepalyer
+- fixed coreaction widgets not showing up.
+- fixed after stop ,play button dose not work in coreplayer.
+- when playing the navigation bar will be hidden in coreplayer.
+- removed reload & clear button from start.
+- fixed corepdf closing and savetorecent problem.
+- fixed some ui elements in coreplayer.
+- fixed vlc is not opening with file >> mimelist.
+- fixed speeddile double click dose not work in start.
+- added first letter to capital letter in fStringList function in globalfunction.
+- redesigned the about app and fixed the github page not opening.
+- fixed dashboard singnal problem.
+- fixed the close issue in corepdf.
+- fixed corepdf library issue.
+- fixed corepad closing issue.
+- search is now in qconcarent.
+
+
+Version 2,Released date Monday, March 26, 2018.
+
+- fixed tabengine in corebox.
+- fixed rename problem in corefm.
+- fixed view mode in corefm.
+- icondlg.cpp and header >> removed
+- arrange item fixed in corefm.
+- fixed hidden is not saving it's last state.
+- improved archiving in corefm.
+- fixed alarm page in coretime.
+- removed coretime settings.
+- fixed page select in coretime.
+- fixed sound path in coretime.
+- fixed the settings.
+- changed start ui.
+- removed background from start.
+- fixed alarm edit button not working properly.
+- creating archive in all all format added in corefm.
+- fixed extract here problem in corefm.
+- upgraded AppsName to enum in corebox.
+- fixed not going to the currently opened tab in corebox.
+- bookmark location changed to .config/coreBox folder
+- added coreaction section in settings.
+- fixed properties window icon in corefm.
+- coreaction's size code moved from main.cpp to coreaction.cpp.
+- bookmark location button removed from bookmark app.
+- fixed tool button in bookmark.
+- fixed corepaint save dialog in corepaint.
+- fixed coreaction is creating setting file in config folder.
+- removed demon from corefm.
+- changed page ui of all apps.
+- fixed corefm's new page is not going in new opened tab.
+- if folder is empty shows a message in corefm.
+- added multiple tab support in corepad.
+- limited the openable tab in corepad to 10.
+- added multi-monitor support.
+- fixed multi-window problem in corebox.
+- fixed multi-monitor problem in showing message.
+- added option to resize corebox.
+- added display page in dashboard app.
+- added new information in help app.
+- added some links in README.md file.

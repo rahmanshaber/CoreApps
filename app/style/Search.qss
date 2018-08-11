@@ -1,0 +1,113 @@
+/*Search */
+
+#appTitle{
+    background-color: transparent;
+    color: @color09;
+    border: none;}
+
+
+QWidget [accessibleName="options"]{
+    background-color: @search;
+    color: @color07;
+    border: none;}
+
+QWidget [accessibleName="infoPage"]{
+    background-color: @color03;
+    color : @color07;
+    border: none;}
+
+
+QLabel{
+    background-color: transparent;
+    color: @color07;}
+
+
+QLineEdit {
+    background-color: transparent;
+    color: @color07;
+    border: 1px solid @color05;
+    padding: 5px 5px 5px 10px;}
+
+
+QToolButton{
+    background-color: transparent;
+    color: @color07;
+    border: none;
+    padding: 5px 5px 5px 5px;}
+QToolButton:checked{
+    border-bottom: 2px solid @color08;
+    color: @color08;
+    font-weight: bold;}
+QToolButton:!checked{
+    color: #AAACAD;}
+
+
+QPushButton{
+    background-color: transparent;
+    color: @color09;
+    border: none;
+    padding: 5px 5px 5px 5px;}
+QPushButton:pressed{
+    background-color: @color04;
+    color: @color08;}
+QPushButton:hover {
+    background-color: @color04;
+    color: @color08;}
+
+
+QTreeView{
+    background-color:  transparent;
+    color: @color07;
+    border: none;}
+QTreeView::item{
+    padding: 0px 0px 0px 5px;
+    background-color:transparent;
+    color: @color07;}
+QTreeView::item:selected {
+    background-color: @color04;
+    color: @color08;}
+
+
+QHeaderView{
+    background-color:  transparent;
+    color: @color07;
+    padding-left: 4px;}
+QHeaderView::section {
+    padding: 1px 3px 1px 3px;
+    background-color: @color03;
+    color: @color07;
+    border: none;
+    padding-top: 4px;}
+
+
+QTableView {
+    background-color: transparent;
+    color: @color07;
+    selection-background-color: @color04;
+    selection-color: @color08;
+    padding: 0px 0px 0px 15px;}
+QTableView::item{
+    border-bottom-style:solid;
+    border-width:1;
+    border-color: @color05;}
+
+
+
+QScrollBar:vertical {
+    background-color: transparent;
+    max-width: 8px;
+    border-radius: 4px;
+    padding: 1px; }
+QScrollBar::handle:vertical {
+    background-color: silver;
+    max-width: 6px;
+    min-height: 12px;
+    border-radius: 3px; }
+QScrollBar::sub-page:vertical {
+    background-color: transparent; }
+QScrollBar::add-page:vertical {
+    background-color: transparent; }
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    width: 0px; height: 0px; }
+

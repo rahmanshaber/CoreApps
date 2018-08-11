@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>corearchiver</class>
+ <widget class="QWidget" name="corearchiver">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>486</width>
+    <height>162</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>CoreArchiver</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../icons.qrc">
+    <normaloff>:/app/icons/app-icons/CoreArchiver.svg</normaloff>:/app/icons/app-icons/CoreArchiver.svg</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="topMargin">
+    <number>10</number>
+   </property>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Location</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Archive Name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="formatsCB"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Format</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="5">
+    <widget class="QToolButton" name="locationTB">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="4">
+    <widget class="QLineEdit" name="locationLE">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>Current folder</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="5">
+    <widget class="QLineEdit" name="nameLE"/>
+   </item>
+   <item row="3" column="5">
+    <widget class="QToolButton" name="cancel">
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="4">
+    <widget class="QToolButton" name="createArc">
+     <property name="text">
+      <string>Create Archive</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>
