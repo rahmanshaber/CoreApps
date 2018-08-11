@@ -73,7 +73,6 @@ public:
 
     void goTo(const QString path);
     QString gCurrentPath(int index);
-    int tabsCount();
 
     myModel *modelList;
 
@@ -81,7 +80,6 @@ protected:
     void closeEvent(QCloseEvent *event);
 
 public slots:
-
     bool cutCopyFile(const QString &source, QString dest, qint64 totalSize, bool cut);
     bool pasteFiles(const QList<QUrl> &files, const QString &newPath, const QStringList &cutList);
     bool linkFiles(const QList<QUrl> &files, const QString &newPath);
@@ -96,7 +94,6 @@ public slots:
     void clipboardChanged();
     void toggleSortBy(QAction* action);
     void setSortColumn(QAction *columnAct);
-    void actionMapper(QString);
     void dragLauncher(const QMimeData *data, const QString &newPath, myModel::DragMode dragMode);
     void pasteLauncher(const QMimeData *data, const QString &newPath, const QStringList &cutList);
     void pasteLauncher(const QList<QUrl> &files, const QString &newPath, const QStringList &cutList, bool link = false);
@@ -108,12 +105,10 @@ public slots:
     void clearCutItems();
     void zoomInAction();
     void zoomOutAction();
-//    void focusAction();
     void dirLoaded();
     void thumbUpdate(QModelIndex);
     void addressChanged(int,int);
     void loadSettings();
-    void pressed();
 
 signals:
     void updateCopyProgress(qint64, qint64, QString);
@@ -172,6 +167,8 @@ private slots:
     void on_showthumb_clicked(bool checked);
     void on_actionItemsToText_triggered();
     void on_viewMode_clicked();
+
+    void on_actionCreate_Shortcut_triggered();
 
 private:
     Ui::corefm *ui;

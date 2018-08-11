@@ -84,8 +84,6 @@ void corefm::startsetup()
     ui->viewDir->sizePolicy().setHorizontalStretch(2);
     ui->viewDir->setVisible(false);
     connect(ui->viewTree, SIGNAL(clicked(bool)), ui->viewDir, SLOT(setVisible(bool)));
-    qDebug()<< ui->splitter->size();
-
 
     modelView = new viewsSortProxyModel();
     modelView->setSourceModel(modelList);
@@ -146,10 +144,6 @@ void corefm::startsetup()
     watcher = new QFileSystemWatcher(this);
     connect(watcher, SIGNAL(directoryChanged(QString)), this, SLOT(on_actionRefresh_triggered()));
 
-    // setup left mouse click at both views
-    connect(ui->viewIcon, &ClickOutListview::clickedOut, this, &corefm::pressed);
-    connect(ui->viewDetail, &ClickOutTreeview::clickedOut, this, &corefm::pressed);
-
     // set all int values to zero
     selectItemCount = 0;
 }
@@ -204,16 +198,6 @@ void corefm::lateStart()
     customComplete->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
     customComplete->setMaxVisibleItems(10);
     ui->pathEdit->setCompleter(customComplete);
-
-    // Connect mouse clicks in views
-//    if (sett->value("singleClick").toInt() == 1) {
-//      connect(ui->viewIcon, SIGNAL(clicked(QModelIndex)),this, SLOT(lll()));
-//      connect(ui->viewtree, SIGNAL(clicked(QModelIndex)),this, SLOT(lll()));
-//    }
-//    if (sett->value("singleClick").toInt() == 2) {
-//      connect(ui->viewIcon, SIGNAL(clicked(QModelIndex)),this, SLOT(listDoubleClicked(QModelIndex)));
-//      connect(ui->viewtree, SIGNAL(clicked(QModelIndex)),this, SLOT(listDoubleClicked(QModelIndex)));
-//    }
 
     // Connect ui->viewIcon view
     connect(ui->viewIcon, SIGNAL(activated(QModelIndex)),this, SLOT(listDoubleClicked(QModelIndex)));
@@ -522,18 +506,6 @@ void corefm::tabChanged(int index)
     ui->pathEdit->clear();
     ui->pathEdit->addItems(*tabs->getHistory(index));
 
-//    int type = tabs->getType(index);
-//    if(currentView != type)
-//    {
-//        if(type == 2) ui->viewMode->setChecked(0);
-//        else ui->viewMode->setChecked(1);
-
-//        if(type == 1) ui->viewMode->setChecked(1);
-//        else ui->viewMode->setChecked(0);
-
-//        viewMode(true);
-//    }
-
     if(!tabs->tabData(index).toString().isEmpty())
         ui->viewDir->setCurrentIndex(modelTree->mapFromSource(modelList->index(tabs->tabData(index).toString())));
 }
@@ -589,8 +561,8 @@ void corefm::clipboardChanged()
  * @param newPath path of new location
  * @param dragMode mode of dragging
  */
-void corefm::dragLauncher(const QMimeData *data, const QString &newPath,
-                              myModel::DragMode dragMode) {
+void corefm::dragLauncher(const QMimeData *data, const QString &newPath,myModel::DragMode dragMode)
+{
     // Retrieve urls (paths) of data
     QList<QUrl> files = data->urls();
 
@@ -635,8 +607,8 @@ void corefm::dragLauncher(const QMimeData *data, const QString &newPath,
  * @param newPath path of new location
  * @param cutList ui->viewIcon of items to remove
  */
-void corefm::pasteLauncher(const QMimeData *data, const QString &newPath,
-                               const QStringList &cutList) {
+void corefm::pasteLauncher(const QMimeData *data, const QString &newPath,const QStringList &cutList)
+{
     QList<QUrl> files = data->urls();
     pasteLauncher(files, newPath, cutList);
 }
@@ -648,8 +620,8 @@ void corefm::pasteLauncher(const QMimeData *data, const QString &newPath,
  * @param cutList files to remove from original path
  * @param link true if link should be created (default value = false)
  */
-void corefm::pasteLauncher(const QList<QUrl> &files, const QString &newPath,
-                               const QStringList &cutList, bool link) {
+void corefm::pasteLauncher(const QList<QUrl> &files, const QString &newPath,const QStringList &cutList, bool link) 
+{
     // File no longer exists?
     if (!QFile(files.at(0).path()).exists()) {
       QString msg = tr("File '%1' no longer exists!").arg(files.at(0).path());
@@ -835,7 +807,6 @@ bool corefm::pasteFiles(const QList<QUrl> &files, const QString &newPath,const Q
         }
       }
     }
-//    qDebug()<< "pasteFiles";
 
     // Finished
     emit copyProgressFinished(0, newFiles);
@@ -1000,7 +971,6 @@ bool corefm::linkFiles(const QList<QUrl> &files, const QString &newPath)
         file.link(destUrl);
       }
     }
-//    qDebug()<< "linkFiles";
     return true;
 }
 
@@ -1246,6 +1216,7 @@ QMenu* corefm::globalmenu(){
         popup->addSeparator();
         if (QApplication::clipboard()->mimeData()->hasUrls()) {
             popup->addAction(ui->actionPaste);
+            popup->addAction(ui->actionCreate_Shortcut);
         }
         popup->addSeparator();
         popup->addMenu(subnew);
@@ -1283,60 +1254,6 @@ void corefm::openInApp()
       mimeUtils->openInApp(action->data().toString(), curIndex, this);
     }
 }
-
-void corefm::actionMapper(QString cmd)
-{
-    QModelIndexList selList;
-    QStringList temp;
-
-    if(focusWidget() == ui->viewIcon || focusWidget() == ui->viewDetail)
-    {
-        QFileInfo file = modelList->fileInfo(modelView->mapToSource(listSelectionModel->currentIndex()));
-
-        if(file.isDir())
-            cmd.replace("%n",file.fileName().replace(" ","\\"));
-        else
-            cmd.replace("%n",file.baseName().replace(" ","\\"));
-
-        if(listSelectionModel->selectedRows(0).count()) selList = listSelectionModel->selectedRows(0);
-        else selList = listSelectionModel->selectedIndexes();
-    }
-    else
-        selList << modelView->mapFromSource(modelList->index(curIndex.filePath()));
-
-
-    cmd.replace("~",QDir::homePath());
-
-
-    //process any input tokens
-    int pos = 0;
-    while(pos >= 0)
-    {
-        pos = cmd.indexOf("%i",pos);
-        if(pos != -1)
-        {
-            pos += 2;
-            QString var = cmd.mid(pos,cmd.indexOf(" ",pos) - pos);
-            QString input = QInputDialog::getText(this,tr("Input"), var, QLineEdit::Normal);
-            if(input.isNull()) return;              //cancelled
-            else cmd.replace("%i" + var,input);
-        }
-    }
-
-
-    foreach(QModelIndex index,selList)
-        temp.append(modelList->fileName(modelView->mapToSource(index)).replace(" ","\\"));
-
-    cmd.replace("%f",temp.join(" "));
-
-    temp.clear();
-
-    foreach(QModelIndex index,selList)
-        temp.append(modelList->filePath(modelView->mapToSource(index)).replace(" ","\\"));
-
-    cmd.replace("%F",temp.join(" "));
-}
-
 
 void corefm::clearCutItems()
 {
@@ -1426,23 +1343,6 @@ QString myCompleter::pathFromIndex(const QModelIndex& index) const
     return list.join("/");
 }
 
-//void corefm::focusAction()//delete
-//{
-//    QAction *which = qobject_cast<QAction*>(sender());
-//    if(which)
-//    {
-//        if(which->text().contains("address")) ui->pathEdit->setFocus(Qt::TabFocusReason);
-//        else if(which->text().contains("tree")) ui->viewDir->setFocus(Qt::TabFocusReason);
-//        else if(currentView == 2) ui->viewDetail->setFocus(Qt::TabFocusReason);
-//        else ui->viewIcon->setFocus(Qt::TabFocusReason);
-//    }
-//    else
-//    {
-//        QApplication::clipboard()->blockSignals(0);
-//        ui->pathEdit->setCompleter(customComplete);
-//    }
-//}
-
 void corefm::addressChanged(int old, int now)
 {
     Q_UNUSED(old);
@@ -1515,7 +1415,6 @@ void corefm::zoomInAction()
                 zoomLevel = zoomList;
             }
             viewMode(true);
-//            on_icon_clicked(true);
         }
         else
         {
@@ -1554,7 +1453,6 @@ void corefm::zoomOutAction()
                 zoomLevel = zoomList;
             }
             viewMode(true);
-//            on_icon_clicked(true);
         }
         else
         {
@@ -1576,25 +1474,7 @@ void corefm::on_actionRename_triggered()
 
 void corefm::on_actionOpen_triggered()
 {
-    //openFile
-//    QModelIndexList items;
-//    if (listSelectionModel->selectedRows(0).count()) {
-//      items = listSelectionModel->selectedRows(0);
-//    } else {
-//      items = listSelectionModel->selectedIndexes();
-//    }
-
     listDoubleClicked(listSelectionModel->currentIndex());
-
-
-    // Executes each file of selection
-    //foreach (QModelIndex index, items) {
-    //    executeFile(index, 0);
-    //}
-
-    //openfolder
-    //QModelIndex i = listSelectionModel->currentIndex();
-    //tree->setCurrentIndex(modelTree->mapFromSource(i));
 }
 
 void corefm::on_actionDelete_triggered()
@@ -1817,8 +1697,8 @@ void corefm::on_actionNewFolder_triggered()
     listSelectionModel->setCurrentIndex(newDir,QItemSelectionModel::ClearAndSelect);
 
     // Editation of name of new directory
-    if (ui->view->currentIndex() == 0) ui->viewIcon->edit(newDir);
-    else ui->viewDetail->edit(newDir);
+    renameDialog *rd = new renameDialog(curIndex, this);
+    rd->show();
 }
 
 void corefm::on_actionNewTextFile_triggered()
@@ -1837,8 +1717,9 @@ void corefm::on_actionNewTextFile_triggered()
     listSelectionModel->setCurrentIndex(fileIndex,QItemSelectionModel::ClearAndSelect);
 
      // Editation of name of new file
-    if (ui->view->currentIndex() == 0) ui->viewIcon->edit(fileIndex);
-    else ui->viewDetail->edit(fileIndex);
+    renameDialog *rd = new renameDialog(curIndex, this);
+    rd->show();
+
 }
 
 void corefm::on_actionNewPage_triggered()
@@ -1962,13 +1843,19 @@ void corefm::on_SDownloads_clicked()
     on_actionRefresh_triggered();
 }
 
-void corefm::on_actionSelectAll_triggered()
+void corefm::on_STrash_clicked()
 {
-    if(ui->view->currentIndex() == 0){
-        ui->viewIcon->selectAll();
-    } else {
-        ui->viewDetail->selectAll();
-    }
+    QModelIndex i = modelTree->mapFromSource(modelList->index(QDir::homePath() + "/.local/share/Trash/files"));
+    ui->viewDir->setCurrentIndex(i);
+    on_actionRefresh_triggered();
+    ui->emptyTrash->setVisible(1);
+}
+
+void corefm::on_SBookMarkIt_clicked()
+{
+    const QString path(curIndex.filePath());
+    bookmarks bookMarks;
+    bookMarks.callBookMarkDialog(this,path);
 }
 
 void corefm::on_Tools_clicked(bool checked)
@@ -1977,6 +1864,15 @@ void corefm::on_Tools_clicked(bool checked)
         ui->toolsBar->show();
     } else{
         ui->toolsBar->hide();
+    }
+}
+
+void corefm::on_actionSelectAll_triggered()
+{
+    if(ui->view->currentIndex() == 0){
+        ui->viewIcon->selectAll();
+    } else {
+        ui->viewDetail->selectAll();
     }
 }
 
@@ -2016,7 +1912,6 @@ void corefm::on_actionCorePDF_triggered()
     appEngine(CorePDF, path);
 }
 
-
 void corefm::on_actionTrash_it_triggered()
 {
     if (selectItemCount != 0) {
@@ -2042,13 +1937,6 @@ void corefm::on_showHidden_clicked(bool checked)
     dirLoaded();
 }
 
-void corefm::on_SBookMarkIt_clicked()
-{
-    const QString path(curIndex.filePath());
-    bookmarks bookMarks;
-    bookMarks.callBookMarkDialog(this,path);
-}
-
 void corefm::on_searchHere_clicked()
 {
     const QString folderPath(ui->pathEdit->itemText(0));
@@ -2072,14 +1960,6 @@ void corefm::on_actionCreate_Archive_triggered()
     arc->setFolderPath(folderPath);
     arc->filePathList = QStringList() << path;
     arc->show();
-}
-
-void corefm::on_STrash_clicked()
-{
-    QModelIndex i = modelTree->mapFromSource(modelList->index(QDir::homePath() + "/.local/share/Trash/files"));
-    ui->viewDir->setCurrentIndex(i);
-    on_actionRefresh_triggered();
-    ui->emptyTrash->setVisible(1);
 }
 
 void corefm::on_emptyTrash_clicked()
@@ -2367,15 +2247,6 @@ void corefm::on_actionHome_triggered()
     messageEngine("send Completed.", MessageType::Info);
 }
 
-void corefm::pressed()
-{
-    ui->viewIcon->setCurrentIndex(QModelIndex());
-    ui->viewDetail->setCurrentIndex(QModelIndex());
-
-    ui->name->setText("");
-    ui->size->setText("");
-}
-
 void corefm::on_actionRun_triggered()
 {
     executeFile(listSelectionModel->currentIndex(), true);
@@ -2423,7 +2294,6 @@ void corefm::on_action_Rename_triggered()
 
 void corefm::on_actionCoreRenamer_triggered()
 {
-    qDebug() << "1";
     const QString path(curIndex.filePath());
     appEngine(CoreRenamer, path);
 }
@@ -2431,15 +2301,6 @@ void corefm::on_actionCoreRenamer_triggered()
 QString corefm::gCurrentPath(int index) {
     tabs->setCurrentIndex(index);
     return ui->pathEdit->currentText();
-}
-
-int corefm::tabsCount()
-{
-    int count = 1;
-    if (tabs->count())
-        count = tabs->count();
-
-    return count;
 }
 
 void corefm::on_viewIcon_customContextMenuRequested(const QPoint &pos)
@@ -2460,12 +2321,13 @@ void corefm::on_showthumb_clicked(bool checked)
 
 void corefm::on_actionItemsToText_triggered()
 {
-    FileUtils::getFileFolderTree(curIndex.filePath());
+//    FileUtils::getFileFolderTree(curIndex.filePath());
 }
 
 
 void corefm::viewMode(bool mode)
 {
+    // Icon View
     if(mode){
         // Set root index
         if (ui->viewIcon->rootIndex() != modelList->index(ui->pathEdit->currentText())) {
@@ -2487,6 +2349,7 @@ void corefm::viewMode(bool mode)
         if (tabs->count()) tabs->setType(1);
     }
 
+    // Detail View
     else {
         // set root index
         QModelIndex i = modelList->index(ui->pathEdit->currentText());
@@ -2513,4 +2376,15 @@ void corefm::on_viewMode_clicked()
     }else{
         viewMode(false);
     }
+}
+
+void corefm::on_actionCreate_Shortcut_triggered()
+{
+    QString newPath;
+    QStringList cutList;
+    if (curIndex.isDir()) newPath = curIndex.filePath();
+    else newPath = ui->pathEdit->itemText(0);
+
+//    pasteLauncher(QApplication::clipboard()->mimeData(), newPath, cutList,true);
+    linkFiles(QApplication::clipboard()->mimeData(), newPath);
 }

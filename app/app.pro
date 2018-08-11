@@ -129,7 +129,6 @@ HEADERS += \
     coreaction/wsystem.h \
     corearchiver/corearchiver.h \
     corefm/applicationdialog.h \
-    corefm/clickoutlistview.h \
     corefm/corefm.h \
     corefm/desktopfile.h \
     corefm/fileutils.h \
