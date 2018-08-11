@@ -17,9 +17,12 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #ifndef MIMEUTILS_H
 #define MIMEUTILS_H
 
-#include "properties.h"
+#include "fileutils.h"
 
 #include <QFileInfo>
+#include <QProcess>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 /**
  * @class MimeUtils
@@ -50,6 +53,7 @@ private:
     bool defaultsChanged;
     QString defaultsFileName;
     Properties* defaults;
+
 
 };
 

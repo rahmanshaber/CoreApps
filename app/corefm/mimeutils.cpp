@@ -15,17 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 #include "mimeutils.h"
-#include "fileutils.h"
-
-#include <QFileInfo>
-#include <QProcess>
-#include <QMessageBox>
-#include <QDebug>
-#include <QMimeDatabase>
-#include <QMimeType>
-
-#include "utilities/utilities.h"
-#include "utilities/globalfunctions.h"
 
 
 /**
@@ -256,8 +245,8 @@ QStringList MimeUtils::getDefault(const QString &mime) const
  */
 void MimeUtils::saveDefaults()
 {
-  if (defaultsChanged) {
-    defaults->save(QDir::homePath() + defaultsFileName, "Default Applications");
-    defaultsChanged = false;
-  }
+    if (defaultsChanged) {
+      defaults->save(QDir::homePath() + defaultsFileName, "Default Applications");
+      defaultsChanged = false;
+    }
 }
