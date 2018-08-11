@@ -39,7 +39,6 @@ public:
     void setDefault(const QString &mime, const QStringList &apps);
     QStringList getDefault(const QString &mime) const;
     QStringList getMimeTypes() const;
-    QString getMimeType(const QString &path);
     QString getDefaultsFileName() const;
 
 public slots:

@@ -18,7 +18,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #define MYMODEL_H
 
 #include "mymodelitem.h"
-#include "mimeutils.h"
 
 #include <QtGui>
 #include <sys/inotify.h>
@@ -49,7 +48,7 @@ public:
     DM_LINK
   };
 
-  myModel(bool realMime, MimeUtils* mimeUtils);
+  myModel(bool realMime);
   ~myModel();
   void loadMimeTypes() const;
   void cacheInfo();
@@ -84,7 +83,6 @@ public:
   QFileInfo fileInfo(const QModelIndex &index);
   Qt::DropActions supportedDropActions () const;
   QMimeData* mimeData(const QModelIndexList & indexes) const;
-  MimeUtils* getMimeUtils() const;
   QHash<QString,QIcon> *mimeIcons;
   QHash<QString,QIcon> *folderIcons;
   QCache<QString,QIcon> *icons;
@@ -121,9 +119,9 @@ private:
   QHash<QString,QString> *mimeGlob;
   QHash<QString,QString> *mimeGeneric;
   QHash<QString,QByteArray> *thumbs;
+  QMimeDatabase mimetype;
 
   myModelItem* rootItem;
-  MimeUtils* mimeUtilsPtr;
   QString currentRootPath;
   QFileIconProvider* iconFactory;
 
@@ -132,7 +130,6 @@ private:
   QHash<int, QString> watchers;
   QTimer eventTimer;
   int lastEventID;
-
 };
 
 #endif // MYMODEL_H

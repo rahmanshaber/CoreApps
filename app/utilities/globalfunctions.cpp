@@ -16,7 +16,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 #include "globalfunctions.h"
 
-#include <corefm/mimeutils.h>
 #include "corepad/corepad.h"
 
 
@@ -246,9 +245,9 @@ void openAppEngine(const QString &path) // engine send right file to coreapps or
 
     //sendtomimeutils
     else {
-//        QFileInfo p(path);
-//        MimeUtils *m = new MimeUtils(uti);
-//        m->openInApp(p,uti);
+//        MimeUtils *mimeUtils;
+//        mimeUtils = new MimeUtils(this);
+//        mimeUtils->openInApp(QFileInfo(s),this);
     }
 }
 

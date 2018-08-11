@@ -57,7 +57,7 @@ void corefm::startsetup()
 
     // create filesystem model
     bool realMime = sm.getIsRealMimeType();
-    modelList = new myModel(realMime, mimeUtils);
+    modelList = new myModel(realMime);
 
     // create the page tabs
     tabs = new tabBar(modelList->folderIcons);
@@ -1078,7 +1078,8 @@ QMenu* corefm::createOpenWithMenu()
     connect(selectAppAct, SIGNAL(triggered()), this, SLOT(selectApp()));
 
     // Load default applications for current mime
-    QString mime = mimeUtils->getMimeType(curIndex.filePath());
+    QMimeDatabase mimetype;
+    QString mime = mimetype.mimeTypeForFile(curIndex.filePath()).name();
     QStringList appNames = mimeUtils->getDefault(mime);
 
     // Create actions for opening

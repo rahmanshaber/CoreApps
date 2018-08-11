@@ -58,19 +58,6 @@ MimeUtils::~MimeUtils()
 }
 
 /**
- * @brief Returns mime type of given file
- * @note This operation is slow, prevent its mass application
- * @param path path to file
- * @return mime type
- */
-
-QString MimeUtils::getMimeType(const QString &path)
-{
-  QMimeDatabase m;
-  return m.mimeTypeForFile(path).name();
-}
-
-/**
  * @brief Returns list of mime types
  * @return list of available mimetypes
  */
@@ -104,15 +91,16 @@ QStringList MimeUtils::getMimeTypes() const
  */
 void MimeUtils::openInApp(const QFileInfo &file, QObject *processOwner)
 {
-  QString mime = getMimeType(file.filePath());
-  QString app = defaults->value(mime).toString().split(";").first();
-  if (!app.isEmpty()) {
-    DesktopFile df = DesktopFile("/usr/share/applications/" + app);
-    openInApp(df.getExec(), file, processOwner);
-  } else {
-      // Function from globalfunctions.cpp
-      messageEngine(tr("No default application for mime:\n %1!").arg(mime),MessageType::Warning);
-  }
+    QMimeDatabase mimetype;
+    QString mime = mimetype.mimeTypeForFile(file.filePath()).name();
+    QString app = defaults->value(mime).toString().split(";").first();
+    if (!app.isEmpty()) {
+      DesktopFile df = DesktopFile("/usr/share/applications/" + app);
+      openInApp(df.getExec(), file, processOwner);
+    } else {
+        // Function from globalfunctions.cpp
+        messageEngine(tr("No default application for mime:\n %1!").arg(mime),MessageType::Warning);
+    }
 }
 
 /**
