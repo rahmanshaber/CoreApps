@@ -10,20 +10,17 @@
         <file>style/CorePlayer.qss</file>
         <file>style/CoreRenamer.qss</file>
         <file>style/CoreShot.qss</file>
-        <file>style/CoreShotDialog.qss</file>
         <file>style/Properties.qss</file>
-        <file>style/RenameDialog.qss</file>
         <file>style/Search.qss</file>
         <file>style/Settings.qss</file>
         <file>style/Start.qss</file>
         <file>style/Help.qss</file>
         <file>style/CoreFM.qss</file>
         <file>style/DashBoard.qss</file>
-        <file>style/SessionSaveDialog.qss</file>
         <file>style/CoreBox.qss</file>
         <file>style/CoreAction.qss</file>
         <file>style/CoreTime.qss</file>
-        <file>style/MessageBox.qss</file>
+        <file>style/Dialog.qss</file>
     </qresource>
     <qresource prefix="/theme">
         <file>style/modeLight.ini</file>

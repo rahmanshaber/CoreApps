@@ -1,4 +1,0 @@
-├── resizedialog.cpp
-├── resizedialog.h
-├── textdialog.cpp
-└── textdialog.h

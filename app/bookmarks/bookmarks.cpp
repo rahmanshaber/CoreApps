@@ -195,7 +195,7 @@ void bookmarks::on_deleteSection_clicked()
 {
     QMessageBox message(QMessageBox::Question, tr("Delete Section"), "Do you want to delete this section?", QMessageBox::No | QMessageBox::Yes);
     message.setWindowIcon(QIcon(":/app/icons/app-icons/Bookmarks.svg"));
-    message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
+    message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
 
     int merge = message.exec();
     if (merge == QMessageBox::Yes) {
@@ -261,7 +261,7 @@ void bookmarks::on_bookmarkDelete_clicked()
 {
     QMessageBox message(QMessageBox::Question, tr("Delete Bookmark"), "Do you want to delete the bookmark?", QMessageBox::No | QMessageBox::Yes);
     message.setWindowIcon(QIcon(":/app/icons/app-icons/Bookmarks.svg"));
-    message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
+    message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
 
     int merge = message.exec();
     if (merge == QMessageBox::Yes) {
@@ -383,12 +383,11 @@ void bookmarks::on_boklist_itemSelectionChanged()
     int sec = select->selectedRows().count();
 
     if (sec == 1) {
-        ui->bookmarkDelete->setEnabled(true);
-        ui->bookmarkEdit->setEnabled(true);
-    }
-    else {
-        ui->bookmarkDelete->setEnabled(false);
-        ui->bookmarkEdit->setEnabled(false);
+        ui->bookmarkDelete->setVisible(true);
+        ui->bookmarkEdit->setVisible(true);
+    } else {
+        ui->bookmarkDelete->setVisible(false);
+        ui->bookmarkEdit->setVisible(false);
     }
 }
 

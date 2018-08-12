@@ -472,7 +472,7 @@ void settings::on_restore_clicked()
 //                QString msg = QString("There are old settings file\nDo you want to delete them?");
 //                QMessageBox message(QMessageBox::Question, "File Exists", msg,QMessageBox::Yes, QMessageBox::No);
 //                message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreRenemer.svg"));
-//                message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
+//                message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
 //                int merge = message.exec();
 
 

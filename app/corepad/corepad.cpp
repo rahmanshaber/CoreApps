@@ -168,7 +168,7 @@ bool corepad::closeTab(int index)
 //                                          QMessageBox::Cancel, QMessageBox::Discard, QMessageBox::Save);
 
 //        message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
-//        message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
+//        message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
         if (reply == QMessageBox::Save) {
             bool closed = on_cSave_clicked();
             if (closed) {

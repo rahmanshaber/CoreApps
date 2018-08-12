@@ -1,4 +1,0 @@
-├── colorchooser.cpp
-├── colorchooser.h
-├── imagepreview.cpp
-└── imagepreview.h
