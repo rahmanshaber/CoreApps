@@ -136,35 +136,40 @@ in-future
 *code merge
 
 
-utilites will be like global function .no class
+
+utilites will be like global function .no class??
+add all all the desktop file.
 save to recent = fix
 add the setup folder
-fix the creterminal open and close.
-coretime search for "fix"
 start line 199,202,69
 add try icon and intregrat with all app.code utilities line 171.
 utilities line 135.
 globalfunction line 447
+corepad line 459
+fix the corepaint,coeimage,corerenamer startUP .
 quiting the coreaction closing all the opend app.
-add all all the desktop file.
+fix the creterminal open and close.
+coretime search for "fix"
 add itregation of bookmarkit ,archiver through desktop file
 restor session dose not restore all the app.
-corepad line 447
-fix the corepaint,coeimage,corerenamer startUP .
 coreterminal line 214
-user selectable app list in coreaction
-see the itemtotext function in corefm line 2452
+user selectable (coreapps + systemApps) list in coreaction
+see the itemtotext function in corefm line 2323
 corefm  fileutilites.cpp 361
-fix movetotrsh
+fix movetotrsh function.
 compear the FileUtils::totalSize vs getSize
 open in corefm with select a folder
-where is hilighter distroctor commented
+why is hilighter distroctor commented?
 fix corepad line 167 ,corerenamer line 476, settings.cpp line 472 ;according to corefm line 648
 closeAllTabs and on_paintTabs_tabCloseRequested in corepaint never exe
 corerenamer line 453 , where the work of "yes"
 same diclaration for geting filepath for recent activites.
-getSize in utility class
+add getSize function+ in utility class
 multipal filesize is not showing
+add an setting to turn off the highlighter of corepad.
+add updateed udisk2 and add our code in it.
+in start recentActivites dose not show the system app icon.
+cut,copy,past ,delete in rightbutton menu in corepaint.
 
 
 test

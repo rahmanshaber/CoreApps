@@ -2325,7 +2325,6 @@ void corefm::on_actionItemsToText_triggered()
 //    FileUtils::getFileFolderTree(curIndex.filePath());
 }
 
-
 void corefm::viewMode(bool mode)
 {
     // Icon View
