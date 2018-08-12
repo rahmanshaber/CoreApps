@@ -157,7 +157,7 @@ WId coreshotdialog::getActiveWindowId()
     unsigned long type, resultLen, rest;
     int format;
     WId result = 0;
-    unsigned char* data = NULL;
+    unsigned char* data = nullptr;
     if(XGetWindowProperty(QX11Info::display(), root, atom, 0, 1, false,
         XA_WINDOW, &type, &format, &resultLen, &rest, &data) == Success) {
       result = *reinterpret_cast<long*>(data);
@@ -182,7 +182,7 @@ QRect coreshotdialog::getWindowFrame(WId wid)
       Atom atom = XInternAtom(QX11Info::display(), "_NET_FRAME_EXTENTS", false);
       unsigned long type, resultLen, rest;
       int format;
-      unsigned char* data = NULL;
+      unsigned char* data = nullptr;
       if(XGetWindowProperty(QX11Info::display(), wid, atom, 0, LONG_MAX, false,
         XA_CARDINAL, &type, &format, &resultLen, &rest, &data) == Success) {
       }

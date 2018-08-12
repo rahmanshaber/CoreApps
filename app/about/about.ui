@@ -241,7 +241,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>CoreBox v2.2</string>
+                <string>CoreBox v2.3</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

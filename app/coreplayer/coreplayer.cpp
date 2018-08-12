@@ -448,7 +448,7 @@ void coreplayer::on_stop_clicked()
     player->stop();
     ui->play->setChecked(false);
     player->setPosition(0);
-    player->setMedia(NULL);
+    player->setMedia(nullptr);
     ui->duration->setText("00:00 / 00:00");
     ui->playing->setText("");
     ui->playingL->setVisible(false);
@@ -489,7 +489,7 @@ void coreplayer::setFolder(const QString &foldername)
         mModel->appendRow((new QStandardItem(QFileInfo(list2.at(i)).fileName())));
     }
 
-    folderpath == foldername;
+    folderpath = foldername;
 }
 
 void coreplayer::play(int index)

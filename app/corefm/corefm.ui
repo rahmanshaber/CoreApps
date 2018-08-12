@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>corefm</string>
+   <string>CoreFM</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../icons.qrc">
@@ -309,6 +309,9 @@
         </property>
         <property name="isWrapping" stdset="0">
          <bool>false</bool>
+        </property>
+        <property name="uniformItemSizes">
+         <bool>true</bool>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
@@ -1475,10 +1478,6 @@
    </property>
   </action>
   <action name="actionDelete">
-   <property name="icon">
-    <iconset>
-     <normaloff>:/icons/aemptytrash.svg</normaloff>:/icons/aemptytrash.svg</iconset>
-   </property>
    <property name="text">
     <string>Delete</string>
    </property>

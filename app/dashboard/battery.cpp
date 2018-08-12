@@ -18,7 +18,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 
 Battery::Battery(const QString &path, QObject *parent)
-    : QObject(parent), m_interface(0),
+    : QObject(parent), m_interface(nullptr),
       m_path(path), m_hasAlreadyBeenLow(false),
       m_hasAlreadyBeenFull(false), m_valid(false)  {
 
@@ -30,7 +30,7 @@ Battery::~Battery() {
 }
 
 void Battery::createInterface() {
-    if(m_interface==0 || !m_interface->isValid()) {
+    if(m_interface==nullptr || !m_interface->isValid()) {
         m_interface = new QDBusInterface("org.freedesktop.UPower", m_path,
                                          "org.freedesktop.UPower.Device", QDBusConnection::systemBus(), this);
         //
@@ -39,7 +39,7 @@ void Battery::createInterface() {
         //
         if(!m_interface->isValid()) {
             delete m_interface;
-            m_interface = 0;
+            m_interface = nullptr;
             m_valid = false;
             return;
         }

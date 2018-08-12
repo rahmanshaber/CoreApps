@@ -195,7 +195,7 @@ void propertiesw::on_executableB_clicked(bool checked)
 
     QString path = info.filePath();
     //Q_FOREACH( QString path, pathsList ) {
-        QFile::Permissions perms = NULL;
+        QFile::Permissions perms = nullptr;
 
         if ( ui->ownerRead->isChecked() )
             perms |= ( ( ui->ownerRead->checkState() == Qt::Checked ) ? QFile::ReadOwner : ( QFile::permissions( path ) & QFile::ReadOwner ) );

@@ -217,7 +217,7 @@ QIcon FileUtils::searchAppIcon(const DesktopFile &app,const QIcon &defaultIcon)
     }
 
     // Last chance
-    QDir appIcons("/usr/share/pixmaps","", 0, QDir::Files | QDir::NoDotAndDotDot);
+    QDir appIcons("/usr/share/pixmaps","", nullptr, QDir::Files | QDir::NoDotAndDotDot);
     QStringList iconFiles = appIcons.entryList();
     QStringList searchIcons = iconFiles.filter(name);
     if (searchIcons.count() > 0) {
@@ -386,7 +386,7 @@ qint64 getSize(const QString &path)
             struct dirent* entry;
             QString longest_name;
 
-            while ( ( d_fh = opendir( path.toLocal8Bit().constData() ) ) == NULL ) {
+            while ( ( d_fh = opendir( path.toLocal8Bit().constData() ) ) == nullptr ) {
                 qWarning() << "Couldn't open directory:" << path;
                 return statbuf.st_size;
             }
@@ -397,7 +397,7 @@ qint64 getSize(const QString &path)
             if ( not longest_name.endsWith( "/" ) )
                 longest_name += "/";
 
-            while( ( entry = readdir( d_fh ) ) != NULL ) {
+            while( ( entry = readdir( d_fh ) ) != nullptr ) {
 
                 /* Don't descend up the tree or include the current directory */
                 if ( strcmp( entry->d_name, ".." ) != 0 && strcmp( entry->d_name, "." ) != 0 ) {
@@ -426,7 +426,4 @@ qint64 getSize(const QString &path)
             return 0;
         }
     }
-
-    /* Should never come till here */
-    return 0;
 }

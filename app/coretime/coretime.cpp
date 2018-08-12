@@ -542,7 +542,7 @@ void coretime::on_startstopTimer_clicked(bool checked)
 
     } else {
         ui->startstopTimer->setText("Start");
-        forTimer->disconnect(0,0,0,0);
+        forTimer->disconnect(nullptr,nullptr,nullptr,nullptr);
     }
 }
 
@@ -551,7 +551,7 @@ void coretime::on_resetTimer_clicked()
     ui->timerText->setText("00:00:00");
     ui->startstopTimer->setChecked(false);
     ui->startstopTimer->setText("Start");
-    disconnect(forTimer, 0, 0, 0);
+    disconnect(forTimer, nullptr, nullptr, nullptr);
     ui->timerSet->setVisible(true);
     ui->timerDuration->setVisible(false);
 }

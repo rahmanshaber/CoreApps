@@ -63,7 +63,6 @@ corefm
 0 - pathedit to lineEdit.
 1 - rightbuttonMenu>new add a new option. directly make a paint app file.
 3 - set custom icon in home's folder.
-1 - add tree package.
 1 - Can't open other terminal using QProcess.
 3 - Implement clearDeadDefaults() method in MimeUtils.
 3 - Some *.desktop file has more groups(sections) and each group can contain.
@@ -140,7 +139,7 @@ in-future
 utilites will be like global function .no class
 save to recent = fix
 add the setup folder
-fix the creterminal close.
+fix the creterminal open and close.
 coretime search for "fix"
 start line 199,202,69
 add try icon and intregrat with all app.code utilities line 171.
@@ -148,7 +147,7 @@ utilities line 135.
 globalfunction line 447
 quiting the coreaction closing all the opend app.
 add all all the desktop file.
-add itregation of bookmarkit ,archiver,.
+add itregation of bookmarkit ,archiver through desktop file
 restor session dose not restore all the app.
 corepad line 447
 fix the corepaint,coeimage,corerenamer startUP .
@@ -159,3 +158,15 @@ corefm  fileutilites.cpp 361
 fix movetotrsh
 compear the FileUtils::totalSize vs getSize
 open in corefm with select a folder
+where is hilighter distroctor commented
+fix corepad line 167 ,corerenamer line 476, settings.cpp line 472 ;according to corefm line 648
+closeAllTabs and on_paintTabs_tabCloseRequested in corepaint never exe
+corerenamer line 453 , where the work of "yes"
+same diclaration for geting filepath for recent activites.
+getSize in utility class
+multipal filesize is not showing
+
+
+test
+multipal file trash ,like(702mb +1.2 gb)
+

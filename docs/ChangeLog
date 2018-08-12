@@ -1,5 +1,19 @@
+Version 2.3
 
-Version 2.2
+- removed unwanted cpp file from corefm.
+- fixed message box appearence mode not showing.
+-
+
+
+
+
+
+
+
+
+
+
+Version 2.2,Released date Thursday, July 26, 2018.
 
 - added coreterminal to be independent.
 - added corearchiver to archive file.

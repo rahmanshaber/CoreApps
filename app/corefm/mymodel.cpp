@@ -57,7 +57,7 @@ myModel::myModel(bool realMime)
   fileIcons.close();
 
   // Create root item
-  rootItem = new myModelItem(QFileInfo("/"), new myModelItem(QFileInfo(), 0));
+  rootItem = new myModelItem(QFileInfo("/"), new myModelItem(QFileInfo(), nullptr));
   currentRootPath = "/";
   QDir root("/");
   QFileInfoList drives = root.entryInfoList( QDir::AllEntries | QDir::Files
@@ -1014,7 +1014,7 @@ QVariant myModel::headerData(int section, Qt::Orientation orientation, int role)
 
 Qt::ItemFlags myModel::flags(const QModelIndex &index) const
 {
-    if(!index.isValid()) return 0;
+    if(!index.isValid()) return nullptr;
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
 }
 

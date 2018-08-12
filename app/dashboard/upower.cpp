@@ -23,7 +23,7 @@ const QString UPower::m_consolkit_path      = "/org/freedesktop/ConsoleKit/Manag
 const QString UPower::m_upower_interface    = "org.freedesktop.UPower";
 const QString UPower::m_upower_path         = "/org/freedesktop/UPower";
 
-UPower::UPower(QObject *parent) : QObject(parent), m_available(false), m_interface(0) {
+UPower::UPower(QObject *parent) : QObject(parent), m_available(false), m_interface(nullptr) {
     connect(this, SIGNAL(available()), this, SLOT(refreshBatteries()));
     connect(this, SIGNAL(unavailable()), this, SLOT(clearBattery()));
 
@@ -48,12 +48,12 @@ void UPower::createDBusWatcher() {
 }
 
 void UPower::createDBusInterface() {
-    if(m_interface==0 || !m_interface->isValid()) {
+    if(m_interface==nullptr || !m_interface->isValid()) {
         m_interface = new QDBusInterface(m_upower_interface, m_upower_path, m_upower_interface,
                                          QDBusConnection::systemBus());
         if(!m_interface->isValid()) {
             m_interface->deleteLater();
-            m_interface = 0;
+            m_interface = nullptr;
             m_available = false;
             return;
         }
@@ -113,11 +113,11 @@ void UPower::removeBattery(Battery *battery) {
 }
 
 void UPower::removeBattery(const QDBusObjectPath &path) {
-    removeBattery(m_batteries->value(path.path(), 0));
+    removeBattery(m_batteries->value(path.path(), nullptr));
 }
 
 Battery *UPower::battery(const QString &path) const {
-    return m_batteries->value(path, 0);
+    return m_batteries->value(path, nullptr);
 }
 
 int UPower::numberOfBattery() const {

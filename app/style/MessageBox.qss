@@ -34,3 +34,11 @@ QPushButton:pressed{
 QPushButton:hover {
     background-color: @color04;
     color: @color08;}
+
+
+QProgressBar {
+    border: 1px solid grey;
+    border-radius: 0px}
+QProgressBar::chunk {
+    background-color: #0F5D90;
+    width: 20px;}

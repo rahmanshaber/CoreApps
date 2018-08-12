@@ -189,7 +189,7 @@ void corefm::lateStart()
     notify = new QSocketNotifier(fd, QSocketNotifier::Write);
 
     // Clipboard configuration
-    progress = 0;
+    progress = nullptr;
     clipboardChanged();
 
     // Completer configuration
@@ -871,7 +871,6 @@ bool corefm::copyFolder(const QString &srcFolder, const QString &dstFolder,qint6
     if (cut && ok) {
       srcDir.rmdir(srcFolder);
     }
-//    qDebug()<< "copyFolder";
     return ok;
 }
 
@@ -1003,11 +1002,11 @@ int corefm::showReplaceMsgBox(const QFileInfo &f1, const QFileInfo &f2)
 
 void corefm::progressFinished(int ret,QStringList newFiles)
 {
-    if(progress != 0)
+    if(progress != nullptr)
     {
         progress->close();
         delete progress;
-        progress = 0;
+        progress = nullptr;
     }
 
     if(newFiles.count())
@@ -1257,7 +1256,7 @@ void corefm::openInApp()
 
 void corefm::clearCutItems()
 {
-    //this refreshes existing items, sizes etc but doesn't re-sort
+    // this refreshes existing items, sizes etc but doesn't re-sort
     modelList->clearCutItems();
     modelList->update();
 
@@ -1377,7 +1376,7 @@ void corefm::addressChanged(int old, int now)
         QApplication::clipboard()->blockSignals(1);
         QApplication::clipboard()->clear(QClipboard::Selection);        //don't paste stuff
 
-        ui->pathEdit->setCompleter(0);
+        ui->pathEdit->setCompleter(nullptr);
         ui->viewDir->setCurrentIndex(modelTree->mapFromSource(modelList->index(temp.left(pos))));
     }
     else
@@ -1729,12 +1728,6 @@ void corefm::on_actionNewPage_triggered()
         addTab(path);
 }
 
-void corefm::on_SHome_clicked()
-{
-    QModelIndex i = modelTree->mapFromSource(modelList->index(QDir::homePath()));
-    ui->viewDir->setCurrentIndex(i);
-}
-
 void corefm::on_actionTerminal_triggered()
 {
     QString defultTerminal = sm.getTerminal(); // selected terminal name from settings.
@@ -1828,6 +1821,12 @@ void corefm::goTo(const QString path)
         ui->viewDir->setCurrentIndex(i);
         on_actionRefresh_triggered();
     }
+}
+
+void corefm::on_SHome_clicked()
+{
+    QModelIndex i = modelTree->mapFromSource(modelList->index(QDir::homePath()));
+    ui->viewDir->setCurrentIndex(i);
 }
 
 void corefm::on_SDesktop_clicked()
@@ -1981,7 +1980,7 @@ void corefm::blockDevicesChanged()
 
     for (QString block : udisks->blockDevices()) { //Iterate over all detected block devices
         UDisks2Block *device = udisks->blockDevice(block);
-        QListWidgetItem *item;
+        QListWidgetItem *item = nullptr;
         QIcon icon;
         if (device) { //Check that device actually exists
             if (device->fileSystem()) { //Check that filesystem exists on block device
@@ -2249,6 +2248,7 @@ void corefm::on_actionHome_triggered()
 
 void corefm::on_actionRun_triggered()
 {
+    // open the file by terminal
     executeFile(listSelectionModel->currentIndex(), true);
 }
 
@@ -2298,7 +2298,8 @@ void corefm::on_actionCoreRenamer_triggered()
     appEngine(CoreRenamer, path);
 }
 
-QString corefm::gCurrentPath(int index) {
+QString corefm::gCurrentPath(int index)
+{
     tabs->setCurrentIndex(index);
     return ui->pathEdit->currentText();
 }
@@ -2386,5 +2387,5 @@ void corefm::on_actionCreate_Shortcut_triggered()
     else newPath = ui->pathEdit->itemText(0);
 
 //    pasteLauncher(QApplication::clipboard()->mimeData(), newPath, cutList,true);
-    linkFiles(QApplication::clipboard()->mimeData(), newPath);
+//    linkFiles(QApplication::clipboard()->mimeData(), newPath);
 }

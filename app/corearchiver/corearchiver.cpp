@@ -97,7 +97,7 @@ void corearchiver::compress(const QStringList &archiveList , const QDir &current
 
     LibArchive *arc = new LibArchive(QDir(location).filePath(name));
 
-    if ( arc == NULL )
+    if ( arc == nullptr )
         return;
 
 //    qDebug() << "Info " << QDir(location).filePath(name);

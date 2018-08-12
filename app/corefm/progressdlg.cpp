@@ -22,8 +22,9 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 myProgressDialog::myProgressDialog(QString title)
 {
    setWindowTitle(title);
+   setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
+   setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
 
-   messageEngine("myProgressDialoge", MessageType::Warning);
 
    filename = new QLabel(tr("Initializing..."));
    bar = new QProgressBar();

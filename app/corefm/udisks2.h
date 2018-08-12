@@ -35,7 +35,7 @@ class UDisks2 : public QObject {
     Q_OBJECT
 
 public:
-    explicit UDisks2(QObject *parent = NULL);
+    explicit UDisks2(QObject *parent = nullptr);
     ~UDisks2();
 
     QStringList blockDevices();
@@ -75,7 +75,7 @@ private slots:
 class UDisks2Block : public QObject {
     Q_OBJECT
 public:
-    explicit UDisks2Block(const QString &node, QObject *parent = NULL);
+    explicit UDisks2Block(const QString &node, QObject *parent = nullptr);
 
 public:
     QString name;
@@ -112,7 +112,7 @@ private:
 class UDisks2Filesystem : public QObject {
     Q_OBJECT
 public:
-    UDisks2Filesystem(const QString &node, QObject *parent = NULL);
+    UDisks2Filesystem(const QString &node, QObject *parent = nullptr);
     QStringList mountPoints() const;
     QString mount();
     void unmount();
@@ -129,7 +129,7 @@ private:
 class UDisks2Drive : public QObject {
     Q_OBJECT
 public:
-    explicit UDisks2Drive(const QString &node, QObject *parent = NULL);
+    explicit UDisks2Drive(const QString &node, QObject *parent = nullptr);
 
     QString name;
     qulonglong size;

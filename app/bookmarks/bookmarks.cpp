@@ -63,7 +63,7 @@ bool bookmarks::eventFilter(QObject *obj, QEvent *event)
 
 void bookmarks::sectionRefresh()
 {
-    disconnect(ui->searchBook, SIGNAL(textChanged(QString)), 0, 0);
+    disconnect(ui->searchBook, SIGNAL(textChanged(QString)), nullptr, nullptr);
     ui->boklist->clearSelection();
     ui->searchBook->clear();
 
@@ -193,8 +193,12 @@ void bookmarks::on_addSection_clicked()
 
 void bookmarks::on_deleteSection_clicked()
 {
-    QMessageBox::StandardButton reply = QMessageBox::warning(this, "Delete Section", "Do you want to delete this section?", QMessageBox::No | QMessageBox::Yes);
-    if (reply == QMessageBox::Yes) {
+    QMessageBox message(QMessageBox::Question, tr("Delete Section"), "Do you want to delete this section?", QMessageBox::No | QMessageBox::Yes);
+    message.setWindowIcon(QIcon(":/app/icons/app-icons/Bookmarks.svg"));
+    message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
+
+    int merge = message.exec();
+    if (merge == QMessageBox::Yes) {
         bk.delSection(ui->section->currentItem()->text());
         ui->section->takeItem(ui->section->currentIndex().row());
         // Function from globalfunctions.cpp
@@ -231,8 +235,7 @@ void bookmarks::on_sectionName_textChanged(const QString &arg1)
         if(bk.getBookSections().contains(arg1,Qt::CaseInsensitive)){
             ui->sectionStatus->setText("Section Exists");
             ui->sectionDone->setEnabled(false);
-        }
-        else{
+        }else{
             ui->sectionStatus->setText("");
             ui->sectionDone->setEnabled(true);
         }
@@ -256,8 +259,12 @@ void bookmarks::on_bookmarkEdit_clicked()
 
 void bookmarks::on_bookmarkDelete_clicked()
 {
-    QMessageBox::StandardButton reply = QMessageBox::warning(this, "Delete Bookmark", "Do you want to delete the bookmark?", QMessageBox::No | QMessageBox::Yes);
-    if (reply == QMessageBox::Yes) {
+    QMessageBox message(QMessageBox::Question, tr("Delete Bookmark"), "Do you want to delete the bookmark?", QMessageBox::No | QMessageBox::Yes);
+    message.setWindowIcon(QIcon(":/app/icons/app-icons/Bookmarks.svg"));
+    message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
+
+    int merge = message.exec();
+    if (merge == QMessageBox::Yes) {
         bk.delbookmark(ui->boklist->selectedItems().at(0)->text(), ui->section->currentItem()->text());
         int r = ui->boklist->currentItem()->row();
         ui->boklist->removeRow(r);

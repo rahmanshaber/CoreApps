@@ -135,7 +135,7 @@ void settings::setupMime()
               // Retrieve cathegory
               QIcon icon;
               QString categoryName = splitMime.first();
-              QTreeWidgetItem* category = categories.value(categoryName, NULL);
+              QTreeWidgetItem* category = categories.value(categoryName, nullptr);
               if (!category) {
                 category = new QTreeWidgetItem(ui->mimesWidget);
                 category->setText(0, categoryName);
@@ -166,7 +166,7 @@ void settings::setupMime()
             apps.sort();
 
             // Prepare source of icons
-            QDir appIcons("/usr/share/pixmaps","", 0, QDir::Files | QDir::NoDotAndDotDot);
+            QDir appIcons("/usr/share/pixmaps","", nullptr, QDir::Files | QDir::NoDotAndDotDot);
             QStringList iconFiles = appIcons.entryList();
             QIcon defaulticon = QIcon::fromTheme("application-x-executable");
 
@@ -217,7 +217,7 @@ void settings::onMimeSelected(QTreeWidgetItem *current,QTreeWidgetItem *previous
     //grpAssoc->setEnabled(true);
 
     // Prepare source of icons
-    QDir appIcons("/usr/share/pixmaps","", 0, QDir::Files | QDir::NoDotAndDotDot);
+    QDir appIcons("/usr/share/pixmaps","", nullptr, QDir::Files | QDir::NoDotAndDotDot);
     QStringList iconFiles = appIcons.entryList();
     QIcon defaultIcon = QIcon::fromTheme("application-x-executable");
 
@@ -469,6 +469,13 @@ void settings::on_restore_clicked()
             }
 
             if (files) {
+//                QString msg = QString("There are old settings file\nDo you want to delete them?");
+//                QMessageBox message(QMessageBox::Question, "File Exists", msg,QMessageBox::Yes, QMessageBox::No);
+//                message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreRenemer.svg"));
+//                message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
+//                int merge = message.exec();
+
+
                 long reply = QMessageBox::warning(this, "File Exists", "There are old settings file\nDo you want to delete them?", QMessageBox::Yes, QMessageBox::No);
                 if (reply == QMessageBox::No)
                     return;
@@ -495,7 +502,7 @@ void settings::on_setDefaultApp_toggled(bool checked)
     if (checked) {
         setupMime();
     } else {
-        disconnect(ui->mimesWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), 0, 0);
+        disconnect(ui->mimesWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), nullptr, nullptr);
         ui->listAssoc->clear();
         ui->mimesWidget->clear();
     }

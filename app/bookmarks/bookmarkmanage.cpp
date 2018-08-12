@@ -186,7 +186,6 @@ QString BookmarkManage::checkingBookName(QString sectionName, QString bookName)
     } else {
         return "";
     }
-    return "";
 }
 
 QString BookmarkManage::keyCount()

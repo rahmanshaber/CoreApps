@@ -86,7 +86,7 @@ QStringList UDisks2::blockDevices()
 
 UDisks2Block *UDisks2::blockDevice(const QString &node)
 {
-    return blocks_.contains(node) ? blocks_[node] : NULL;
+    return blocks_.contains(node) ? blocks_[node] : nullptr;
 }
 
 QStringList UDisks2::drives()
@@ -115,7 +115,7 @@ QStringList UDisks2::drives()
 
 UDisks2Drive *UDisks2::drive(const QString &node)
 {
-    return drives_.contains(node) ? drives_[node] : NULL;
+    return drives_.contains(node) ? drives_[node] : nullptr;
 }
 
 void UDisks2::addDrive(const QString &node)
@@ -200,7 +200,7 @@ void UDisks2::dbus_interfaceRemoved(const QDBusObjectPath &path, const QStringLi
 }
 
 UDisks2Block::UDisks2Block(const QString &node, QObject *parent) :
-    QObject(parent), name(node), fs(NULL)
+    QObject(parent), name(node), fs(nullptr)
 {
     QDBusConnection system = QDBusConnection::systemBus();
     dbus = new QDBusInterface("org.freedesktop.UDisks2",
@@ -276,7 +276,7 @@ void UDisks2Block::addFilesystem()
 {
     if (fs && !fs->isValid()) {
         delete fs;
-        fs = NULL;
+        fs = nullptr;
     }
     if (!fs)
         fs = new UDisks2Filesystem(name);
@@ -287,7 +287,7 @@ void UDisks2Block::removeFilesystem()
 {
     emit filesystemRemoved(name);
     if (fs) delete fs;
-    fs = NULL;
+    fs = nullptr;
 }
 
 UDisks2Filesystem *UDisks2Block::fileSystem()

@@ -29,7 +29,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QDateTime>
 #include <QFile>
 #include <QDir>
-#include <QMessageBox>
 #include <QFileInfo>
 #include <QProcess>
 #include <QMimeDatabase>

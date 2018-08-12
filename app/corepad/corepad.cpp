@@ -137,7 +137,6 @@ bool corepad::saveTo(const QString &filePath)
         file.close();
         return true;
     }
-    return false;
 }
 
 void corepad::findS(QString searchS, bool reverse, QTextDocument::FindFlags flag)
@@ -159,9 +158,17 @@ bool corepad::closeTab(int index)
     bool checkIsSaved = isCurrentSaved(index).toInt();
 
     if ((checkIsUpdate && checkIsSaved) || (checkIsUpdate && !checkIsSaved)) {
+
+        QString msg = QString("This file contains unsaved changes.\nHow would you like to proceed?");
         long reply = QMessageBox::warning(this, tr("Save Changes - \"%1\"").arg(currentFilePath(index)),
                                           "This file contains unsaved changes.\nHow would you like to proceed?",
                                           QMessageBox::Cancel, QMessageBox::Discard, QMessageBox::Save);
+
+//        QMessageBox message(QMessageBox::Question , tr("Save Changes - \"%1\"").arg(currentFilePath(index)),msg,
+//                                          QMessageBox::Cancel, QMessageBox::Discard, QMessageBox::Save);
+
+//        message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
+//        message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
         if (reply == QMessageBox::Save) {
             bool closed = on_cSave_clicked();
             if (closed) {

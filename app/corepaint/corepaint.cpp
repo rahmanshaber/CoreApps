@@ -266,7 +266,7 @@ ImageArea* corepaint::getCurrentImageArea()
         ImageArea *tempArea = qobject_cast<ImageArea*>(tempScrollArea->widget());
         return tempArea;
     }
-    return NULL;
+    return nullptr;
 }
 
 ImageArea* corepaint::getImageAreaByIndex(int index)
@@ -367,7 +367,7 @@ void corepaint::setAllInstrumentsUnchecked(QAction *action)
 
 void corepaint::setInstrumentChecked(InstrumentsEnum instrument)
 {
-    setAllInstrumentsUnchecked(NULL);
+    setAllInstrumentsUnchecked(nullptr);
     if(instrument == NONE_INSTRUMENT || instrument == INSTRUMENTS_COUNT)
         return;
     mInstrumentsActMap[instrument]->setChecked(true);
@@ -390,7 +390,7 @@ void corepaint::instumentsAct(bool state)
     }
     else
     {
-        setAllInstrumentsUnchecked(NULL);
+        setAllInstrumentsUnchecked(nullptr);
         DataSingleton::Instance()->setInstrument(NONE_INSTRUMENT);
         emit sendInstrumentChecked(NONE_INSTRUMENT);
         if(currentAction == mInstrumentsActMap[CURSOR])
@@ -456,7 +456,7 @@ void corepaint::on_paintTabs_currentChanged(int index)
 
     if(!isEnable)
     {
-        setAllInstrumentsUnchecked(NULL);
+        setAllInstrumentsUnchecked(nullptr);
         DataSingleton::Instance()->setInstrument(NONE_INSTRUMENT);
         emit sendInstrumentChecked(NONE_INSTRUMENT);
     }

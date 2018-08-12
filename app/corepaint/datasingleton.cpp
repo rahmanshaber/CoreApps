@@ -17,7 +17,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include "datasingleton.h"
 
 
-DataSingleton* DataSingleton::m_pInstance = 0;
+DataSingleton* DataSingleton::m_pInstance = nullptr;
 
 DataSingleton::DataSingleton()
 {

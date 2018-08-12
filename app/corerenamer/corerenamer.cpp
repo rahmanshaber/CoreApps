@@ -473,6 +473,12 @@ void corerenamer::on_bRedo_clicked()
 
 void corerenamer::on_rename_clicked()
 {
+//    QString msg = QString("Are you sure to rename those files?\nIf you once rename them it is not possible to go back...");
+//    QMessageBox message(QMessageBox::Question, "Permission", msg,QMessageBox::Yes, QMessageBox::No);
+//    message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreRenemer.svg"));
+//    message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/MessageBox.qss"));
+//    int merge = message.exec();
+
     long reply = QMessageBox::information(this, "Permission", "Are you sure to rename those files?\nIf you once rename them it is not possible to go back...",
                                           QMessageBox::Yes, QMessageBox::No);
     if (reply == QMessageBox::Yes) {

@@ -108,8 +108,6 @@ QString sentDateText(const QString &dateTime)
     } else {
         return QString(given.toString("MMMM dd"));
     }
-
-    return "";
 }
 
 bool checkRecentActivityFile()
