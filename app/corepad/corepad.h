@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -29,7 +29,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QCloseEvent>
 
 #include "utilities/utilities.h"
-#include "utilities/globalfunctions.h"
 #include "bookmarks/bookmarks.h"
 #include "coreedit.h"
 
@@ -88,7 +87,7 @@ private:
 
     bool started;
     bool saveTo(const QString &filePath);
-    void findS(QString searchS, bool reverse, QTextDocument::FindFlags flag = 0);
+    void findS(QString searchS, bool reverse, QTextDocument::FindFlags flag = nullptr);
     bool closeTab(int index);
 
     //Accessing information through tab information

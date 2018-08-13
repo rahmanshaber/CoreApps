@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -33,8 +33,8 @@ bookmarks::bookmarks(QWidget *parent) :QWidget(parent),ui(new Ui::bookmarks)
     setStyleSheet(getStylesheetFileContent(":/appStyle/style/Bookmarks.qss"));
 
     // set window size
-    int x = screensize().width()  * .8;
-    int y = screensize().height() * .7;
+    int x = static_cast<int>(screensize().width()  * .8);
+    int y = static_cast<int>(screensize().height()  * .7);
     this->resize(x, y);
 
     bk.checkBook();
@@ -50,7 +50,7 @@ bool bookmarks::eventFilter(QObject *obj, QEvent *event)
 {
     if (obj == ui->boklist->viewport()) {
         if (event->type() == QEvent::MouseButtonDblClick) {
-            QMouseEvent *mouseEvent = (QMouseEvent*) event;
+            QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
             if (mouseEvent->button() == Qt::RightButton) {
                 mouseEvent->ignore();
                 QMessageBox::information(this,"","RIGHT");

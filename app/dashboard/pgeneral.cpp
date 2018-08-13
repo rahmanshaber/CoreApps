@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -94,7 +94,7 @@ void pgeneral::updateMemoryBar()
 
     int memUsedPercent = 0;
     if (im->getMemTotal())
-        memUsedPercent = ((double)im->getMemUsed() / (double)im->getMemTotal()) * 100.0;
+        memUsedPercent = (static_cast<double>(im->getMemUsed()) / static_cast<double>(im->getMemTotal()) ) * 100.0;
 
     // Function from globalfunctions.cpp
     QString f_memUsed  = formatSize(im->getMemUsed());
@@ -125,8 +125,8 @@ void pgeneral::updateNetworkBar()
     QString downText = formatSize(d_RXbytes);
     QString upText = formatSize(d_TXbytes);
 
-    int downPercent = ((double) d_RXbytes / (double) max_RXbytes) * 100.0;
-    int upPercent = ((double) d_TXbytes / (double) max_TXbytes) * 100.0;
+    int downPercent = (static_cast<double>(d_RXbytes) / static_cast<double>(max_RXbytes) ) * 100.0;
+    int upPercent = (static_cast<double>(d_TXbytes) / static_cast<double>(max_TXbytes) ) * 100.0;
 
     ui->downloadBar->setValue(downPercent);
 

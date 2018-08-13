@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -53,7 +53,7 @@ void wSystem::checkSystem()
     int memPercent = 0;
 
     if (info->getMemTotal())
-        memPercent = ((double)info->getMemUsed() / (double)info->getMemTotal()) * 100.0;
+        memPercent = (static_cast<double>(info->getMemUsed()) / static_cast<double>(info->getMemTotal())) * 100.0; //cast
 
     ui->rambar->setValue(memPercent);
 }

@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -42,11 +42,10 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QSettings>
 #include <QShortcut>
 
+#include "utilities/utilities.h"
 #include "../settings/settingsmanage.h"
-#include "../utilities/globalfunctions.h"
 #include "../bookmarks/bookmarks.h"
 #include "../bookmarks/bookmarkdialog.h"
-#include "../utilities/utilities.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -129,7 +128,6 @@ private slots:
     void on_cut_clicked();
     void on_copy_clicked();
     void on_past_clicked();
-    void on_openshots_clicked();
     void undo();
     void redo();
     void on_delet_clicked();

@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -25,8 +25,9 @@ coreshot::coreshot(QWidget *parent) :QWidget(parent),ui(new Ui::coreshot)
     // set stylesheet from style.qrc
     setStyleSheet(getStylesheetFileContent(":/appStyle/style/CoreShot.qss"));
 
-    int x = screensize().width()  * .55;
-    int y = screensize().height() * .6;
+    // set window size
+    int x = static_cast<int>(screensize().width()  * .55);
+    int y = static_cast<int>(screensize().height()  * .6);
     this->resize(x, y);
 
     files = "";

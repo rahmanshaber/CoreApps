@@ -24,8 +24,8 @@ corerenamer::corerenamer(QWidget *parent) :QWidget(parent),ui(new Ui::corerename
     setStyleSheet(getStylesheetFileContent(":/appStyle/style/CoreRenamer.qss"));
 
     // set window size
-    int x = screensize().width()  * .8;
-    int y = screensize().height() * .7;
+    int x = static_cast<int>(screensize().width()  * .8);
+    int y = static_cast<int>(screensize().height()  * .7);
     this->resize(x, y);
 
     uStack = new QUndoStack(this);
@@ -52,6 +52,19 @@ corerenamer::corerenamer(QWidget *parent) :QWidget(parent),ui(new Ui::corerename
 
     shotcuts();
     startsetup(false);
+}
+
+QString treeToText(const QAbstractItemModel* model, const QModelIndex& parent=QModelIndex(), const QString& head = QString()){
+
+    QString result;
+    for(int i=0, maxRow = model->rowCount(parent);i<maxRow;++i){
+    const QModelIndex currIdx = model->index(i,0,parent);
+    result += head + currIdx.data().toString() + '\n';
+    if(model->hasChildren(currIdx))
+    result += treeToText(model,currIdx,head + "    |");
+    }
+    result.chop(1);
+    return result;
 }
 
 corerenamer::~corerenamer()

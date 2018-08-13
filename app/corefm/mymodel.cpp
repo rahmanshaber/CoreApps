@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -228,11 +228,11 @@ void myModel::notifyChange()
     notifier->setEnabled(0);
 
     int buffSize = 0;
-    ioctl(inotifyFD, FIONREAD, (char *) &buffSize);
+    ioctl(inotifyFD, FIONREAD, (char *) &buffSize);//cast
 
     QByteArray buffer;
     buffer.resize(buffSize);
-    read(inotifyFD,buffer.data(),buffSize);
+    read(inotifyFD,buffer.data(),buffSize);// cast
     const char *at = buffer.data();
     const char * const end = at + buffSize;
 

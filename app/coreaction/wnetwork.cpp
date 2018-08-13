@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -50,8 +50,8 @@ void wNetwork::checkNetwork()
     quint64 d_TXbytes = (TXbytes - l_TXbytes);
 
     // Function from globalfunctions.cpp
-    QString downText = formatSize(d_RXbytes);
-    QString upText = formatSize(d_TXbytes);
+    QString downText = formatSize(static_cast<int>(d_RXbytes));
+    QString upText = formatSize(static_cast<int>(d_TXbytes));
 
     ui->dspeed->setText(downText);
     ui->uspeed->setText(upText);

@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -17,6 +17,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include "wcalculator.h"
 #include "ui_wcalculator.h"
 
+// cast
 float varA, varB, result;
 int z = 0, varC, varD;
 
@@ -99,11 +100,11 @@ void wCalculator::on_equal_clicked()
     case 3 : result = varA * varB ;break;
     case 4 : result = varA / varB ;break;
     case 5 :
-        varC = varA;
-        varD = varB;
+        varC = varA;// cast
+        varD = varB;// cast
         result = varC % varD ;break;
     }
-    QString sss = QString::number(result);
+    QString sss = QString::number(result);// cast
     ui->calcview->setText(sss);
 }
 

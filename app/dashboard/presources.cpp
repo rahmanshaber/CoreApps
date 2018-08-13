@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -135,7 +135,7 @@ void presources::updateCpuLoadAvg()
 
         if (second > 61) seriesList.at(j)->removePoints(61, 1);
 
-        maxAvg = qMax((int)ceil(avg), maxAvg);
+        maxAvg = qMax(static_cast<int>(ceil(avg)), maxAvg);
     }
 
     mChartCpuLoadAvg->setYMax(maxAvg);
@@ -221,7 +221,7 @@ void presources::updateMemoryChart()
     // Swap
     double percent = 0;
     if (im->getSwapTotal()) // aritmetic exception control
-        percent = ((double) im->getSwapUsed() / (double) im->getSwapTotal()) * 100.0;
+        percent = (static_cast<double>(im->getSwapUsed()) / static_cast<double>(im->getSwapTotal()) ) * 100.0;
 
     seriesList.at(0)->insert(0, QPointF(0, percent));
     seriesList.at(0)->setName(tr("Swap: %1 (%2%) %3")
@@ -230,7 +230,7 @@ void presources::updateMemoryChart()
                               .arg(FormatUtil::formatBytes(im->getSwapTotal())));
 
     // Memory
-    double percent2 = ((double) im->getMemUsed() / (double) im->getMemTotal()) * 100.0;
+    double percent2 = (static_cast<double>(im->getMemUsed()) / static_cast<double>(im->getMemTotal()) ) * 100.0;
 
     seriesList.at(1)->insert(0, QPointF(0, percent2));
     seriesList.at(1)->setName(tr("Memory: %1 (%2%) %3")
@@ -256,7 +256,7 @@ void presources::updateCpuChart()
 
         for (int i = 0; i < (second < 61 ? second : 61); i++) {
             // FIXME : Crashed when double Dashboard opened
-            seriesList.at(j)->replace(i, (double)(i+1), (double)seriesList.at(j)->at(i).y());
+            seriesList.at(j)->replace(i, static_cast<double>(i+1), static_cast<double>(seriesList.at(j)->at(i).y()));
         }
 
         seriesList.at(j)->insert(0, QPointF(0, p));

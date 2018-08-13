@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,12 +26,12 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QWidget>
 #include <QTreeWidgetItem>
 #include <QPushButton>
+#include <QMessageBox>
 
 #include "corefm/mimeutils.h"
 #include "corefm/fileutils.h"
 #include "corefm/applicationdialog.h"
 #include "utilities/utilities.h"
-#include "utilities/globalfunctions.h"
 #include "corearchiver/corearchiver.h"
 #include "settingsmanage.h"
 

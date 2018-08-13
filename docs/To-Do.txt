@@ -140,7 +140,6 @@ in-future
 utilites will be like global function .no class??
 add all all the desktop file.
 save to recent = fix
-add the setup folder
 start line 199,202,69
 add try icon and intregrat with all app.code utilities line 171.
 utilities line 135.
@@ -164,12 +163,14 @@ fix corepad line 167 ,corerenamer line 476, settings.cpp line 472 ;according to 
 closeAllTabs and on_paintTabs_tabCloseRequested in corepaint never exe
 corerenamer line 453 , where the work of "yes"
 same diclaration for geting filepath for recent activites.
-add getSize function+ in utility class
 multipal filesize is not showing
 add an setting to turn off the highlighter of corepad.
 add updateed udisk2 and add our code in it.
 in start recentActivites dose not show the system app icon.
 cut,copy,past ,delete in rightbutton menu in corepaint.
+show folder in coreimage use the defult filemanager.
+setting a defult file manager from mime list not possible??
+bookmark.cpp line 49 .rightbutton is not ignored.
 
 
 test

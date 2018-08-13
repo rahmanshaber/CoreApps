@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -24,7 +24,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QtDBus/QDBusConnection>
 #include <QXmlStreamReader>
 
-#include "utilities/globalfunctions.h"
+#include "utilities/utilities.h"
 
 
 class UDisks2Block;

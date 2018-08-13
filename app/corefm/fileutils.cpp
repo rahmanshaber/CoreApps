@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -358,7 +358,7 @@ SizeAndCountText FileUtils::getF(const QStringList &paths)
             }
         } else {
             files++;
-//            totalSize += getSize( path );
+            totalSize += getSize( path );
         }
     }
 
@@ -368,7 +368,7 @@ SizeAndCountText FileUtils::getF(const QStringList &paths)
     return sc;
 }
 
-qint64 getSize(const QString &path)
+qint64 FileUtils::getSize(const QString &path)
 {
 
     struct stat statbuf;

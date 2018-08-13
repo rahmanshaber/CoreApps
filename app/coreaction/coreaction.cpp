@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -16,7 +16,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 #include "coreaction.h"
 #include "ui_coreaction.h"
-#include "utilities/globalfunctions.h"
+
 
 coreaction::coreaction(QWidget *parent) : QWidget(parent, Qt::Dialog),ui(new Ui::coreaction),
     timer(new QTimer(this))
@@ -41,7 +41,8 @@ coreaction::~coreaction()
 
 void coreaction::widget()  //setup coreaction widget
 {
-    int x = screensize().width()* .23;
+    // set window size
+    int x = static_cast<int>(screensize().width()* .23);
     int y = screensize().height();
     int sw = screensize().width() - x;
 

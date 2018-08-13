@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -28,7 +28,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include "dashboard/info_manager.h"
 #include "dashboard/circlebar.h"
 #include "Info/system_info.h"
-#include "utilities/globalfunctions.h"
 
 
 namespace Ui {

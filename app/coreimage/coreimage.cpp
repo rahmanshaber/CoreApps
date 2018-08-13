@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -27,8 +27,8 @@ coreimage::coreimage(QWidget *parent) :QWidget(parent), ui(new Ui::coreimage)
     setStyleSheet(getStylesheetFileContent(":/appStyle/style/CoreImage.qss"));
 
     // set window size
-    int x = screensize().width()  * .8;
-    int y = screensize().height() * .7;
+    int x = static_cast<int>(screensize().width()  * .8);
+    int y = static_cast<int>(screensize().height()  * .7);
     this->resize(x, y);
 
     scaleFactor = 1.0;
@@ -475,7 +475,7 @@ void coreimage::on_openThumbview_clicked()
 
 void coreimage::on_containingfolder_clicked()
 {
-    appEngine(CoreFM, QFileInfo(currentImagePath).path());
+//    appEngine(CoreFM, QFileInfo(currentImagePath).path());
 }
 
 void coreimage::on_thumnailView_itemClicked(QListWidgetItem *item)

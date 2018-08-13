@@ -8,7 +8,7 @@
 
 #include "Utils/format_util.h"
 #include "dashboard/signal_mapper.h"
-#include "utilities/globalfunctions.h"
+#include "utilities/utilities.h"
 
 
 namespace Ui {

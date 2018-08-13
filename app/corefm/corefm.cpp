@@ -1,5 +1,5 @@
 ﻿/*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,14 +26,15 @@ corefm::corefm(QWidget *parent) :QWidget(parent),ui(new Ui::corefm)
     setStyleSheet(getStylesheetFileContent(":/appStyle/style/CoreFM.qss"));
 
     // set window size
-    int x = screensize().width()  * .8;
-    int y = screensize().height() * .7;
+    int x = static_cast<int>(screensize().width()  * .8);
+    int y = static_cast<int>(screensize().height()  * .7);
     this->resize(x, y);
 
     startsetup();
     loadSettings();
     lateStart();
     shotcuts();
+
 }
 
 corefm::~corefm()
@@ -394,7 +395,6 @@ void corefm::dirLoaded()
     QModelIndexList items;
     bool includeHidden = ui->showHidden->isChecked();
 
-
     for(int x = 0; x < modelList->rowCount(modelList->index(ui->pathEdit->currentText())); ++x)
         items.append(modelList->index(x,0,modelList->index(ui->pathEdit->currentText())));
 
@@ -724,15 +724,15 @@ bool corefm::pasteFiles(const QList<QUrl> &files, const QString &newPath,const Q
     // Check available space on destination before we start
     struct statfs info;
     statfs(newPath.toLocal8Bit(), &info);
-    if ((qint64) info.f_bavail * info.f_bsize < total) {
+    if (static_cast<qint64>(info.f_bavail) * (info.f_bsize) < total) {
 
       // If it is a cut/move on the same device it doesn't matter
       if (cutList.count()) {
-        qint64 driveSize = (qint64) info.f_bavail*info.f_bsize;
+        qint64 driveSize = static_cast<qint64>(info.f_bavail) * (info.f_bsize) ;
         statfs(files.at(0).path().toLocal8Bit(),&info);
 
         // Same device?
-        if ((qint64) info.f_bavail*info.f_bsize != driveSize) {
+        if (static_cast<qint64>(info.f_bavail) * (info.f_bsize)  != driveSize) {
           emit copyProgressFinished(2, newFiles);
           return 0;
         }

@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -28,7 +28,7 @@ renameDialog::renameDialog(QFileInfo iFile,QWidget *parent):QDialog(parent),ui(n
     m_iFile = iFile;
     setWindowFlags(Qt::Dialog | Qt::Popup);
     setAttribute(Qt::WA_NativeWindow);
-    setWindowIcon(geticon(m_iFile.filePath()));
+    setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
     setWindowTitle("Rename \"" + m_iFile.fileName() + "\"");
     ui->newName->setText(m_iFile.fileName());
     connect(ui->cancel, &QToolButton::clicked, this, &renameDialog::close);

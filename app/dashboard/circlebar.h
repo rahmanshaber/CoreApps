@@ -6,7 +6,7 @@
 #include <QWidget>
 #include <QtCharts>
 
-#include "utilities/globalfunctions.h"
+#include "utilities/utilities.h"
 
 
 namespace Ui {

@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -38,7 +38,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <dirent.h>
 #include <sys/stat.h>
 
-#include "utilities/globalfunctions.h"
+#include "utilities/utilities.h"
 
 
 struct SizeAndCountText
@@ -69,8 +69,7 @@ public:
     static QString getMultipleCountText(const QStringList &paths);
     static QString getCountText(const QString path);
     static SizeAndCountText getF(const QStringList &paths);
-
-
+    static qint64 getSize(const QString &path);
 };
 
 #endif // FILEUTILS_H

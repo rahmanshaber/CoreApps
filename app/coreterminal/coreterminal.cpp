@@ -18,8 +18,8 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 coreterminal::coreterminal(QWidget *parent) : QTermWidget(0, parent)
 {
     // set window size
-    int x = screensize().width()  * .8;
-    int y = screensize().height() * .7;
+    int x = static_cast<int>(screensize().width()  * .8);
+    int y = static_cast<int>(screensize().height()  * .7);
     this->resize(x, y);
 
     // Terminal Opacity
@@ -83,8 +83,8 @@ coreterminal::coreterminal(QWidget *parent) : QTermWidget(0, parent)
 coreterminal::coreterminal(const QString &workDir, QWidget *parent) : QTermWidget(0, parent)
 {
     // set window size
-    int x = screensize().width()  * .8;
-    int y = screensize().height() * .7;
+    int x = static_cast<int>(screensize().width()  * .8);
+    int y = static_cast<int>(screensize().height()  * .7);
     this->resize(x, y);
 
     // Terminal Opacity
@@ -147,8 +147,8 @@ coreterminal::coreterminal(const QString &workDir, QWidget *parent) : QTermWidge
 coreterminal::coreterminal(const QString &workDir, const QString &command, QWidget *parent) : QTermWidget(0, parent)
 {
     // set window size
-    int x = screensize().width()  * .8;
-    int y = screensize().height() * .7;
+    int x = static_cast<int>(screensize().width()  * .8);
+    int y = static_cast<int>(screensize().height()  * .7);
     this->resize(x, y);
 
     // Terminal Opacity

@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -43,7 +43,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QShortcut>
 
 #include "utilities/utilities.h"
-#include "utilities/globalfunctions.h"
 #include "bookmarks//bookmarks.h"
 #include "bookmarks/bookmarkdialog.h"
 #include "corepaint/corepaint.h"
@@ -93,10 +92,6 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
 
-    bool   mousePressed;
-    QPoint mousePos;
-    QPoint wndPos;
-
 private:
     Ui::coreimage *ui;
     QSpacerItem *hSpacer;   
@@ -105,6 +100,9 @@ private:
     QImage image;
     double scaleFactor;
     QLabel *cImageLabel;
+    bool   mousePressed;
+    QPoint mousePos;
+    QPoint wndPos;
 
     QStringList getImages(const QString path);
     bool saveFile(const QString &fileName);

@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,8 +26,8 @@ Start::Start(QWidget *parent) :QWidget(parent),ui(new Ui::Start)
     setStyleSheet(getStylesheetFileContent(":/appStyle/style/Start.qss"));
 
     // set window size
-    int x = screensize().width()  * .8;
-    int y = screensize().height() * .7;
+    int x = static_cast<int>(screensize().width()  * .8);
+    int y = static_cast<int>(screensize().height()  * .7);
     this->resize(x, y);
 
     // Get recent activity enabled or not
@@ -204,6 +204,7 @@ void Start::on_sessionsList_itemDoubleClicked(QTreeWidgetItem *item, int column)
         messageEngine("Session restored successfully", MessageType::Info);
     }
 }
+
 
 void Start::loadSession()
 {

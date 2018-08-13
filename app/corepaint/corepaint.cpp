@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -27,10 +27,9 @@ corepaint::corepaint( QWidget *parent):QWidget(parent),ui(new Ui::corepaint),
     setStyleSheet(getStylesheetFileContent(":/appStyle/style/CorePaint.qss"));
 
     // set window size
-    int x = screensize().width()  * .8;
-    int y = screensize().height() * .7;
+    int x = static_cast<int>(screensize().width()  * .8);
+    int y = static_cast<int>(screensize().height()  * .7);
     this->resize(x, y);
-
     mUndoStackGroup = new QUndoGroup(this);
 
     qRegisterMetaType<InstrumentsEnum>("InstrumentsEnum");
@@ -599,11 +598,6 @@ void corepaint::on_past_clicked()
 {
     if (ImageArea *imageArea = getCurrentImageArea())
         imageArea->pasteImage();
-}
-
-void corepaint::on_openshots_clicked()
-{
-    appEngine(CoreFM, sm.getSCSaveLocation());
 }
 
 void corepaint::undo() {

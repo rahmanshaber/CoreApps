@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -55,21 +55,21 @@ void wBattery::batteryCheck() {
     double rate = b->energyRate();
     int addSeconds = 0;
 
-    ui->batteryProg->setValue(b->percentage());
+    ui->batteryProg->setValue(static_cast<int>(b->percentage()));
 
     switch( b->state() ) {
         case Battery::FullyCharged:
             ui->batteryStatus->setText( tr( "Full" ));
             break;
         case Battery::Discharging:
-            addSeconds = b->toEmpty();
-            addSeconds = rate != 0 && addSeconds == 0 ? ( energy - energyEmpty ) * 4 / rate: addSeconds;
+            addSeconds = static_cast<int>(b->toEmpty());
+            addSeconds = rate != 0 && addSeconds == 0 ? ( energy - energyEmpty ) * 4 / rate: addSeconds;// cast
             time = time.addSecs(addSeconds);
             ui->batteryStatus->setText("Discharging (" + time.toString("hh %1 mm %2").arg("hours", "minutes)"));
             break;
         case Battery::Charging:
-            addSeconds = b->toFull();
-            addSeconds = rate != 0 && addSeconds == 0 ? ( energyFull - energy ) * 4 / rate : addSeconds;
+            addSeconds = static_cast<int>(b->toFull());
+            addSeconds = rate != 0 && addSeconds == 0 ? ( energyFull - energy ) * 4 / rate : addSeconds;// cast
             time = time.addSecs(addSeconds);
             ui->batteryStatus->setText("Charging(" + time.toString("hh %1 mm %2").arg("hours", "minutes)"));
             break;

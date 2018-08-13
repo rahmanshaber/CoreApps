@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -176,15 +176,15 @@ double Battery::toFull() const {
 Battery::State Battery::state() const {
     uint state = m_interface->property("State").toUInt();
     switch( state ) {
-        case (uint) 0:
+        case static_cast<uint>(0):
             return FullyCharged;
             break;
 
-        case (uint) 1:
+        case static_cast<uint>(1):
             return Charging;
             break;
 
-        case (uint) 2:
+        case static_cast<uint>(2):
             return Discharging;
             break;
 

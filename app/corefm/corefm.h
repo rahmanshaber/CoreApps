@@ -1,5 +1,5 @@
 /*
-CoreBox is combination of some common desktop apps.
+CoreBox give's a file's detail information.
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -51,9 +51,9 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QtConcurrent/QtConcurrent>
 #include <QShortcut>
 
-#include "../utilities/utilities.h"
+#include "utilities/utilities.h"
+#include "utilities/globalfunctions.h"
 #include "../settings/settingsmanage.h"
-#include "../utilities/globalfunctions.h"
 #include "../bookmarks/bookmarks.h"
 #include "../bookmarks/bookmarkdialog.h"
 #include "../corearchiver/corearchiver.h"
@@ -167,7 +167,6 @@ private slots:
     void on_showthumb_clicked(bool checked);
     void on_actionItemsToText_triggered();
     void on_viewMode_clicked();
-
     void on_actionCreate_Shortcut_triggered();
 
 private:
