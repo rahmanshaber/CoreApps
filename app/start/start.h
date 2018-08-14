@@ -45,7 +45,7 @@ class Start : public QWidget
     Q_OBJECT
 
 public:
-    explicit Start(QWidget *parent = 0);
+    explicit Start(QWidget *parent = nullptr);
     ~Start();
     void reload();
 

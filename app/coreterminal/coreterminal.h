@@ -38,9 +38,9 @@ class coreterminal : public QTermWidget
     Q_OBJECT
 
 public :
-    coreterminal(QWidget *parent = 0);
-    coreterminal(const QString &workDir, QWidget *parent = 0);
-    coreterminal(const QString &workDir, const QString &command, QWidget *parent = 0);
+    coreterminal(QWidget *parent =nullptr);
+    coreterminal(const QString &workDir, QWidget *parent = nullptr);
+    coreterminal(const QString &workDir, const QString &command, QWidget *parent = nullptr);
 
     QString currentWorkingDirectory();
 

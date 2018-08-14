@@ -158,8 +158,8 @@ WId coreshotdialog::getActiveWindowId()
     WId result = 0;
     unsigned char* data = nullptr;
     if(XGetWindowProperty(QX11Info::display(), root, atom, 0, 1, false,
-        XA_WINDOW, &type, &format, &resultLen, &rest, &data) == Success) {
-      result = *reinterpret_cast<long*>(data);
+        XA_WINDOW, &type, &format, &resultLen, &rest, &data) == Success) { //cast
+      result = *reinterpret_cast<long*>(data); //cast
       XFree(data);
     }
     return result;
@@ -183,14 +183,14 @@ QRect coreshotdialog::getWindowFrame(WId wid)
       int format;
       unsigned char* data = nullptr;
       if(XGetWindowProperty(QX11Info::display(), wid, atom, 0, LONG_MAX, false,
-        XA_CARDINAL, &type, &format, &resultLen, &rest, &data) == Success) {
+        XA_CARDINAL, &type, &format, &resultLen, &rest, &data) == Success) { //cast
       }
       if(data) { // left, right, top, bottom
         long* offsets = reinterpret_cast<long*>(data);
-        result.setLeft(result.left() - offsets[0]);
-        result.setRight(result.right() + offsets[1]);
-        result.setTop(result.top() - offsets[2]);
-        result.setBottom(result.bottom() + offsets[3]);
+        result.setLeft(static_cast<int>(result.left() - offsets[0]));
+        result.setRight(static_cast<int>(result.right() + offsets[1]));
+        result.setTop(static_cast<int>(result.top() - offsets[2]));
+        result.setBottom(static_cast<int>(result.bottom() + offsets[3]));
         XFree(data);
       }
     }

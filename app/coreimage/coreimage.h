@@ -57,7 +57,7 @@ class coreimage : public QWidget
     Q_OBJECT
 
 public:
-    explicit coreimage(QWidget *parent = 0);
+    explicit coreimage(QWidget *parent = nullptr);
     ~coreimage();
 
     bool loadFile(const QString &);

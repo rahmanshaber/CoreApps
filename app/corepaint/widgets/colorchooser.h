@@ -39,7 +39,7 @@ class ColorChooser : public QLabel
     Q_OBJECT
 
 public:
-    explicit ColorChooser(const int &r, const int &g, const int &b,QWidget *parent = 0);
+    explicit ColorChooser(const int &r, const int &g, const int &b,QWidget *parent = nullptr);
     ~ColorChooser();
     
 private:

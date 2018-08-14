@@ -39,7 +39,7 @@ class propertiesw : public QWidget
     Q_OBJECT
 
 public:
-    explicit propertiesw(const QString paths, QWidget *parent = 0);
+    explicit propertiesw(const QString paths, QWidget *parent = nullptr);
     ~propertiesw();
 
 public slots:

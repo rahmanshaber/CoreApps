@@ -33,7 +33,7 @@ class wCalculator : public QWidget
     Q_OBJECT
 
 public:
-    explicit wCalculator(QWidget *parent = 0);
+    explicit wCalculator(QWidget *parent = nullptr);
     ~wCalculator();
 
 private:

@@ -33,7 +33,7 @@ class wNotes : public QWidget
     Q_OBJECT
 
 public:
-    explicit wNotes(QWidget *parent = 0);
+    explicit wNotes(QWidget *parent = nullptr);
     ~wNotes();
 
 private:

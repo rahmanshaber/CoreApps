@@ -36,10 +36,10 @@ class MimeUtils : public QObject {
   Q_OBJECT
 
 public:
-    explicit MimeUtils(QObject* parent = 0);
+    explicit MimeUtils(QObject* parent = nullptr);
     virtual ~MimeUtils();
-    void openInApp(QString exe, const QFileInfo &file, QObject* processOwner = 0);
-    void openInApp(const QFileInfo &file, QObject* processOwner = 0);
+    void openInApp(QString exe, const QFileInfo &file, QObject* processOwner = nullptr);
+    void openInApp(const QFileInfo &file, QObject* processOwner = nullptr);
     void setDefaultsFileName(const QString &fileName);
     void setDefault(const QString &mime, const QStringList &apps);
     QStringList getDefault(const QString &mime) const;

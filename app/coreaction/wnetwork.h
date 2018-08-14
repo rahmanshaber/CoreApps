@@ -33,7 +33,7 @@ class wNetwork : public QWidget
     Q_OBJECT
 
 public:
-    explicit wNetwork(QWidget *parent = 0);
+    explicit wNetwork(QWidget *parent = nullptr);
     ~wNetwork();
 
 private:

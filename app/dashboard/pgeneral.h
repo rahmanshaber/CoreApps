@@ -39,7 +39,7 @@ class pgeneral : public QWidget
     Q_OBJECT
 
 public:
-    explicit pgeneral(QWidget *parent = 0);
+    explicit pgeneral(QWidget *parent = nullptr);
     ~pgeneral();
 
 private slots:

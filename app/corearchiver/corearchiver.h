@@ -34,7 +34,7 @@ class corearchiver : public QWidget
     Q_OBJECT
 
 public:
-    explicit corearchiver(QWidget *parent = 0);
+    explicit corearchiver(QWidget *parent = nullptr);
     ~corearchiver();
 
     void compress(const QStringList &filePathList, const QDir &currentDir);

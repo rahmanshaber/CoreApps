@@ -34,7 +34,7 @@ class presources : public QWidget
     Q_OBJECT
 
 public:
-    explicit presources(QWidget *parent = 0);
+    explicit presources(QWidget *parent = nullptr);
     ~presources();
 
 private slots:

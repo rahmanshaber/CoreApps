@@ -80,12 +80,12 @@ void SprayInstrument::paint(ImageArea &imageArea, bool isSecondaryColor, bool)
                             Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     }
 
-    int x, y;
+    int x = 0, y = 0;
     for(int i(0); i < 12; i++)
     {
         switch(i) {
         case 0: case 1: case 2: case 3:
-            x = (qrand() % 5 - 2)
+            x = (qrand() % 5 - 2) //cast
                     * sqrt(DataSingleton::Instance()->getPenSize() * imageArea.getZoomFactor());
             y = (qrand() % 5 - 2)
                     * sqrt(DataSingleton::Instance()->getPenSize() * imageArea.getZoomFactor());
@@ -103,8 +103,7 @@ void SprayInstrument::paint(ImageArea &imageArea, bool isSecondaryColor, bool)
                     * sqrt(DataSingleton::Instance()->getPenSize() * imageArea.getZoomFactor());
             break;
         }
-        painter.drawPoint(mEndPoint.x() + x,
-                         mEndPoint.y() + y);
+        painter.drawPoint(mEndPoint.x() + x,mEndPoint.y() + y);
     }
     imageArea.setEdited(true);
     painter.end();

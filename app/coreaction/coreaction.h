@@ -38,7 +38,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QDoubleValidator>
 
 #include "settings/settingsmanage.h"
-//#include "utilities/utilities.h"
 #include "utilities/globalfunctions.h"
 #include "about/about.h"
 #include "dashboard/info_manager.h"
@@ -56,7 +55,7 @@ class coreaction : public QWidget
     Q_OBJECT
 
 public:
-    explicit coreaction(QWidget *parent = 0);
+    explicit coreaction(QWidget *parent = nullptr);
     ~coreaction();
 
     QSystemTrayIcon *trayIcon;

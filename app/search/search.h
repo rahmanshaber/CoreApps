@@ -45,7 +45,7 @@ class search : public QWidget
     Q_OBJECT
 
 public:
-    explicit search(QWidget *parent = 0);
+    explicit search(QWidget *parent = nullptr);
     ~search();
 
     void setPath(const QString &path);

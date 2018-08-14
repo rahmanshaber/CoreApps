@@ -34,7 +34,7 @@ class help : public QWidget
     Q_OBJECT
 
 public:
-    explicit help(QWidget *parent = 0);
+    explicit help(QWidget *parent = nullptr);
     ~help();
 
 private slots:

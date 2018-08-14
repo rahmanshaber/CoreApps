@@ -32,7 +32,7 @@ class coreedit : public QPlainTextEdit
     Q_OBJECT
 
 public:
-    coreedit(QString fPath, QWidget *parent = 0);
+    coreedit(QString fPath, QWidget *parent = nullptr);
 
     QString workFilePath() const {
         return filePath;}

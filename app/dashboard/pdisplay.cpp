@@ -53,7 +53,7 @@ void pDisplay::setupDisplayPage()
         QString physicalSize(tr("(%1,%2)%3").arg(py.width()).arg(py.height()).arg(" millimetre"));
 
         // screen size in inches
-        int screenSize(qSqrt(qPow (py.width(),2) + qPow (py.height(),2)) * 0.03937008);
+        int screenSize(static_cast<int>(qSqrt(qPow (py.width(),2) + qPow (py.height(),2)) * 0.03937008));
 
 
         // screen orientation

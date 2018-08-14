@@ -35,7 +35,7 @@ class ApplicationDialog : public QDialog {
     Q_OBJECT
 
 public:
-    explicit ApplicationDialog(QWidget *parent = 0);
+    explicit ApplicationDialog(QWidget *parent = nullptr);
     QString getCurrentLauncher() const;
 
 protected slots:

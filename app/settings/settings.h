@@ -45,7 +45,7 @@ class settings : public QWidget
     Q_OBJECT
 
 public:
-    explicit settings(QWidget *parent = 0);
+    explicit settings(QWidget *parent = nullptr);
     ~settings();
 
 protected slots:

@@ -20,7 +20,7 @@ class HistoryChart : public QWidget
     Q_OBJECT
 
 public:
-    explicit HistoryChart(const QString &title, const int &seriesCount, QCategoryAxis* categoriAxisY = nullptr, QWidget *parent = 0);
+    explicit HistoryChart(const QString &title, const int &seriesCount, QCategoryAxis* categoriAxisY = nullptr, QWidget *parent = nullptr);
     ~HistoryChart();
 
     QVector<QSplineSeries *> getSeriesList() const;

@@ -111,7 +111,8 @@ bool AdditionalTools::zoomImage(qreal factor)
     else
     {
         mPImageArea->setImage(mPImageArea->getImage()->transformed(QTransform::fromScale(factor, factor)));
-        mPImageArea->resize((mPImageArea->rect().width())*factor, (mPImageArea->rect().height())*factor);
+        mPImageArea->resize(static_cast<int>((mPImageArea->rect().width())*factor),
+                            static_cast<int>((mPImageArea->rect().height())*factor));
         emit sendNewImageSize(mPImageArea->size());
         mPImageArea->setEdited(true);
         mPImageArea->clearSelection();

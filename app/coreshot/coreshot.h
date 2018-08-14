@@ -37,7 +37,7 @@ class coreshot : public QWidget
     Q_OBJECT
 
 public:
-    explicit coreshot(QWidget *parent = 0);
+    explicit coreshot(QWidget *parent = nullptr);
     ~coreshot();
 
     void setPixmap(QPixmap &pix);

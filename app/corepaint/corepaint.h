@@ -68,7 +68,7 @@ class corepaint : public QWidget
     Q_OBJECT
 
 public:
-    explicit corepaint(QWidget *parent = 0);
+    explicit corepaint(QWidget *parent = nullptr);
     ~corepaint();
 
     void initializeNewTab(const bool &isOpen = false, const QString &filePath = "");

@@ -36,11 +36,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 
 
-
-
-
-
-
 //bool checkRecentActivityFile()
 //{
 //    QFile file(QDir::homePath() + "/.config/coreBox/RecentActivity");

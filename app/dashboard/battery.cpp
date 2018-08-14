@@ -53,7 +53,7 @@ void Battery::refresh() {
 }
 
 void Battery::update() {
-    int level = percentage();
+    int level = static_cast<int>(percentage());
 
     if(level<lowLevel()) {
         if(!m_hasAlreadyBeenLow) {

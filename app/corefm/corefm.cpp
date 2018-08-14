@@ -1993,7 +1993,7 @@ void corefm::blockDevicesChanged()
 
                                     if (parse[1] == "") {
                                         // Function from globalfunctions.cpp
-                                        item = new QListWidgetItem("Drive (" +formatSize(device->size)+ ")");
+                                        item = new QListWidgetItem("Drive (" +formatSize(static_cast<int>(device->size))+ ")");
                                         icon = QIcon(":/icons/drive.svg");
                                     } else {
                                         if (parse.count() > 2) {
@@ -2013,7 +2013,7 @@ void corefm::blockDevicesChanged()
 
                     if (!(item)) {
                         // Function from globalfunctions.cpp
-                        item = new QListWidgetItem(formatSize(device->size) + " Hard Drive (" + device->fileSystem()->name + ")");
+                        item = new QListWidgetItem(formatSize(static_cast<int>(device->size)) + " Hard Drive (" + device->fileSystem()->name + ")");
                         icon = QIcon(":/icons/drive.svg");
                     }
 

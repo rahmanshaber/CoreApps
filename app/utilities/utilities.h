@@ -36,7 +36,6 @@ enum FolderSetup {
     QRect screensize();
 
     QIcon geticon(const QString &filePath);
-
     QString formatSize(qint64 num);
 
     QString sentDateText(const QString &dateTime);

@@ -71,7 +71,7 @@ void coreplayer::startsetup()
         ui->volume->setEnabled(false);
     }
 
-    ui->seekBar->setRange(0, player->duration() / 1000);
+    ui->seekBar->setRange(0, static_cast<int>(player->duration() / 1000));
     connect(ui->seekBar,SIGNAL(sliderMoved(int)),this,SLOT(seek(int)));
 
     if (!isPlayerAvailable()) {
@@ -191,13 +191,13 @@ bool coreplayer::isPlayerAvailable() const
 void coreplayer::durationChanged(qint64 duration)
 {
     this->duration = duration/1000;
-    ui->seekBar->setMaximum(duration / 1000);
+    ui->seekBar->setMaximum(static_cast<int>(duration / 1000));
 }
 
 void coreplayer::positionChanged(qint64 progress)
 {
     if (!ui->seekBar->isSliderDown()) {
-        ui->seekBar->setValue(progress / 1000);
+        ui->seekBar->setValue(static_cast<int>(progress / 1000));
     }
     updateDurationInfo(progress / 1000);
 }

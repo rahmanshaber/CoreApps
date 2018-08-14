@@ -40,7 +40,7 @@ class pDisplay : public QWidget
     Q_OBJECT
 
 public:
-    explicit pDisplay(QWidget *parent = 0);
+    explicit pDisplay(QWidget *parent = nullptr);
     ~pDisplay();
 
 private:

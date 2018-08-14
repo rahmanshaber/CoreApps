@@ -53,7 +53,8 @@ void wSystem::checkSystem()
     int memPercent = 0;
 
     if (info->getMemTotal())
-        memPercent = (static_cast<double>(info->getMemUsed()) / static_cast<double>(info->getMemTotal())) * 100.0; //cast
+        memPercent = static_cast<int>((static_cast<double>(info->getMemUsed()) /
+                                       static_cast<double>(info->getMemTotal())) * 100.0);
 
     ui->rambar->setValue(memPercent);
 }

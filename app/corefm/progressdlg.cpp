@@ -72,7 +72,7 @@ void myProgressDialog::update(qint64 bytes, qint64 total, QString name)
 
     //refresh the bar
     runningTotal += bytes;
-    bar->setValue(runningTotal * 100 / total);
+    bar->setValue(static_cast<int>(runningTotal * 100 / total));
 
     //transfer info
     int currentSeconds = remainingTimer->elapsed() / 1000;  //convert to seconds
@@ -81,7 +81,7 @@ void myProgressDialog::update(qint64 bytes, qint64 total, QString name)
     {
         float cumulativeTransferRate = runningTotal / currentSeconds;
         float cumulativeTransferRateMB = cumulativeTransferRate / 1000000; //convert to megabytes
-        int currentSecondsRemaining = (total - runningTotal) / cumulativeTransferRate;
+        int currentSecondsRemaining = static_cast<int>((total - runningTotal) / cumulativeTransferRate);
 
         QString formattedTime;
 
@@ -89,7 +89,7 @@ void myProgressDialog::update(qint64 bytes, qint64 total, QString name)
         else formattedTime = QString("%1 min %2 sec").arg(currentSecondsRemaining / 60).arg(currentSecondsRemaining % 60);
 
         transferInfo->setText(QString(tr("<p>Transfer rate: %2 MB/s<br>Time remaining: %3</p>"))
-                                   .arg(cumulativeTransferRateMB, 0, 'f', 1).arg(formattedTime));
+                                   .arg(static_cast<double>(cumulativeTransferRateMB), 0, 'f', 1).arg(formattedTime));
 
         oldSeconds = currentSeconds;
     }

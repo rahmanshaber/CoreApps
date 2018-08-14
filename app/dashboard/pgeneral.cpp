@@ -94,11 +94,11 @@ void pgeneral::updateMemoryBar()
 
     int memUsedPercent = 0;
     if (im->getMemTotal())
-        memUsedPercent = (static_cast<double>(im->getMemUsed()) / static_cast<double>(im->getMemTotal()) ) * 100.0;
+        memUsedPercent = static_cast<int>((static_cast<double>(im->getMemUsed()) / static_cast<double>(im->getMemTotal()) ) * 100.0);
 
     // Function from globalfunctions.cpp
-    QString f_memUsed  = formatSize(im->getMemUsed());
-    QString f_memTotal = formatSize(im->getMemTotal());
+    QString f_memUsed  = formatSize(static_cast<int>(im->getMemUsed()));
+    QString f_memTotal = formatSize(static_cast<int>(im->getMemTotal()));
 
     memBar->setValue(memUsedPercent, QString("%1 / %2").arg(f_memUsed).arg(f_memTotal));
 }
@@ -122,11 +122,11 @@ void pgeneral::updateNetworkBar()
     quint64 d_TXbytes = (TXbytes - l_TXbytes);
 
     // Function from globalfunctions.cpp
-    QString downText = formatSize(d_RXbytes);
-    QString upText = formatSize(d_TXbytes);
+    QString downText = formatSize(static_cast<int>(d_RXbytes));
+    QString upText = formatSize(static_cast<int>(d_TXbytes));
 
-    int downPercent = (static_cast<double>(d_RXbytes) / static_cast<double>(max_RXbytes) ) * 100.0;
-    int upPercent = (static_cast<double>(d_TXbytes) / static_cast<double>(max_TXbytes) ) * 100.0;
+    int downPercent = static_cast<int>((static_cast<double>(d_RXbytes) / static_cast<double>(max_RXbytes) ) * 100.0);
+    int upPercent = static_cast<int>((static_cast<double>(d_TXbytes) / static_cast<double>(max_TXbytes) ) * 100.0);
 
     ui->downloadBar->setValue(downPercent);
 
@@ -136,8 +136,8 @@ void pgeneral::updateNetworkBar()
     ui->uspeed->setText(upText);
 
     // Function from globalfunctions.cpp
-    ui->dtotal->setText(formatSize(RXbytes));
-    ui->utotal->setText(formatSize(TXbytes));
+    ui->dtotal->setText(formatSize(static_cast<int>(RXbytes)));
+    ui->utotal->setText(formatSize(static_cast<int>(TXbytes)));
 
     max_RXbytes = qMax(max_RXbytes, d_RXbytes);
     max_TXbytes = qMax(max_TXbytes, d_TXbytes);

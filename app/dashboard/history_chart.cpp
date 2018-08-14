@@ -48,7 +48,7 @@ void HistoryChart::init()
     };
     // set colors
     for (int i = 0; i < mSeriesList.count(); ++i) {
-        dynamic_cast<QSplineSeries*>(mChart->series().at(i))->setColor(QColor(colors.at(i)));
+        dynamic_cast<QSplineSeries*>(mChart->series().at(i))->setColor(QColor(static_cast<QRgb>(colors.at(i))));
     }
 
     // Chart Settings
@@ -99,7 +99,8 @@ void HistoryChart::setCategoryAxisYLabels()
         }
 
         for (int i = 1; i < 5; ++i) {
-            mAxisY->append(FormatUtil::formatBytes((mAxisY->max()/4)*i), (mAxisY->max()/4)*i);
+            mAxisY->append(FormatUtil::formatBytes(static_cast<quint64>(mAxisY->max()/4)*static_cast<unsigned long>(i)),
+                           (mAxisY->max()/4)*i);
         }
     }
 }

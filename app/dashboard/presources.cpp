@@ -101,7 +101,7 @@ void presources::updateDiskReadWrite()
     l_readBytes  = readBytes;
     l_writeBytes = writeBytes;
 
-    mChartDiskReadWrite->setYMax(maxY);
+    mChartDiskReadWrite->setYMax(static_cast<int>(maxY));
 
     mChartDiskReadWrite->setSeriesList(seriesList);
 
@@ -187,7 +187,7 @@ void presources::updateNetworkChart()
     max_RXbytes = qMax(max_RXbytes, d_RXbytes);
     max_TXbytes = qMax(max_TXbytes, d_TXbytes);
 
-    int max = qMax(max_RXbytes, max_TXbytes);
+    int max = qMax(max_RXbytes, max_TXbytes); //cast
 
     l_RXbytes = RXbytes;
     l_TXbytes = TXbytes;

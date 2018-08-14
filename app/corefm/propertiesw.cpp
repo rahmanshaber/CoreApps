@@ -27,6 +27,11 @@ propertiesw::propertiesw(const QString paths,QWidget *parent) :QWidget(parent),u
     // set stylesheet from style.qrc
     setStyleSheet(getStylesheetFileContent(":/appStyle/style/Properties.qss"));
 
+    // set window size
+    int x = static_cast<int>(screensize().width()  * .27);
+    int y = static_cast<int>(screensize().height()  * .6);
+    this->resize(x, y);
+
     pathName = paths;
     info = QFileInfo(pathName);
 
@@ -35,9 +40,6 @@ propertiesw::propertiesw(const QString paths,QWidget *parent) :QWidget(parent),u
     details();
     partition(pathName);
     show();
-    int x = screensize().width()  * .27;
-    int y = screensize().height() * .6;
-    this->setFixedSize(x,y);
 
     connect( ui->close, SIGNAL( clicked() ), this, SLOT(close()));
     this->setAttribute(Qt::WA_DeleteOnClose,1);
@@ -130,7 +132,7 @@ void propertiesw::permission()
     ui->permissionsNumeric->setValidator(permNumericValidator);
     ui->permissionsNumeric->setMaxLength(3);
 
-    int ret = chmod(pathName.toLocal8Bit(),permString.toInt(0,8));
+    int ret = chmod(pathName.toLocal8Bit(),permString.toInt(0,8)); //cast
     if(ret) ui->permissions->setDisabled(1);
 
     ui->permissions->setAttribute(Qt::WA_TransparentForMouseEvents);
@@ -269,10 +271,10 @@ void propertiesw::detailmedia(QMediaPlayer::MediaStatus status)
             right << var_data.toString();
         }
 
-        float pi = m_player->duration()/60000.0;
+        float pi = static_cast<float>(m_player->duration()/60000.0);
 
         left << "Duration";
-        right << QString::number(pi) + " mins";
+        right << QString::number(static_cast<double>(pi)) + " mins";
 
         QStringListModel *infoModel = new QStringListModel(fStringList(left, right, ui->detail->font()));
         ui->detail->setModel(infoModel);
@@ -283,11 +285,12 @@ void propertiesw::detailmedia(QMediaPlayer::MediaStatus status)
 
 bool propertiesw::isExecutable( const QString path )
 {
+    QFileInfo cinfo(path);
     QStringList type;
     type << "so" << "o" << "sh" << "deb" << "rpm" << "tar.gz"
              << "tar" << "gz" << "ko" << "AppImage";
 
-    QString suffix = info.suffix();
+    QString suffix = cinfo.suffix();
 
     if (type.contains(suffix, Qt::CaseInsensitive))
         return true;

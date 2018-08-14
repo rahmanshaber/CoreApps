@@ -33,7 +33,7 @@ class pDrives : public QWidget
     Q_OBJECT
 
 public:
-    explicit pDrives(QWidget *parent = 0);
+    explicit pDrives(QWidget *parent = nullptr);
     ~pDrives();
     void reload();
 

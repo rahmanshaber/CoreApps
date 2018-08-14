@@ -53,8 +53,8 @@ void pBattery::on_batteriesList_currentIndexChanged(int index)
 {
     m_model = m_upower->batteries()->value(batteries.at(index));
 
-    ui->lvlProgress->setValue(m_model->percentage());
-    ui->capacityProgress->setValue(m_model->capacity());
+    ui->lvlProgress->setValue(static_cast<int>(m_model->percentage()));
+    ui->capacityProgress->setValue(static_cast<int>(m_model->capacity()));
 
     QTime time(0, 0, 0, 0);
     double energy = m_model->energy();
@@ -68,14 +68,14 @@ void pBattery::on_batteriesList_currentIndexChanged(int index)
             ui->timerLblEdit->setText( tr( "Full Charged" ) );
             break;
         case Battery::Discharging:
-            addSeconds = m_model->toEmpty();
-            addSeconds = rate != 0 && addSeconds == 0 ? ( energy - energyEmpty ) * 4 / rate: addSeconds;
+            addSeconds = static_cast<int>(m_model->toEmpty());
+            addSeconds = static_cast<int>(rate) != 0 && addSeconds == 0 ? static_cast<int>(( energy - energyEmpty ) * 4 / rate) : addSeconds;
             ui->statusEdit->setText( tr( "Discharging" ) );
             ui->timerLblEdit->setText( tr( "Discharged in : " ) );
             break;
         case Battery::Charging:
-            addSeconds = m_model->toFull();
-            addSeconds = rate != 0 && addSeconds == 0 ? ( energyFull - energy ) * 4 / rate : addSeconds;
+            addSeconds = static_cast<int>(m_model->toFull());
+            addSeconds = static_cast<int>(rate) != 0 && addSeconds == 0 ? static_cast<int>(( energyFull - energy ) * 4 / rate) : addSeconds;
             ui->statusEdit->setText( tr( "Charging" ) );
             ui->timerLblEdit->setText( tr( "Charged in : " ) );
             break;

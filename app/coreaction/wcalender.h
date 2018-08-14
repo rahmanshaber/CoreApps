@@ -31,7 +31,7 @@ class wCalender : public QWidget
     Q_OBJECT
 
 public:
-    explicit wCalender(QWidget *parent = 0);
+    explicit wCalender(QWidget *parent = nullptr);
     ~wCalender();
 
 private:

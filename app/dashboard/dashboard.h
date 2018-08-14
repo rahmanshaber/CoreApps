@@ -57,7 +57,7 @@ private slots:
     void on_Bdisplay_clicked();
 
 public:
-    explicit dashboard(QWidget *parent = 0);
+    explicit dashboard(QWidget *parent = nullptr);
     ~dashboard();
 
 protected:

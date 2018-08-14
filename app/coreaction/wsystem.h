@@ -33,7 +33,7 @@ class wSystem : public QWidget
     Q_OBJECT
 
 public:
-    explicit wSystem(QWidget *parent = 0);
+    explicit wSystem(QWidget *parent = nullptr);
     ~wSystem();
 
 private:

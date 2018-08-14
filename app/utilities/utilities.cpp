@@ -441,8 +441,7 @@ void setupFolder(FolderSetup fs)
         }
         break;
     }
-    default:
-        break;
+
     }
 }
 

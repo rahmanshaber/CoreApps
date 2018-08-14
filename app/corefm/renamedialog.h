@@ -34,7 +34,7 @@ class renameDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit renameDialog(QFileInfo iFile, QWidget *parent = 0);
+    explicit renameDialog(QFileInfo iFile, QWidget *parent = nullptr);
     ~renameDialog();
 
 private slots:

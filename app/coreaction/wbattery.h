@@ -34,7 +34,7 @@ class wBattery : public QWidget
     Q_OBJECT
 
 public:
-    explicit wBattery(QWidget *parent = 0);
+    explicit wBattery(QWidget *parent = nullptr);
     ~wBattery();
 
 private:

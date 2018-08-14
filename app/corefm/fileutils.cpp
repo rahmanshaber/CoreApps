@@ -391,7 +391,7 @@ qint64 FileUtils::getSize(const QString &path)
                 return statbuf.st_size;
             }
 
-            quint64 size = statbuf.st_size;
+            quint64 size = static_cast<quint64>(statbuf.st_size);
 
             longest_name = QString( path );
             if ( not longest_name.endsWith( "/" ) )
@@ -405,19 +405,19 @@ qint64 FileUtils::getSize(const QString &path)
                     if ( entry->d_type == DT_DIR ) {
 
                         /* Recurse into that folder */
-                        size += getSize( longest_name + entry->d_name );
+                        size += static_cast<quint64>(getSize( longest_name + entry->d_name ));
                     }
 
                     else {
 
                         /* Get the size of the current file */
-                        size += getSize( longest_name + entry->d_name );
+                        size += static_cast<quint64>(getSize( longest_name + entry->d_name ));
                     }
                 }
             }
 
             closedir( d_fh );
-            return size;
+            return static_cast<long>(size);
         }
 
         default: {

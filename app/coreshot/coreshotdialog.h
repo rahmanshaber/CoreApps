@@ -42,7 +42,7 @@ class coreshotdialog : public QWidget
     Q_OBJECT
 
 public:
-    explicit coreshotdialog(QWidget *parent = 0);
+    explicit coreshotdialog(QWidget *parent = nullptr);
     ~coreshotdialog();
 
 private:

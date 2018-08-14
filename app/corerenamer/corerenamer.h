@@ -60,7 +60,7 @@ class corerenamer : public QWidget
     Q_OBJECT
 
 public:
-    explicit corerenamer(QWidget *parent = 0);
+    explicit corerenamer(QWidget *parent = nullptr);
     ~corerenamer();
 
     void addFiles(const QStringList &list);

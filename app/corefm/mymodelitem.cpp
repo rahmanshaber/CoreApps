@@ -44,7 +44,7 @@ myModelItem::~myModelItem()
 
 myModelItem* myModelItem::childAt(int position)
 {
-    return mChildren.value(position,0);
+    return mChildren.value(position,nullptr);
 }
 
 int myModelItem::childCount() const
@@ -159,5 +159,5 @@ myModelItem* myModelItem::matchPath(const QStringList& path, int startIndex)
         }
     }
 
-    return 0;
+    return nullptr;
 }

@@ -15,30 +15,22 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 #include "coreaction/coreaction.h"
-
 #include "utilities/utilities.h"
 #include "settings/settingsmanage.h"
-
 
 #include <QApplication>
 #include <QFont>
 #include <QStyleFactory>
 
 
-int main(int argc, char *argv[])
+void startSetup()
 {
-    QApplication app(argc, argv);
-    app.setAttribute(Qt::AA_EnableHighDpiScaling);
-    app.setQuitOnLastWindowClosed(false);
-
     QApplication::setStyle(QStyleFactory::create("Fusion"));
-
 
     // set all the requried folders
     setupFolder(FolderSetup::BookmarkFolder);
     setupFolder(FolderSetup::DriveMountFolder);
     setupFolder(FolderSetup::TrashFolder);
-
 
     SettingsManage sm;
     // set a icon across all the apps
@@ -47,7 +39,15 @@ int main(int argc, char *argv[])
     // set one font style across all the apps
     QFont fl (sm.getFontStyle(), 10, QFont::Normal);
     QApplication::setFont(fl);
+}
 
+int main(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
+    app.setAttribute(Qt::AA_EnableHighDpiScaling);
+    app.setQuitOnLastWindowClosed(false);
+
+    startSetup();
 
     // Set application info
     app.setOrganizationName("coreaction");
@@ -59,3 +59,4 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
+

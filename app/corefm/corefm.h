@@ -68,7 +68,7 @@ class corefm : public QWidget
     Q_OBJECT
 
 public:
-    explicit corefm(QWidget *parent = 0);
+    explicit corefm(QWidget *parent = nullptr);
     ~corefm();
 
     void goTo(const QString path);

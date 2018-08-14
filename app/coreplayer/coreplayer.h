@@ -51,7 +51,7 @@ class coreplayer : public QWidget
     Q_OBJECT
 
 public:
-    explicit coreplayer(QWidget *parent = 0);
+    explicit coreplayer(QWidget *parent = nullptr);
     ~coreplayer();
 
     void openPlayer(const QString path);

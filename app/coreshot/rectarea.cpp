@@ -141,7 +141,7 @@ QRectF RectArea::topLeftCorner()
 QRectF RectArea::topMiddleCorner()
 {
     QRectF r = QRectF(0,0, cCornerSize, cCornerSize);
-    r.moveCenter(QPoint(rect().center().x(), rect().y() + cCornerSize/2));
+    r.moveCenter(QPoint(static_cast<int>(rect().center().x()), static_cast<int>(rect().y() + cCornerSize/2)));
     return r;
 }
 

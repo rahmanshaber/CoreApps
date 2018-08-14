@@ -60,7 +60,7 @@ ImageArea::ImageArea(const bool &isOpen, const QString &filePath, QWidget *paren
     connect(selectionInstrument, SIGNAL(sendEnableSelectionInstrument(bool)), this, SIGNAL(sendEnableSelectionInstrument(bool)));
 
     // Instruments handlers
-    mInstrumentsHandlers.fill(nullptr, (int)INSTRUMENTS_COUNT);
+    mInstrumentsHandlers.fill(nullptr, static_cast<int>(INSTRUMENTS_COUNT));
     mInstrumentsHandlers[CURSOR] = selectionInstrument;
     mInstrumentsHandlers[PEN] = new PencilInstrument(this);
     mInstrumentsHandlers[LINE] = new LineInstrument(this);

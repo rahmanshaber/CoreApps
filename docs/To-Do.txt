@@ -171,6 +171,7 @@ cut,copy,past ,delete in rightbutton menu in corepaint.
 show folder in coreimage use the defult filemanager.
 setting a defult file manager from mime list not possible??
 bookmark.cpp line 49 .rightbutton is not ignored.
+corepad line 25 highlighter not used
 
 
 test

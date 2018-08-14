@@ -232,7 +232,7 @@ void myModel::notifyChange()
 
     QByteArray buffer;
     buffer.resize(buffSize);
-    read(inotifyFD,buffer.data(),buffSize);// cast
+    read(inotifyFD,buffer.data(),static_cast<unsigned long>(buffSize));
     const char *at = buffer.data();
     const char * const end = at + buffSize;
 

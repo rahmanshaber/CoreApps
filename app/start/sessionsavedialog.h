@@ -34,7 +34,7 @@ class sessionSaveDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit sessionSaveDialog(QWidget *parent = 0);
+    explicit sessionSaveDialog(QWidget *parent = nullptr);
     ~sessionSaveDialog();
 
     QString sName;

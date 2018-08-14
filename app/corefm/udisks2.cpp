@@ -338,7 +338,7 @@ QString UDisks2Drive::toStringToSeperate(int i) {
         return name;
         break;
     case 2:
-        return formatSize(size);
+        return formatSize(static_cast<qint64>(size));
         break;
     case 3:
         return vendor;

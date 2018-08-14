@@ -43,7 +43,7 @@ class bookmarks : public QWidget
     Q_OBJECT
 
 public:
-    explicit bookmarks(QWidget *parent = 0);
+    explicit bookmarks(QWidget *parent = nullptr);
     ~bookmarks();
 
     void saveBookMark(QString section, QString bookmarkName, QString bookmarkPath, QString bookmarkIcon);

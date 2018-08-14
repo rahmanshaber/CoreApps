@@ -36,7 +36,7 @@ class pBattery : public QWidget
     Q_OBJECT
 
 public:
-    explicit pBattery(QWidget *parent = 0);
+    explicit pBattery(QWidget *parent = nullptr);
     ~pBattery();
 
     void reload();

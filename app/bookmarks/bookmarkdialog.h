@@ -35,7 +35,7 @@ class bookmarkDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit bookmarkDialog(QWidget *parent = 0);
+    explicit bookmarkDialog(QWidget *parent = nullptr);
     ~bookmarkDialog();
 
     void checkPath();

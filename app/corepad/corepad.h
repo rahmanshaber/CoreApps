@@ -42,7 +42,7 @@ class corepad : public QWidget
     Q_OBJECT
 
 public:
-    explicit corepad(QWidget *parent = 0);
+    explicit corepad(QWidget *parent = nullptr);
     ~corepad();
 
     QString workFilePath;
