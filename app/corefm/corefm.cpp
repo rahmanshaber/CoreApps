@@ -1,5 +1,5 @@
 ﻿/*
-CoreBox give's a file's detail information.
+CoreBox is combination of some common desktop apps
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -50,7 +50,7 @@ void corefm::startsetup()
     mimeUtils->setDefaultsFileName(name);
 
     // setup startup path
-    if (sm.getStartupPath() == "") {
+    if (sm.getStartupPath().isEmpty()) {
         startPath = QDir::homePath();
     } else {
         startPath = sm.getStartupPath();

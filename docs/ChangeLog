@@ -2,7 +2,8 @@ Version 2.3
 
 - removed unwanted cpp file from corefm.
 - fixed message box appearence mode not showing.
--
+- sepearted the less used function in utilites.h
+- fixed armv7 releated build issue.
 
 
 

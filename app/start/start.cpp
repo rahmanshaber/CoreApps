@@ -1,5 +1,5 @@
 /*
-CoreBox give's a file's detail information.
+CoreBox is combination of some common desktop apps
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -29,9 +29,6 @@ Start::Start(QWidget *parent) :QWidget(parent),ui(new Ui::Start)
     int x = static_cast<int>(screensize().width()  * .8);
     int y = static_cast<int>(screensize().height()  * .7);
     this->resize(x, y);
-
-    // Get recent activity enabled or not
-    isRecentEnable = !sm.getDisableRecent();
 
     // Configure Settings
     loadsettings();
@@ -114,7 +111,7 @@ void Start::loadSpeedDial() // populate SpeedDial list
         if (i == 15) {
             return;
         } else {
-            ui->speedDialB->addItem(new QListWidgetItem(geticon(bk.bookmarkPath("Speed Dial", mList.at(i))), mList.at(i)));
+            ui->speedDialB->addItem(new QListWidgetItem(getFileIcon(bk.bookmarkPath("Speed Dial", mList.at(i))), mList.at(i)));
         }
     }
 }
@@ -151,7 +148,7 @@ void Start::loadRecent() // populate RecentActivity list
             QTreeWidgetItem *child = new QTreeWidgetItem();
             QString value = recentActivity.value(key).toString();
             child->setText(0, value);
-            child->setIcon(0, geticon(value.split("\t\t\t").at(1)));
+            child->setIcon(0, getAppIcon(value.split("\t\t\t").at(0)));
             topTree->addChild(child);
         }
         recentActivity.endGroup();
@@ -251,7 +248,7 @@ void Start::loadSession()
                         if (value.count()) {
                             QTreeWidgetItem *child = new QTreeWidgetItem;
                             child->setText(0, value);
-                            child->setIcon(0, value.count() ? geticon(value) : appsIcon(gKey));
+                            child->setIcon(0, value.count() ? getAppIcon(value) : appsIcon(gKey));
                             midChildT->addChild(child);
                         }
                     }
@@ -323,7 +320,6 @@ void Start::loadsettings() // load settings
         ui->recentActivites->setVisible(0);
         ui->recentActivitesL->clear();
         ui->pages->setCurrentIndex(0);
-
     } else {
         ui->recentActivites->setVisible(1);
         loadRecent();

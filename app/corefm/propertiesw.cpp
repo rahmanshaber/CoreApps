@@ -1,5 +1,5 @@
 /*
-CoreBox give's a file's detail information.
+CoreBox is combination of some common desktop apps
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -60,7 +60,7 @@ void propertiesw::general()
 
     this->setWindowTitle("Properties - " + info.fileName() );
 
-    ui->fileTitle->setIcon(geticon(info.filePath()));
+    ui->fileTitle->setIcon(getFileIcon(info.filePath()));
 
     if(info.isFile()){
         ui->type->setText(littleinfo + " , " + extrainfo );

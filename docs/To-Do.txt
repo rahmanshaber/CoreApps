@@ -138,22 +138,21 @@ in-future
 
 
 utilites will be like global function .no class??
-add all all the desktop file.
+add all the desktop file.
 save to recent = fix
 start line 199,202,69
 add try icon and intregrat with all app.code utilities line 171.
-utilities line 135.
-globalfunction line 447
+utilities line 154.
+globalfunction line 161
 corepad line 459
 fix the corepaint,coeimage,corerenamer startUP .
 quiting the coreaction closing all the opend app.
 fix the creterminal open and close.
-coretime search for "fix"
 add itregation of bookmarkit ,archiver through desktop file
-restor session dose not restore all the app.
+restore session dose not restore all the app.
 coreterminal line 214
 user selectable (coreapps + systemApps) list in coreaction
-see the itemtotext function in corefm line 2323
+see the itemtotext function in corefm line 2325 .discuss the result in every folder.
 corefm  fileutilites.cpp 361
 fix movetotrsh function.
 compear the FileUtils::totalSize vs getSize
@@ -162,16 +161,16 @@ why is hilighter distroctor commented?
 fix corepad line 167 ,corerenamer line 476, settings.cpp line 472 ;according to corefm line 648
 closeAllTabs and on_paintTabs_tabCloseRequested in corepaint never exe
 corerenamer line 453 , where the work of "yes"
-same diclaration for geting filepath for recent activites.
-multipal filesize is not showing
 add an setting to turn off the highlighter of corepad.
 add updateed udisk2 and add our code in it.
-in start recentActivites dose not show the system app icon.
 cut,copy,past ,delete in rightbutton menu in corepaint.
 show folder in coreimage use the defult filemanager.
 setting a defult file manager from mime list not possible??
 bookmark.cpp line 49 .rightbutton is not ignored.
 corepad line 25 highlighter not used
+start has apptoint , app name this function.remove??
+create a defult applist like in settings??
+fine the thumbs.cache creation function.
 
 
 test

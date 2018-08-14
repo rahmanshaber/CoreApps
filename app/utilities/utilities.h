@@ -1,3 +1,19 @@
+/*
+CoreBox is combination of some common desktop apps
+
+CoreBox is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; version 2
+of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, see {http://www.gnu.org/licenses/}. */
+
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
@@ -35,13 +51,15 @@ enum FolderSetup {
 
     QRect screensize();
 
-    QIcon geticon(const QString &filePath);
     QString formatSize(qint64 num);
 
     QString sentDateText(const QString &dateTime);
     bool saveToRecent(QString appName, const QString &pathName);
 
     void setupFolder(FolderSetup fs);
+
+    QIcon getAppIcon(const QString &appName);
+    QIcon getFileIcon(const QString &filePath);
 
     #include <QStyle>
     #include <QGraphicsDropShadowEffect>

@@ -24,8 +24,6 @@ public:
             widget->setGraphicsEffect(effect);
             //if (!stylesheet.count())
                 widget->setStyleSheet(stylesheet);
-
-            //qDebug() << "Widget : " << widget->styleSheet();
         }
     }
 

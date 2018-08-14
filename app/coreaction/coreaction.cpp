@@ -1,5 +1,5 @@
 /*
-CoreBox give's a file's detail information.
+CoreBox is combination of some common desktop apps
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -27,7 +27,6 @@ coreaction::coreaction(QWidget *parent) : QWidget(parent, Qt::Dialog),ui(new Ui:
     setStyleSheet(getStylesheetFileContent(":/appStyle/style/CoreAction.qss"));
 
     widget();
-    loadsettings();
     widgetList();
     tryicon();
 
@@ -78,7 +77,6 @@ void coreaction::tryicon()  //setup coreaction tryicon
 
 void coreaction::widgetList() //setup all enabled widgets for settings
 {
-    ui->timeW->hide();
     checkWTime();
     checkWCalendar();
     checkWSystem();
@@ -90,6 +88,8 @@ void coreaction::widgetList() //setup all enabled widgets for settings
 
 bool coreaction::checkWTime()
 {
+    ui->timeW->hide();
+
     if(sm.getShowTime() == 1){
         ui->timeW->setVisible(1);
         QTimer *timer = new QTimer(this);
@@ -199,12 +199,6 @@ bool coreaction::checkWBattery()
     return false;
 }
 
-void coreaction::loadsettings() //load setting ini
-{
-    SettingsManage sm;
-    sm.createDefaultSettings();
-}
-
 void coreaction::actionshow()
 {
     widgetList();
@@ -290,8 +284,3 @@ void coreaction::on_search_clicked()
     this->hide();
 }
 
-void coreaction::closeEvent(QCloseEvent *event)
-{
-    Q_UNUSED(event);
-    QTimer::singleShot(100, qApp, SLOT(quit()));
-}

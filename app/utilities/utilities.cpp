@@ -1,5 +1,5 @@
 /*
-CoreBox give's a file's detail information.
+CoreBox is combination of some common desktop apps
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -15,6 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 #include "utilities.h"
+
+
 
 #include <QApplication>
 #include <QScreen>
@@ -54,49 +56,51 @@ QString checkIsValidFile(const QString str) // cheack if a file is valid
     return "";
 }
 
-
+#include <QMessageBox>
+#include <QDateTime>
+#include <corefm/fileutils.h>
 bool moveToTrash(const QString &fileName) // moves a file or folder to trash folder
 {
-//    if (getSize(fileName) >= 1073741824) {
-//        QMessageBox::StandardButton replyC;
-//        replyC = QMessageBox::warning(qApp->activeWindow(), "Warning!", "File size is about 1 GB or larger.\nPlease delete it instead of moveing to trash.\nDo you want to delete it?", QMessageBox::Yes | QMessageBox::No);
-//        if (replyC == QMessageBox::No) {
-//            return false;
+    if (FileUtils::getSize(fileName) >= 1073741824) {
+        QMessageBox::StandardButton replyC;
+        replyC = QMessageBox::warning(qApp->activeWindow(), "Warning!", "File size is about 1 GB or larger.\nPlease delete it instead of moveing to trash.\nDo you want to delete it?", QMessageBox::Yes | QMessageBox::No);
+        if (replyC == QMessageBox::No) {
+            return false;
 
-//        } else {
-//            QFile::remove(fileName);
-//            return true;
-//        }
-//    }
-//    else {
-//        // Check the trash folder for it't existence
-//        setupFolder(TrashFolder);
+        } else {
+            QFile::remove(fileName);
+            return true;
+        }
+    }
+    else {
+        // Check the trash folder for it't existence
+        setupFolder(TrashFolder);
 
-//        QDir trash(QDir::homePath() + "/.local/share/Trash");
-//        QFile directorySizes(trash.path() + "/directorysizes");
-//        directorySizes.open(QFile::Append);
+        QDir trash(QDir::homePath() + "/.local/share/Trash");
+        QFile directorySizes(trash.path() + "/directorysizes");
+        directorySizes.open(QFile::Append);
 
-//        QMessageBox::StandardButton reply;
-//        reply = QMessageBox::warning(qApp->activeWindow(), "Warning!", "Do you want to Trash the '" + fileName + "' ?", QMessageBox::Yes | QMessageBox::No);
-//        if (reply == QMessageBox::Yes) {
-//            QString fileLocation = fileName;
-//            if (QFile(fileLocation).exists()) {
-//                QFile(fileLocation).rename(trash.path() + "/files/" + QFileInfo(fileName).fileName());
-//            } else {
-//                QDir(QFileInfo(fileName).path()).rename(QFileInfo(fileName).fileName(), trash.path() + "/files/ " + QFileInfo(fileName).fileName());
-//            }
-//            QFile trashinfo(trash.path() + "/info/" + QFileInfo(fileName).fileName() + ".trashinfo");
-//            trashinfo.open(QFile::WriteOnly);
-//            trashinfo.write(QString("[Trash Info]\n").toUtf8());
-//            trashinfo.write(QString("Path=" + fileLocation + "\n").toUtf8());
-//            trashinfo.write(QString("DeletionDate=" + QDateTime::currentDateTime().toString("yyyy-MM-ddThh:mm:ss") + "\n").toUtf8());trashinfo.close();
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::warning(qApp->activeWindow(), "Warning!", "Do you want to Trash the '" + fileName + "' ?", QMessageBox::Yes | QMessageBox::No);
+        if (reply == QMessageBox::Yes) {
+            QString fileLocation = fileName;
+            if (QFile(fileLocation).exists()) {
+                QFile(fileLocation).rename(trash.path() + "/files/" + QFileInfo(fileName).fileName());
+            } else {
+                QDir(QFileInfo(fileName).path()).rename(QFileInfo(fileName).fileName(), trash.path() + "/files/ " + QFileInfo(fileName).fileName());
+            }
+            QFile trashinfo(trash.path() + "/info/" + QFileInfo(fileName).fileName() + ".trashinfo");
+            trashinfo.open(QFile::WriteOnly);
+            trashinfo.write(QString("[Trash Info]\n").toUtf8());
+            trashinfo.write(QString("Path=" + fileLocation + "\n").toUtf8());
+            trashinfo.write(QString("DeletionDate=" + QDateTime::currentDateTime().toString("yyyy-MM-ddThh:mm:ss") + "\n").toUtf8());trashinfo.close();
 
-//            // Function from globalfunctions.cpp
-//            messageEngine("File Moved to Trash", MessageType::Info);
-//            return true;
-//        }
-//    }
-//    return false;
+            // Function from globalfunctions.cpp
+            messageEngine("File Moved to Trash", MessageType::Info);
+            return true;
+        }
+    }
+    return false;
 }
 
 #include <QLabel>
@@ -445,10 +449,23 @@ void setupFolder(FolderSetup fs)
     }
 }
 
+QIcon getAppIcon(const QString &appName) // gives a app icon from selected theme
+{
+    SettingsManage sm;
+    QIcon icon;
+    icon = QIcon::fromTheme(appName, QIcon::fromTheme(sm.getThemeName()));
+
+    if (icon.isNull())
+        return QApplication::style()->standardIcon(QStyle::SP_DesktopIcon);
+    else
+        return icon;
+}
+
 #include <QMimeDatabase>
 #include <QMimeType>
-QIcon geticon(const QString &filePath) // gives a file or folder icon from system
+QIcon getFileIcon(const QString &filePath) // gives a file or folder icon from system
 {
+    SettingsManage sm;
     QIcon icon;
     QFileInfo info(filePath);
 
@@ -462,6 +479,7 @@ QIcon geticon(const QString &filePath) // gives a file or folder icon from syste
         return QApplication::style()->standardIcon(QStyle::SP_FileIcon);
     else
         return icon;
+
 }
 
 // ======================== Recent Activity =============================

@@ -1,5 +1,5 @@
 /*
-CoreBox give's a file's detail information.
+CoreBox is combination of some common desktop apps
 
 CoreBox is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -105,7 +105,7 @@ void bookmarks::callBookMarkDialog(QWidget *parent, const QString &currentPath)
     const QString str = bm.checkingBookPathEx(currentPath);
     if (str.isEmpty() || str.isNull()) {
         bookmarkDialog *bkdlg = new bookmarkDialog(parent);
-        QIcon ico = geticon(currentPath);
+        QIcon ico = getFileIcon(currentPath);
         QPixmap pix = ico.pixmap(QSize(100, 80));
         bkdlg->setBookPath(currentPath);
         bkdlg->setBookName(info.fileName() + "");
@@ -174,7 +174,7 @@ void bookmarks::on_section_itemClicked(QListWidgetItem *item)
     QTableWidgetItem *items;
     for (int i = 0; i < count; i++) {
         items = new QTableWidgetItem(mList.at(i));
-        items->setIcon(geticon(bk.bookmarkPath(ui->section->currentItem()->text(), mList.at(i))));
+        items->setIcon(getFileIcon(bk.bookmarkPath(ui->section->currentItem()->text(), mList.at(i))));
 
         ui->boklist->setItem(i, 0, items);
         ui->boklist->setItem(i, 1, new QTableWidgetItem(bk.bookmarkPath(ui->section->currentItem()->text(), mList.at(i))));
