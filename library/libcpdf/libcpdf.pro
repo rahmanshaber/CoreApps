@@ -6,9 +6,11 @@ CONFIG += c++11
 
 # disable all build warnings
 CONFIG += warn_off
+CONFIG += silent warn_on shared_and_static
 
 # Disable Debug on Release
 CONFIG(release):DEFINES += QT_NO_DEBUG_OUTPUT
+
 
 QT += widgets\
       webengine\

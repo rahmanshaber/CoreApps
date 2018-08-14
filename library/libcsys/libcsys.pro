@@ -5,6 +5,8 @@ TEMPLATE = lib
 
 # disable all build warnings
 CONFIG += warn_off
+CONFIG += silent warn_on shared_and_static
+
 
 # Disable Debug on Release
 CONFIG(release):DEFINES += QT_NO_DEBUG_OUTPUT
@@ -38,8 +40,6 @@ HEADERS += \
     Utils/file_util.h \
     Utils/format_util.h \
 
-
-CONFIG += silent warn_on
 MOC_DIR			= ../build/moc
 OBJECTS_DIR		= ../build/obj
 RCC_DIR			= ../build/qrc

@@ -2,7 +2,8 @@ TEMPLATE	= lib
 TARGET		= carchiver
 
 # disable all build warnings
-#CONFIG += warn_off
+CONFIG += warn_off
+CONFIG += silent warn_on shared_and_static
 
 # Disable Debug on Release
 CONFIG(release):DEFINES += QT_NO_DEBUG_OUTPUT
@@ -28,7 +29,6 @@ lessThan(QT_MAJOR_VERSION, 5) {
 	SOURCES += MimeHandler/*.cpp StandardPaths/*.cpp
 }
 
-CONFIG += silent warn_on shared_and_static
 QT -= gui
 
 MOC_DIR			= ../build/moc
