@@ -16,9 +16,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 #include "mymodel.h"
 
-#include "corefm.h"
-
-
 /**
  * @brief Creates file system model
  * @param realMime

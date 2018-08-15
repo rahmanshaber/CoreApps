@@ -62,6 +62,13 @@ QString checkIsValidFile(const QString str) // cheack if a file is valid
 bool moveToTrash(const QString &fileName) // moves a file or folder to trash folder
 {
     if (FileUtils::getSize(fileName) >= 1073741824) {
+
+//        QMessageBox message(QMessageBox::warning, tr("Warning!"),"File size is about 1 GB or larger.\nPlease delete it instead of moveing to trash.\nDo you want to delete it?"", QMessageBox::No | QMessageBox::Yes);
+//        message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
+//        message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
+
+//        int merge = message.exec();
+
         QMessageBox::StandardButton replyC;
         replyC = QMessageBox::warning(qApp->activeWindow(), "Warning!", "File size is about 1 GB or larger.\nPlease delete it instead of moveing to trash.\nDo you want to delete it?", QMessageBox::Yes | QMessageBox::No);
         if (replyC == QMessageBox::No) {
@@ -82,6 +89,12 @@ bool moveToTrash(const QString &fileName) // moves a file or folder to trash fol
 
         QMessageBox::StandardButton reply;
         reply = QMessageBox::warning(qApp->activeWindow(), "Warning!", "Do you want to Trash the '" + fileName + "' ?", QMessageBox::Yes | QMessageBox::No);
+
+//        QMessageBox message(QMessageBox::warning, tr("Delete Section"),"Do you want to Trash the '" + fileName + "' ?", QMessageBox::No | QMessageBox::Yes);
+//        message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
+//        message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
+
+//        int merge = message.exec();
         if (reply == QMessageBox::Yes) {
             QString fileLocation = fileName;
             if (QFile(fileLocation).exists()) {

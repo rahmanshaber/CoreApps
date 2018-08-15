@@ -23,6 +23,9 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QProgressBar>
 #include <QtGui>
 #include <QPushButton>
+#include <QGridLayout>
+
+#include <utilities/utilities.h>
 
 
 class myProgressDialog : public QDialog

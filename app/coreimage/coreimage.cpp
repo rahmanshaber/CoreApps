@@ -459,7 +459,7 @@ void coreimage::on_cProperties_clicked(bool checked)
 
 void coreimage::on_openincorepaint_clicked()
 {
-    appEngine(AppsName::CorePaint, currentImagePath);
+//    appEngine(AppsName::CorePaint, currentImagePath);
 }
 
 void coreimage::on_openThumbview_clicked()

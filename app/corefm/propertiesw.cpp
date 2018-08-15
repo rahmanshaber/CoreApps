@@ -17,8 +17,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include "propertiesw.h"
 #include "ui_propertiesw.h"
 
-#include "corefm.h"
-
 
 propertiesw::propertiesw(const QString paths,QWidget *parent) :QWidget(parent),ui(new Ui::propertiesw)
 {

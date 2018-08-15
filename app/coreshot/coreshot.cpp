@@ -50,7 +50,7 @@ void coreshot::on_openInCorePaint_clicked()
     ui->shotPreview->originalPixmap().save(&file, "PNG");
     file.close();
     files = fileName;
-    appEngine(CorePaint, files);
+//    appEngine(CorePaint, files);
     this->close();
 }
 
@@ -99,6 +99,6 @@ void coreshot::on_openInCoreImage_clicked()
     ui->shotPreview->originalPixmap().save(&file, "PNG");
     file.close();
     files = fileName;
-    appEngine(CoreImage, files);
+//    appEngine(CoreImage, files);
     this->close();
 }

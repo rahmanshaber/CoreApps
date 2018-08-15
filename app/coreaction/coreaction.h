@@ -40,9 +40,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include "settings/settingsmanage.h"
 #include "utilities/globalfunctions.h"
 #include "about/about.h"
-#include "dashboard/info_manager.h"
-#include "dashboard/upower.h"
-#include "dashboard/battery.h"
 #include "coreshot/coreshotdialog.h"
 
 

@@ -16,8 +16,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 #include "progressdlg.h"
 
-#include "corefm.h"
-
 
 myProgressDialog::myProgressDialog(QString title)
 {

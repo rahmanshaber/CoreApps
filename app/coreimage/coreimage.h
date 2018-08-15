@@ -43,9 +43,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QShortcut>
 
 #include "utilities/utilities.h"
-#include "bookmarks//bookmarks.h"
-#include "bookmarks/bookmarkdialog.h"
-#include "corepaint/corepaint.h"
+#include "bookmarks/bookmarks.h"
 
 
 namespace Ui {

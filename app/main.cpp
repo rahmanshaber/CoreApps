@@ -63,11 +63,11 @@ int main(int argc, char *argv[])
     Start s;
     s.show();
 
-    corefm a;
-    a.show();
+//    corefm a;
+//    a.show();
 
-    coreaction e;
-    e.show();
+//    coreaction e;
+//    e.show();
 
     return app.exec();
 }

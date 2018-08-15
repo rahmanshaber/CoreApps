@@ -27,11 +27,10 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QTableWidgetItem>
+#include <QMessageBox>
 
 #include "utilities/utilities.h"
-#include "corefm/corefm.h"
-#include "corepad/corepad.h"
-#include "coreimage/coreimage.h"
+#include "corefm/mimeutils.h"
 
 
 namespace Ui {

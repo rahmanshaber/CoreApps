@@ -53,10 +53,9 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 #include "utilities/utilities.h"
 #include "utilities/globalfunctions.h"
-#include "../settings/settingsmanage.h"
-#include "../bookmarks/bookmarks.h"
-#include "../bookmarks/bookmarkdialog.h"
-#include "../corearchiver/corearchiver.h"
+#include "settings/settingsmanage.h"
+#include "bookmarks/bookmarks.h"
+#include "corearchiver/corearchiver.h"
 
 
 namespace Ui {

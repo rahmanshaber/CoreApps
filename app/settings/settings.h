@@ -29,7 +29,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QMessageBox>
 
 #include "corefm/mimeutils.h"
-#include "corefm/fileutils.h"
 #include "corefm/applicationdialog.h"
 #include "utilities/utilities.h"
 #include "corearchiver/corearchiver.h"
@@ -78,7 +77,6 @@ private:
     void setupCoreActionPage();
     void setupCoreFMPage();
     void setupCoreShotPage();
-
     void setupMime();
 };
 

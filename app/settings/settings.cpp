@@ -328,8 +328,6 @@ void settings::moveAppAssocDown()
 
 void settings::on_cancel_clicked()
 {
-//    CoreBox *cBox = qobject_cast<CoreBox*>(qApp->activeWindow());
-//    cBox->closeCurrentTab();
     close();
     deleteLater();
 }

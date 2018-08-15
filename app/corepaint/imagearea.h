@@ -51,8 +51,8 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QDir>
 #include <QClipboard>
 
-#include "../settings/settingsmanage.h"
-#include "../utilities/utilities.h"
+#include "settings/settingsmanage.h"
+#include "utilities/utilities.h"
 
 
 QT_BEGIN_NAMESPACE

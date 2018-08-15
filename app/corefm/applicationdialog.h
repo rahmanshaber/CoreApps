@@ -18,6 +18,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #define APPLICATIONDIALOG_H
 
 #include "desktopfile.h"
+#include "fileutils.h"
 
 #include <QDialog>
 #include <QTreeWidget>

@@ -43,9 +43,8 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QShortcut>
 
 #include "utilities/utilities.h"
-#include "../settings/settingsmanage.h"
-#include "../bookmarks/bookmarks.h"
-#include "../bookmarks/bookmarkdialog.h"
+#include "settings/settingsmanage.h"
+#include "bookmarks/bookmarks.h"
 
 
 QT_BEGIN_NAMESPACE

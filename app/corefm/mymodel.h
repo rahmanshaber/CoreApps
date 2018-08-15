@@ -18,6 +18,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #define MYMODEL_H
 
 #include "mymodelitem.h"
+#include "fileutils.h"
 
 #include <QtGui>
 #include <sys/inotify.h>
