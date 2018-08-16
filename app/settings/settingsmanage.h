@@ -44,6 +44,15 @@ public:
     QString getThemeName();
     bool setThemeName(QString themeName);
 
+    bool setFileManager(QString termName);
+    QString getFileManager();
+
+    bool setTextEditor(QString termName);
+    QString getTextEditor();
+
+    bool setImageViewer(QString termName);
+    QString getImageViewer();
+
     bool getIsRealMimeType();
     bool setIsRealMimeType(bool isRealMime);
 

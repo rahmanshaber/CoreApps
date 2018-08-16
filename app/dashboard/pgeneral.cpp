@@ -96,7 +96,7 @@ void pgeneral::updateMemoryBar()
     if (im->getMemTotal())
         memUsedPercent = static_cast<int>((static_cast<double>(im->getMemUsed()) / static_cast<double>(im->getMemTotal()) ) * 100.0);
 
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     QString f_memUsed  = formatSize(static_cast<int>(im->getMemUsed()));
     QString f_memTotal = formatSize(static_cast<int>(im->getMemTotal()));
 
@@ -121,7 +121,7 @@ void pgeneral::updateNetworkBar()
     quint64 d_RXbytes = (RXbytes - l_RXbytes);
     quint64 d_TXbytes = (TXbytes - l_TXbytes);
 
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     QString downText = formatSize(static_cast<int>(d_RXbytes));
     QString upText = formatSize(static_cast<int>(d_TXbytes));
 
@@ -135,7 +135,7 @@ void pgeneral::updateNetworkBar()
     ui->dspeed->setText(downText);
     ui->uspeed->setText(upText);
 
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     ui->dtotal->setText(formatSize(static_cast<int>(RXbytes)));
     ui->utotal->setText(formatSize(static_cast<int>(TXbytes)));
 

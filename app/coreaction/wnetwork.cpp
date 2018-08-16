@@ -49,7 +49,7 @@ void wNetwork::checkNetwork()
     quint64 d_RXbytes = (RXbytes - l_RXbytes);
     quint64 d_TXbytes = (TXbytes - l_TXbytes);
 
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     QString downText = formatSize(static_cast<int>(d_RXbytes));
     QString upText = formatSize(static_cast<int>(d_TXbytes));
 

@@ -1587,51 +1587,6 @@
     <string>SelectAll</string>
    </property>
   </action>
-  <action name="actionCorePlayer">
-   <property name="icon">
-    <iconset resource="../icons.qrc">
-     <normaloff>:/app/icons/app-icons/CorePlayer.svg</normaloff>:/app/icons/app-icons/CorePlayer.svg</iconset>
-   </property>
-   <property name="text">
-    <string>CorePlayer</string>
-   </property>
-  </action>
-  <action name="actionCorePad">
-   <property name="icon">
-    <iconset resource="../icons.qrc">
-     <normaloff>:/app/icons/app-icons/CorePad.svg</normaloff>:/app/icons/app-icons/CorePad.svg</iconset>
-   </property>
-   <property name="text">
-    <string>CorePad</string>
-   </property>
-  </action>
-  <action name="actionCoreFM">
-   <property name="icon">
-    <iconset resource="../icons.qrc">
-     <normaloff>:/app/icons/app-icons/CoreFM.svg</normaloff>:/app/icons/app-icons/CoreFM.svg</iconset>
-   </property>
-   <property name="text">
-    <string>CoreFM</string>
-   </property>
-  </action>
-  <action name="actionCoreImage">
-   <property name="icon">
-    <iconset resource="../icons.qrc">
-     <normaloff>:/app/icons/app-icons/CoreImage.svg</normaloff>:/app/icons/app-icons/CoreImage.svg</iconset>
-   </property>
-   <property name="text">
-    <string>CoreImage</string>
-   </property>
-  </action>
-  <action name="actionCorePaint">
-   <property name="icon">
-    <iconset resource="../icons.qrc">
-     <normaloff>:/app/icons/app-icons/CorePaint.svg</normaloff>:/app/icons/app-icons/CorePaint.svg</iconset>
-   </property>
-   <property name="text">
-    <string>CorePaint</string>
-   </property>
-  </action>
   <action name="actionTrash_it">
    <property name="icon">
     <iconset resource="../icons.qrc">
@@ -1674,15 +1629,6 @@
     <string>Run</string>
    </property>
   </action>
-  <action name="actionCorePDF">
-   <property name="icon">
-    <iconset resource="../icons.qrc">
-     <normaloff>:/app/icons/app-icons/CorePDF.svg</normaloff>:/app/icons/app-icons/CorePDF.svg</iconset>
-   </property>
-   <property name="text">
-    <string>CorePDF</string>
-   </property>
-  </action>
   <action name="action_Rename">
    <property name="text">
     <string>&amp;Rename</string>
@@ -1705,6 +1651,11 @@
   <action name="actionCreate_Shortcut">
    <property name="text">
     <string>Create Shortcut</string>
+   </property>
+  </action>
+  <action name="actionNew_Window">
+   <property name="text">
+    <string>New Window</string>
    </property>
   </action>
  </widget>

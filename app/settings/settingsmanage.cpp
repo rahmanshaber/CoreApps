@@ -26,16 +26,19 @@ void SettingsManage::createDefaultSettings()
 {
     if (!QFileInfo(cSetting->fileName()).exists()) {
 
-        cSetting->beginGroup("CoreBox");
+        cSetting->beginGroup("CoreApps");
         cSetting->setValue("Recent-Disable", false);
         cSetting->setValue("Force-Theme", QIcon::themeName());
         cSetting->setValue("Style-Mode", false);
         cSetting->setValue("Font-Style", "Cantarell");
         cSetting->setValue("Add-Shadow", true);
+        cSetting->setValue("Terminal", "CoreTerminal");
+        cSetting->setValue("File-Manager", "CoreFM");
+        cSetting->setValue("Text-Editor", "CorePad");
+        cSetting->setValue("Image-Viewer", "CoreImage");
         cSetting->endGroup();
 
         cSetting->beginGroup("CoreFM");
-        cSetting->setValue("Terminal", "CoreTerminal");
         cSetting->setValue("Startup-Path", QDir::homePath());
         cSetting->setValue("Real-Mime-Types", true);
         cSetting->setValue("Zoom", 32);
@@ -84,51 +87,75 @@ QVariant SettingsManage::getSpecificValue(QString groupName, QString keyName) {
     return QVariant();
 }
 
-//-------------------------CoreBox--------------------------------------
+//-------------------------CoreApps--------------------------------------
 
 bool SettingsManage::setDisableRecent(bool showRecent) {
-    return setSpecificValue("CoreBox", "Recent-Disable", showRecent);
+    return setSpecificValue("CoreApps", "Recent-Disable", showRecent);
 }
 
 bool SettingsManage::getDisableRecent() {
-    return getSpecificValue("CoreBox", "Recent-Disable").toBool();
+    return getSpecificValue("CoreApps", "Recent-Disable").toBool();
 }
 
 bool SettingsManage::setStyleMode(bool mode) {
-    return setSpecificValue("CoreBox", "Style-Mode", mode);
+    return setSpecificValue("CoreApps", "Style-Mode", mode);
 }
 
 bool SettingsManage::getStyleMode() {
-    return getSpecificValue("CoreBox", "Style-Mode").toBool();
+    return getSpecificValue("CoreApps", "Style-Mode").toBool();
 }
 
 bool SettingsManage::setFontStyle(QString fontStyle) {
-    return setSpecificValue("CoreBox", "Font-Style", fontStyle);
+    return setSpecificValue("CoreApps", "Font-Style", fontStyle);
 }
 
 QString SettingsManage::getFontStyle() {
-    return getSpecificValue("CoreBox", "Font-Style").toString();
+    return getSpecificValue("CoreApps", "Font-Style").toString();
 }
 
 bool SettingsManage::setAddShadow(bool addShadow) {
-    return setSpecificValue("CoreBox", "Add-Shadow", addShadow);
+    return setSpecificValue("CoreApps", "Add-Shadow", addShadow);
 }
 
 bool SettingsManage::getAddShadow() {
-    return getSpecificValue("CoreBox", "Add-Shadow").toBool();
+    return getSpecificValue("CoreApps", "Add-Shadow").toBool();
 }
-//-------------------------CoreBox--------------------------------------
-
-
-//-------------------------CoreFM--------------------------------------
 
 bool SettingsManage::setTerminal(QString termName) {
-    return setSpecificValue("CoreFM", "Terminal", termName);
+    return setSpecificValue("CoreApps", "Terminal", termName);
 }
 
 QString SettingsManage::getTerminal() {
-    return getSpecificValue("CoreFM", "Terminal").toString();
+    return getSpecificValue("CoreApps", "Terminal").toString();
 }
+
+bool SettingsManage::setFileManager(QString termName) {
+    return setSpecificValue("CoreApps", "File-Manager", termName);
+}
+
+QString SettingsManage::getFileManager() {
+    return getSpecificValue("CoreApps", "File-Manager").toString();
+}
+
+bool SettingsManage::setTextEditor(QString termName) {
+    return setSpecificValue("CoreApps", "Text-Editor", termName);
+}
+
+QString SettingsManage::getTextEditor() {
+    return getSpecificValue("CoreApps", "Text-Editor").toString();
+}
+
+bool SettingsManage::setImageViewer(QString termName) {
+    return setSpecificValue("CoreApps", "Image-Viewer", termName);
+}
+
+QString SettingsManage::getImageViewer() {
+    return getSpecificValue("CoreApps", "Image-Viewer").toString();
+}
+//-------------------------CoreApps--------------------------------------
+
+
+//-------------------------CoreFM--------------------------------------
 
 bool SettingsManage::setThemeName(QString themeName) {
     return setSpecificValue("CoreFM", "Force-Theme", themeName);

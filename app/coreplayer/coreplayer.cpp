@@ -75,7 +75,7 @@ void coreplayer::startsetup()
     connect(ui->seekBar,SIGNAL(sliderMoved(int)),this,SLOT(seek(int)));
 
     if (!isPlayerAvailable()) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         QString mess = tr("The QMediaPlayer object does not have a valid service\nPlease check the media service plugins are installed.") ;
         messageEngine(mess,MessageType::Warning);
      }
@@ -220,18 +220,18 @@ void coreplayer::statusChanged(QMediaPlayer::MediaStatus status)
     case QMediaPlayer::BufferedMedia:
         break;
     case QMediaPlayer::LoadingMedia:
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Loading...", MessageType::Info);
         break;
     case QMediaPlayer::StalledMedia:
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Media Stalled", MessageType::Info);
         break;
     case QMediaPlayer::EndOfMedia:
         QApplication::alert(this);
         break;
     case QMediaPlayer::InvalidMedia:
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Invalid Media", MessageType::Warning);
         break;
     }
@@ -251,13 +251,13 @@ void coreplayer::handleCursor(QMediaPlayer::MediaStatus status)
 
 void coreplayer::bufferingProgress(int progress)
 {
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine(tr("Buffering %4%").arg(progress), MessageType::Info);
 }
 
 void coreplayer::displayErrorMessage()
 {
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine(player->errorString(), MessageType::Warning);
 }
 
@@ -345,7 +345,7 @@ void coreplayer::openPlayer(const QString path)
         ui->playingL->setVisible(true);
         ui->playing->setText(QFileInfo(path).fileName());
         folderpath = QFileInfo(path).path();
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Playing", MessageType::Info);
     }
 
@@ -365,7 +365,7 @@ void coreplayer::on_open_clicked()
         folderpath = QFileInfo(dialog.selectedFiles().first()).path();
         openPlayer(filepath);
 
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Files Collected", MessageType::Info);
 
         for (QToolButton *b : ui->toolBar->findChildren<QToolButton*>()){
@@ -374,7 +374,7 @@ void coreplayer::on_open_clicked()
         ui->seekBar->setEnabled(true);
         ui->volume->setEnabled(true);
     } else {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Files collection rejected", MessageType::Info);
     }
 }
@@ -416,13 +416,13 @@ void coreplayer::on_play_clicked(bool checked)
         if(ui->medialist->currentIndex().row() != -1){play(ui->medialist->currentIndex().row());}
         else{play(0);}
         if(ui->shortcut->isVisible()){ui->shortcut->setVisible(false);}
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Playing", MessageType::Info);
     }
     else{
         setState(QMediaPlayer::PausedState);
         player->pause();
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Paused", MessageType::Info);
     }
 }
@@ -518,7 +518,7 @@ void coreplayer::on_medialist_doubleClicked(const QModelIndex &index)
     on_stop_clicked();
     play(index.row());
     ui->play->setChecked(true);
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine("Playing", MessageType::Info);
 }
 

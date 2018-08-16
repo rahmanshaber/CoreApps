@@ -116,7 +116,7 @@ bool corepad::initializeNewTab(const QString &filePath)
         connect(text, &coreedit::textChanged, this, &corepad::textTextChanged);
         return true;
     } else {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Reached page limit.\nClose some tab.", MessageType::Warning);
     }
     return false; //Return an exception - There is some other causes happening.
@@ -172,7 +172,7 @@ bool corepad::closeTab(int index)
         if (reply == QMessageBox::Save) {
             bool closed = on_cSave_clicked();
             if (closed) {
-                // Function from globalfunctions.cpp
+                // Function from utilities.cpp
                 saveToRecent("CorePad", currentFilePath(index));
                 goto CLOSE_THE_TAB;
             } else {
@@ -180,14 +180,14 @@ bool corepad::closeTab(int index)
             }
         } else if (reply == QMessageBox::Discard) {
             if (checkIsSaved)
-                // Function from globalfunctions.cpp
+                // Function from utilities.cpp
                 saveToRecent("CorePad", currentFilePath(index));
             goto CLOSE_THE_TAB;
         } else {
             return false;
         }
     } else if ((!checkIsUpdate && checkIsSaved) || (!checkIsUpdate && !checkIsSaved)) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         saveToRecent("CorePad", currentFilePath(index));
         CLOSE_THE_TAB:
         ui->notes->widget(index)->deleteLater();
@@ -302,7 +302,7 @@ void corepad::on_cOpen_clicked()
 {
     workFilePath = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::homePath() + "/Documents", tr("Text Files (*.*)"));
     if (workFilePath.isEmpty()) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Empty File Name", MessageType::Warning);
         return;
     }
@@ -326,7 +326,7 @@ bool corepad::on_cSave_clicked()
     if (!saved && updated) {
         workFilePath = QFileDialog::getSaveFileName(this, tr("Save File"), ui->notes->tabText(ui->notes->currentIndex()).remove(0, 1) ,tr("Text Files (*.*)"));
         if (workFilePath.isEmpty()) {
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             messageEngine("Empty File Name", MessageType::Warning);
             return false;
         } else {
@@ -339,11 +339,11 @@ bool corepad::on_cSave_clicked()
         if (saveto) {
             setCurrent(index, 1, 0, workFilePath);
             ui->notes->setTabText(index, QFileInfo(workFilePath).fileName());
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             messageEngine("File Saved", MessageType::Info);
             return true;
         } else {
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             messageEngine("Can't open file", MessageType::Warning);
         }
     }
@@ -362,7 +362,7 @@ void corepad::on_cSaveAs_clicked()
                                                       tr("Text Files (*.*)"));
     int index = ui->notes->currentIndex();
     if (fileName.isEmpty()) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Empty File Name", MessageType::Warning);
         return;
     }
@@ -371,10 +371,10 @@ void corepad::on_cSaveAs_clicked()
         if (saveto) {
             ui->notes->setTabText(index, QFileInfo(fileName).fileName());
             setCurrent(index, 1, 0, fileName);
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             messageEngine("File Saved", MessageType::Info);
         } else {
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             messageEngine("Can't open file", MessageType::Warning);
             return;
         }
@@ -419,7 +419,7 @@ void corepad::on_bookMarkIt_clicked()
 {
     if (!currentFilePath(ui->notes->currentIndex()).isNull()) {
         if (!QFileInfo(workFilePath).exists()) {
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             messageEngine("File Not saved.", MessageType::Warning);
             return;
         }

@@ -25,6 +25,10 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QFont>
 #include <QStyleFactory>
 
+#include <QProcess>
+#include <QStandardPaths>
+#include <QDir>
+
 
 void startSetup()
 {
@@ -62,6 +66,34 @@ int main(int argc, char *argv[])
 
     Start s;
     s.show();
+
+
+
+
+    // experement
+
+//    QProcess q1;
+//    q1.start("xfce4-terminal", QStringList() << "-c" << "htop");
+
+
+//    QProcess *q1 = new QProcess;;
+//    QString k("htop");
+//    QString l(QDir::homePath());
+//    QStringList args;
+//    args << k;
+////    q1->setWorkingDirectory(QDir::homePath());
+//    q1->startDetached("xfce4-terminal",QStringList() << "htop",l);
+//    q1->waitForFinished();
+//    qDebug()<< q1->readAllStandardOutput();
+
+//    QProcess *Process = new QProcess();
+//        QString exec = "xfce4-terminal";
+//        QStringList params;
+//        params <<"ls";
+//        Process->start(exec,params,QIODevice::ReadWrite);
+//        Process->waitForFinished(-1);
+//        QString p_stdout = Process->readAllStandardOutput();
+//        qDebug()<<p_stdout;
 
 //    corefm a;
 //    a.show();

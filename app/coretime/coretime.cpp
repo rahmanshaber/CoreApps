@@ -301,7 +301,7 @@ void coretime::SnoozeMenuCheck()
 
 void coretime::PMWarning()
 {
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     QString mess = "Your selected time is set for PM.\n"
                    " If you intended to wake in the morning, now is your chance to fix it";
     messageEngine(mess, MessageType::Warning);

@@ -105,7 +105,7 @@ void coreimage::shotcuts()
 void coreimage::closeEvent(QCloseEvent *event)
 {
     event->ignore();
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     saveToRecent("CoreImage", currentImagePath);
     event->accept();
 }
@@ -182,7 +182,7 @@ bool coreimage::loadFile(const QString &fileName)
         reader.setAutoTransform(true);
         const QImage newImage = reader.read();
         if (newImage.isNull()) {
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             QString mess = tr("Cannot load \n%1 \n%2").arg(QFileInfo(fileName).baseName(), reader.errorString()) ;
             messageEngine(mess,MessageType::Warning);
             return false;
@@ -250,7 +250,7 @@ void coreimage::setImage(const QImage &newImage)
     ui->name->setText("Name : " + nam + " ; ");
     ui->height->setText("Height : " + h + " px ; ");
     ui->width->setText("Width : " + w + " px ; ");
-    ui->size->setText("Size : " + formatSize(info.size()) + " ; "); // Function from globalfunctions.cpp
+    ui->size->setText("Size : " + formatSize(info.size()) + " ; "); // Function from utilities.cpp
     ui->type->setText("Type : " + typ + " ; ");
 }
 
@@ -356,13 +356,13 @@ bool coreimage::saveFile(const QString &fileName)
     QImageWriter writer(fileName);
 
     if (!writer.write(image)) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         QString mess = tr("Cannot write %1: %2").arg(QDir::toNativeSeparators(fileName)).arg(writer.errorString());
         messageEngine(mess, MessageType::Info);
 
         return false;
     } else {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Image Saved", MessageType::Info);
     }
     return true;
@@ -372,7 +372,7 @@ void coreimage::on_cSave_clicked()
 {
     QImageWriter wr(currentImagePath);
     if (wr.write(image)) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Image Saved", MessageType::Info);
     }
 }
@@ -459,7 +459,7 @@ void coreimage::on_cProperties_clicked(bool checked)
 
 void coreimage::on_openincorepaint_clicked()
 {
-//    appEngine(AppsName::CorePaint, currentImagePath);
+//    appEngines(AppsName::CorePaint, currentImagePath);
 }
 
 void coreimage::on_openThumbview_clicked()
@@ -475,7 +475,7 @@ void coreimage::on_openThumbview_clicked()
 
 void coreimage::on_containingfolder_clicked()
 {
-//    appEngine(CoreFM, QFileInfo(currentImagePath).path());
+    appEngine(FileManager, QFileInfo(currentImagePath).path());
 }
 
 void coreimage::on_thumnailView_itemClicked(QListWidgetItem *item)
@@ -487,7 +487,7 @@ void coreimage::on_cTrashIt_clicked()
 {
     int index = images.indexOf(currentImagePath);
 
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     if(moveToTrash(currentImagePath) == true){
         images.removeAt(index);
         if (images.count() == 0) {

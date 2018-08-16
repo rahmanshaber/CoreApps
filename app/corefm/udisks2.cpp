@@ -229,7 +229,7 @@ QString UDisks2Block::toStringToSeperate(int i) {
         return name;
         break;
     case 2:
-        return formatSize(size);// Function from globalfunctions.cpp
+        return formatSize(size);// Function from utilities.cpp
         break;
     case 3:
         return dev;

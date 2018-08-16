@@ -45,10 +45,10 @@ settings::~settings()
 
 void settings::setupCoreBoxPage()
 {
-    //general
+    // general
     ui->isRecentDisable->setChecked(sm.getDisableRecent());
 
-    //looks & feel
+    // looks & feel
     QString currentTheme = sm.getThemeName();
     QDirIterator it("/usr/share/icons", QDir::Dirs | QDir::NoDotAndDotDot);
     QStringList iconThemes;
@@ -64,6 +64,12 @@ void settings::setupCoreBoxPage()
     ui->cmbStyleTheme->setCurrentIndex(sm.getStyleMode());
     ui->cmbFontStyle->setCurrentText(sm.getFontStyle());
     ui->addShadow->setChecked(sm.getAddShadow());
+
+    // Preferred Applications
+    ui->terminals->setCurrentText(sm.getTerminal());
+    ui->fileManger->setCurrentText(sm.getFileManager());
+    ui->textEditor->setCurrentText(sm.getTextEditor());
+    ui->imageViewer->setCurrentText(sm.getImageViewer());
 }
 
 void settings::setupCoreActionPage()
@@ -89,9 +95,6 @@ void settings::setupCoreFMPage()
     ui->view->addItem("Detail");
     ui->view->addItem("Icon");
     ui->view->setCurrentIndex(sm.getViewMode());
-
-    //terminal
-    ui->terminals->setCurrentText(sm.getTerminal());
 
     //setup mimes
     setupMime();
@@ -345,6 +348,10 @@ void settings::on_ok_clicked()
     sm.setStyleMode(ui->cmbStyleTheme->currentIndex() ? true :false );
     sm.setFontStyle(ui->cmbFontStyle->currentText());
     sm.setAddShadow(ui->addShadow->isChecked());
+    sm.setTerminal(ui->terminals->currentText());
+    sm.setTextEditor(ui->textEditor->currentText());
+    sm.setImageViewer(ui->imageViewer->currentText());
+    sm.setFileManager(ui->fileManger->currentText());
 
     //corefm
     if (ui->setDefaultApp->isChecked()) {
@@ -369,7 +376,6 @@ void settings::on_ok_clicked()
         mimeUtils->saveDefaults();
     }
 
-    sm.setTerminal(ui->terminals->currentText());
     sm.setStartupPath(ui->startPath->text());
     sm.setIsRealMimeType(ui->showrealmime->isChecked());
     sm.setIsShowThumb(ui->checkThumbs->isChecked());
@@ -389,7 +395,7 @@ void settings::on_ok_clicked()
     sm.setSHowNote(ui->isNotes->isChecked());
 
     //inform the user
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine("Settings Applied\nCoreBox needs to restart", MessageType::Info);
     QIcon::setThemeName(sm.getThemeName());
 }
@@ -446,7 +452,7 @@ void settings::on_backUp_clicked()
     arc->setFolderPath(saveFilePath);
     arc->compress(QStringList() << backupFilePath , cPath);
 
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine("Backup for settings successfully done.", MessageType::Info);
 }
 
@@ -482,13 +488,13 @@ void settings::on_restore_clicked()
                     if (ds.removeRecursively()) {
                         corearchiver *arc = new corearchiver;
                         arc->extract(path, QDir(QDir::homePath() + "/.config/"));
-                        // Function from globalfunctions.cpp
+                        // Function from utilities.cpp
                         messageEngine("Backup for settings successfully done.", MessageType::Info);
                     }
                 }
             }
         } else {
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             messageEngine("Wrong file selected!!!", MessageType::Warning);
         }
     }

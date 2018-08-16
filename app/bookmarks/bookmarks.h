@@ -30,6 +30,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QMessageBox>
 
 #include "utilities/utilities.h"
+#include "utilities/globalfunctions.h"
 #include "corefm/mimeutils.h"
 
 

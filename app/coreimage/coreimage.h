@@ -44,6 +44,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 #include "utilities/utilities.h"
 #include "bookmarks/bookmarks.h"
+#include "utilities/globalfunctions.h"
 
 
 namespace Ui {

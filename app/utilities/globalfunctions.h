@@ -62,16 +62,24 @@ enum AppsName {
 };
 
 
+enum Category {
+    FileManager,
+    TextEditor,
+    ImageViewer,
+    Terminal
+};
 
 
 
-  void appEngine(AppsName i, const QString arg);
+void appEngine(Category ctg , const QString path);
+
+  void appEngines(AppsName i, const QString arg);
 
 
 // bool checkRecentActivityFile();
 
 
- void openAppEngine(const QString &path);
+ void appSelectionEngine(const QString &path);
 
 
 

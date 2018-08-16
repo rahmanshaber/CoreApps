@@ -63,7 +63,7 @@ Start::~Start()
 // ======== Core Apps ==========
 void Start::on_appCollect_itemDoubleClicked(QListWidgetItem *item) // open SpeedDial on CoreApps
 {
-    appEngine(nameToInt(item->text()),"");
+    appEngines(nameToInt(item->text()),"");
 }
 // =============================
 
@@ -72,8 +72,8 @@ void Start::on_appCollect_itemDoubleClicked(QListWidgetItem *item) // open Speed
 void Start::on_speedDialB_itemDoubleClicked(QListWidgetItem *item) // open SpeedDial on doubleclick
 {
     BookmarkManage bk;
-    // Function from globalfunctions.cpp openAppEngine(..)
-    openAppEngine(bk.bookmarkPath("Speed Dial", item->text()));
+    // Function from utilities.cpp
+    appSelectionEngine(bk.bookmarkPath("Speed Dial", item->text()));
 }
 
 void Start::loadSpeedDial() // populate SpeedDial list
@@ -125,8 +125,15 @@ void Start::on_recentActivitesL_itemDoubleClicked(QTreeWidgetItem *item, int col
         return;
 
     QStringList s = item->text(column).split("\t\t\t");
-    // Function from globalfunctions.cpp
-    openAppEngine(s.at(1));
+
+    QString appName = s.at(0); // selected ImageViewer name from settings.
+    QString path = s.at(1);
+
+    QProcess::startDetached(appName, QStringList() << path);
+
+    // Function from utilities.cpp
+    QString mess = appName + " opening " ;
+    messageEngine(mess, MessageType::Info);
 }
 
 void Start::loadRecent() // populate RecentActivity list
@@ -190,7 +197,7 @@ void Start::on_sessionsList_itemDoubleClicked(QTreeWidgetItem *item, int column)
             QTreeWidgetItem *midChildT = item->child(i);
             if (midChildT->childCount()) {
                 for (int j = 0; j < midChildT->childCount(); j++) {
-                    appEngine(nameToInt(midChildT->text(0)), midChildT->child(j)->text(0));
+                    appEngines(nameToInt(midChildT->text(0)), midChildT->child(j)->text(0));
                 }
             } else {
 //                uti->tabEngine(nameToInt(midChildT->text(0)));

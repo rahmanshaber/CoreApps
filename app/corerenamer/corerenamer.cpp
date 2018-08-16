@@ -469,7 +469,7 @@ void corerenamer::on_saveRenamed_clicked()
     if (file.open(QIODevice::WriteOnly)) {
         file.write(textFile.toLatin1());
         file.close();
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Renamed List Saved.", Info);
     }
 }
@@ -509,7 +509,7 @@ void corerenamer::on_rename_clicked()
 
         uStack->clear();
         ui->FLists->clearSelection();
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("File Renamed Successfully.", Info);
     }
 }

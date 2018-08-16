@@ -3,7 +3,12 @@ Version 2.3
 - removed unwanted cpp file from corefm.
 - fixed message box appearence mode not showing.
 - sepearted the less used function in utilites.h
+
 - fixed armv7 releated build issue.
+
+- fixed trah folder files dobuleclick.
+- appEngine now support system apps.
+- fixed recent activites not opening with the app.
 
 
 
@@ -168,7 +173,7 @@ Version 2.1,Released date Friday, June 1, 2018.
 - notes at coreaction is saved and restored in every restart.
 - Fixed Empty the trash.
 - battery properties converted to stringlistmodel.
-- improved openAppEngine.
+- improved appSelectionEngine.
 - added a button to set search folder in search app.
 - fixed corepad's tab related problems.
 - QScreen moved to golbalfunctions.
@@ -200,7 +205,7 @@ Version 2.1,Released date Friday, June 1, 2018.
 - fixed rename mode is not going off when clicked outside.
 - fixed Run option of rightbutton menue of corefm.
 - addend option to send a file to a drive in corefm.
-- added option to open file in selected app in openAppEngine.
+- added option to open file in selected app in appSelectionEngine.
 - fixed mouse wheel >>next image not working sometimes in coreimage.
 - opening file with system apps now shows in recent activities in start.
 - change in some icons & removed unused icon from resources file.

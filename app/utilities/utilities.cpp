@@ -108,7 +108,7 @@ bool moveToTrash(const QString &fileName) // moves a file or folder to trash fol
             trashinfo.write(QString("Path=" + fileLocation + "\n").toUtf8());
             trashinfo.write(QString("DeletionDate=" + QDateTime::currentDateTime().toString("yyyy-MM-ddThh:mm:ss") + "\n").toUtf8());trashinfo.close();
 
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             messageEngine("File Moved to Trash", MessageType::Info);
             return true;
         }

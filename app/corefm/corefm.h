@@ -121,12 +121,6 @@ private slots:
     void openInApp();
     void on_actionSelectAll_triggered();
     void on_Tools_clicked(bool checked);
-    void on_actionCorePlayer_triggered();
-    void on_actionCorePad_triggered();
-    void on_actionCoreFM_triggered();
-    void on_actionCoreImage_triggered();
-    void on_actionCorePaint_triggered();
-    void on_actionCorePDF_triggered();
     void on_actionRename_triggered();
     void on_actionOpen_triggered();
     void on_actionDelete_triggered();
@@ -167,6 +161,8 @@ private slots:
     void on_actionItemsToText_triggered();
     void on_viewMode_clicked();
     void on_actionCreate_Shortcut_triggered();
+
+    void on_actionNew_Window_triggered();
 
 private:
     Ui::corefm *ui;

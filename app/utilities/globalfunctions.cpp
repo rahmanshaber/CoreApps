@@ -48,10 +48,76 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 
 // =========================================================================
+#include <QString>
+#include <QStringList>
+#include <settings/settingsmanage.h>
+void appEngine(Category ctg ,const QString path)
+{
+    SettingsManage sm;
+
+    switch (ctg) {
+
+    case FileManager: {
+
+        QString defultFileManager = sm.getFileManager(); // selected FileManager name from settings.
+
+        QProcess::startDetached(defultFileManager, QStringList() << path);
+
+        // Function from utilities.cpp
+        QString mess = defultFileManager + " opening " ;
+        messageEngine(mess, MessageType::Info);
+
+        break;
+    }
+    case TextEditor: {
+
+        QString defultTextEditor = sm.getTextEditor(); // selected TextEditor name from settings.
+
+        QProcess::startDetached(defultTextEditor, QStringList() << path);
+
+        // Function from utilities.cpp
+        QString mess = defultTextEditor + " opening " ;
+        messageEngine(mess, MessageType::Info);
+
+        break;
+    }
+    case ImageViewer: {
+
+        QString defultImageViewer = sm.getImageViewer(); // selected ImageViewer name from settings.
+
+        QProcess::startDetached(defultImageViewer, QStringList() << path);
+
+        // Function from utilities.cpp
+        QString mess = defultImageViewer + " opening " ;
+        messageEngine(mess, MessageType::Info);
+
+        break;
+    }
+    case Terminal: {
+
+        QString defultTerminal = sm.getTerminal(); // selected terminal name from settings.
+        QStringList args(defultTerminal.split(" "));
+        QString name = args.at(0);
+        args.removeAt(0);
+
+        if (name == "CoreTerminal") {
+            appEngines(CoreTerminal,path);
+        } else {
+            QProcess::startDetached(name, args, path);
+        }
+
+        // Function from utilities.cpp
+        QString mess = defultTerminal + " opening " ;
+        messageEngine(mess, MessageType::Info);
+
+        break;
+    }
+
+    }
+}
 
 
-
-void appEngine(AppsName i,const QString arg) // engine to open app in window
+void appEngines(AppsName i,const QString arg) // engine to open app in window
 {
     switch (i) {
     case CoreFM: {
@@ -177,11 +243,11 @@ void appEngine(AppsName i,const QString arg) // engine to open app in window
 }
 
 
-void openAppEngine(const QString &path) // engine send right file to coreapps or system
+void appSelectionEngine(const QString &path) // engine send right file to coreapps or system
 {
     QFileInfo info(path);
     if(!info.exists() && !path.isEmpty()){
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("File not exists", MessageType::Warning);
         return;
     }
@@ -195,25 +261,25 @@ void openAppEngine(const QString &path) // engine send right file to coreapps or
 
     //CoreFM
     if (info.isDir()) {
-        appEngine(CoreFM, info.absoluteFilePath());
+        appEngine(FileManager, info.absoluteFilePath());
         return;
     }
 
     //CoreImage
     else if (image.contains(suffix, Qt::CaseInsensitive)) {
-        appEngine(CoreImage, info.absoluteFilePath());
+        appEngine(ImageViewer, info.absoluteFilePath());
         return;
     }
 
     //CorePad
     else if (txts.contains(suffix, Qt::CaseInsensitive)) {
-        appEngine(CorePad, info.absoluteFilePath());
+        appEngine(TextEditor, info.absoluteFilePath());
         return;
     }
 
     //CorePDF
     else if (pdf.contains(suffix, Qt::CaseInsensitive)) {
-        appEngine(CorePDF, info.absoluteFilePath());
+        appEngines(CorePDF, info.absoluteFilePath());
         return;
     }
 

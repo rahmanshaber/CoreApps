@@ -148,15 +148,15 @@ void corepaint::initializeNewTab(const bool &isOpen, const QString &filePath)
         }
 
         if (!fileName.isEmpty()) {
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             messageEngine("File Opened Successfully.", MessageType::Info);
         } else {
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             messageEngine("File not Opened Successfully.", MessageType::Info);
         }
     }
     else {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Reached page limit.", MessageType::Warning);
     }
 }
@@ -310,7 +310,7 @@ void corepaint::closeEvent(QCloseEvent *event)
     if(!isSomethingModified() || closeAllTabs())
     {
         event->ignore();
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         saveToRecent("CorePaint", currentFile);
         event->accept();
     }
@@ -516,10 +516,10 @@ void corepaint::on_save_clicked()
                                       tr("Untitled Image") : getCurrentImageArea()->getFileName() );
 
         filepath = getCurrentImageArea()->mFilePath;
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("File Saved", MessageType::Info);
     } else {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("File not Saved", MessageType::Info);
     }
 }
@@ -531,10 +531,10 @@ void corepaint::on_saveas_clicked()
                                       tr("Untitled Image") : getCurrentImageArea()->getFileName() );
 
         filepath = getCurrentImageArea()->mFilePath;
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("File Saved", MessageType::Info);
     } else {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("File not Saved", MessageType::Info);
     }
 }
@@ -574,7 +574,7 @@ void corepaint::on_zoomout_clicked()
 void corepaint::on_bookMarkIt_clicked()
 {
     if (!QFile(filepath).exists()) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         QString mess = "File: " + currentFile + "' not exists Or not saved";
         messageEngine(mess, MessageType::Info);
     } else {

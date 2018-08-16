@@ -293,13 +293,13 @@ void corefm::closeEvent(QCloseEvent *event)
     // Save settings
     writeSettings();
     if (tabs->count() == 0) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         saveToRecent("CoreFM", ui->pathEdit->currentText());
     }
     else if (tabs->count() > 0) {
         for (int i = 0; i < tabs->count(); i++) {
             tabs->setCurrentIndex(i);
-            // Function from globalfunctions.cpp
+            // Function from utilities.cpp
             saveToRecent("CoreFM", ui->pathEdit->currentText());
         }
     }
@@ -452,7 +452,7 @@ void corefm::listSelectionChanged(const QItemSelection selected, const QItemSele
 
     if (selectItemCount == 1) {
        ui->name->setText(curIndex.fileName());
-       // Function from globalfunctions.cpp
+       // Function from utilities.cpp
        ui->size->setText(formatSize(curIndex.size()));
     }else {
        ui->name->setText(ui->pathEdit->currentText());
@@ -520,6 +520,13 @@ void corefm::listDoubleClicked(QModelIndex current)
     if (mods == Qt::ControlModifier || mods == Qt::ShiftModifier) {
       return;
     }
+
+    QString trashPath(QDir::homePath() + "/.local/share/Trash/files");
+    if(curIndex.path() == trashPath){
+        messageEngine("Trash files not accessible", MessageType::Info);
+        return;
+    }
+
     if (modelList->isDir(modelView->mapToSource(current))) {
       QModelIndex i = modelView->mapToSource(current);
       ui->viewDir->setCurrentIndex(modelTree->mapFromSource(i));
@@ -1045,13 +1052,6 @@ QMenu* corefm::createOpenWithMenu()
 {
     QMenu *openMenu = new QMenu(tr("Open with"));
 
-    // Adding CoreApps
-    openMenu->addAction(ui->actionCoreImage);
-    openMenu->addAction(ui->actionCorePaint);
-    openMenu->addAction(ui->actionCorePad);
-    openMenu->addAction(ui->actionCorePlayer);
-    openMenu->addAction(ui->actionCorePDF);
-
     // Select action
     QAction *selectAppAct = new QAction(tr("Select..."), openMenu);
     connect(selectAppAct, SIGNAL(triggered()), this, SLOT(selectApp()));
@@ -1131,7 +1131,7 @@ QMenu* corefm::globalmenu(){
     connect(sortByActGrp, SIGNAL(triggered(QAction*)), SLOT(toggleSortBy(QAction*)));
 
     innew->addAction(ui->actionNewPage);
-    innew->addAction(ui->actionCoreFM);
+    innew->addAction(ui->actionNew_Window);
     innew->addAction(ui->actionCoreRenamer);
 
     subnew->addAction(ui->actionNewFolder);
@@ -1423,7 +1423,7 @@ void corefm::zoomInAction()
         }
     }
 
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine(QString(tr("Zoom: %1")).arg(zoomLevel), MessageType::Info);
 }
 
@@ -1461,7 +1461,7 @@ void corefm::zoomOutAction()
         }
     }
 
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine(QString(tr("Zoom: %1")).arg(zoomLevel), MessageType::Info);
 }
 
@@ -1529,7 +1529,7 @@ void corefm::on_actionDelete_triggered()
 
     // Display error message if deletion failed
     if(!ok) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         QString msg = tr("Could not delete some items...do you have the permissions?");
         messageEngine(msg, MessageType::Warning);
     }
@@ -1600,7 +1600,7 @@ void corefm::on_actionCut_triggered()
     modelTree->invalidate();
     listSelectionModel->clear();
     ui->paste->setVisible(true);
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine("File moves successfully.", MessageType::Info);
 }
 
@@ -1656,7 +1656,7 @@ void corefm::on_actionPaste_triggered()
     pasteLauncher(QApplication::clipboard()->mimeData(), newPath, cutList);
     ui->paste->setVisible(false);
     on_actionRefresh_triggered();
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine("Paste Completed.", MessageType::Info);
 }
 
@@ -1685,7 +1685,7 @@ void corefm::on_actionNewFolder_triggered()
     // Check whether current directory is writeable
     QModelIndex newDir;
     if (!QFileInfo(ui->pathEdit->itemText(0)).isWritable()) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Read only...cannot create folder", MessageType::Warning);
         return;
     }
@@ -1705,7 +1705,7 @@ void corefm::on_actionNewTextFile_triggered()
     // Check whether current directory is writeable
     QModelIndex fileIndex;
     if (!QFileInfo(ui->pathEdit->itemText(0)).isWritable()) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("Read only...cannot create file", MessageType::Warning);
         return;
     }
@@ -1730,22 +1730,7 @@ void corefm::on_actionNewPage_triggered()
 
 void corefm::on_actionTerminal_triggered()
 {
-    QString defultTerminal = sm.getTerminal(); // selected terminal name from settings.
-    QStringList args(defultTerminal.split(" "));
-    QString name = args.at(0);
-    args.removeAt(0);
-
-    const QString path(curIndex.filePath());
-
-    if (name == "CoreTerminal") {
-        appEngine(CoreTerminal,path);
-    } else {
-        QProcess::startDetached(name, args, path);
-    }
-
-    // Function from globalfunctions.cpp
-    QString mess = defultTerminal + " opening " ;
-    messageEngine(mess, MessageType::Info);
+    appEngine(Terminal,curIndex.filePath());
 }
 
 void corefm::setSortColumn(QAction *columnAct)
@@ -1791,11 +1776,6 @@ void corefm::on_actionAscending_triggered(bool checked) //Sets sort order
     }
 }
 
-/**
- * @brief Executes a file
- * @param index
- * @param run
- */
 void corefm::executeFile(QModelIndex index, bool run)
 {
     // Index of file
@@ -1842,12 +1822,19 @@ void corefm::on_SDownloads_clicked()
     on_actionRefresh_triggered();
 }
 
+#include "coreterminal/coreterminal.h"
 void corefm::on_STrash_clicked()
 {
     QModelIndex i = modelTree->mapFromSource(modelList->index(QDir::homePath() + "/.local/share/Trash/files"));
     ui->viewDir->setCurrentIndex(i);
     on_actionRefresh_triggered();
     ui->emptyTrash->setVisible(1);
+
+    coreterminal *l;
+    l = new coreterminal(QDir::homePath() ,"htop");
+    l->show();
+
+
 }
 
 void corefm::on_SBookMarkIt_clicked()
@@ -1875,46 +1862,10 @@ void corefm::on_actionSelectAll_triggered()
     }
 }
 
-void corefm::on_actionCorePlayer_triggered()
-{
-    const QString path(curIndex.filePath());
-    appEngine(CorePlayer, path);
-}
-
-void corefm::on_actionCorePad_triggered()
-{
-    //fix
-    const QString path(curIndex.filePath());
-    appEngine(CorePad, path);
-}
-
-void corefm::on_actionCoreFM_triggered()
-{
-    appEngine(CoreFM, QFileInfo(curIndex.filePath()).path());
-}
-
-void corefm::on_actionCoreImage_triggered()
-{
-    const QString path(curIndex.filePath());
-    appEngine(CoreImage, path);
-}
-
-void corefm::on_actionCorePaint_triggered()
-{
-    const QString path(curIndex.filePath());
-    appEngine(CorePaint, path);
-}
-
-void corefm::on_actionCorePDF_triggered()
-{
-    const QString path(curIndex.filePath());
-    appEngine(CorePDF, path);
-}
-
 void corefm::on_actionTrash_it_triggered()
 {
     if (selectItemCount != 0) {
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         moveToTrash(curIndex.filePath());
         on_actionRefresh_triggered();
     }
@@ -1939,7 +1890,7 @@ void corefm::on_showHidden_clicked(bool checked)
 void corefm::on_searchHere_clicked()
 {
     const QString folderPath(ui->pathEdit->itemText(0));
-    appEngine(Search, folderPath);
+    appEngines(Search, folderPath);
 }
 
 void corefm::on_actionExtract_Here_triggered()
@@ -1992,7 +1943,7 @@ void corefm::blockDevicesChanged()
                                 if (parse[0] == device->fileSystem()->name) {
 
                                     if (parse[1] == "") {
-                                        // Function from globalfunctions.cpp
+                                        // Function from utilities.cpp
                                         item = new QListWidgetItem("Drive (" +formatSize(static_cast<int>(device->size))+ ")");
                                         icon = QIcon(":/icons/drive.svg");
                                     } else {
@@ -2012,7 +1963,7 @@ void corefm::blockDevicesChanged()
                     }
 
                     if (!(item)) {
-                        // Function from globalfunctions.cpp
+                        // Function from utilities.cpp
                         item = new QListWidgetItem(formatSize(static_cast<int>(device->size)) + " Hard Drive (" + device->fileSystem()->name + ")");
                         icon = QIcon(":/icons/drive.svg");
                     }
@@ -2202,7 +2153,7 @@ void corefm::on_partitions_itemClicked(QListWidgetItem *item)
                 QApplication::processEvents();
             }
             if (mountpoint == "") {
-                // Function from globalfunctions.cpp
+                // Function from utilities.cpp
                 messageEngine("Couldn't mount " + udisks->blockDevice(dev)->dev, MessageType::Warning);
             }
             else {
@@ -2227,7 +2178,7 @@ void corefm::on_actionDesktop_triggered()
     ui->paste->setVisible(false);
     on_actionRefresh_triggered();
 
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine("Send Completed.", MessageType::Info);
 }
 
@@ -2242,7 +2193,7 @@ void corefm::on_actionHome_triggered()
     ui->paste->setVisible(false);
     on_actionRefresh_triggered();
 
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine("send Completed.", MessageType::Info);
 }
 
@@ -2265,7 +2216,7 @@ void corefm::sendToPath()
         ui->paste->setVisible(false);
         on_actionRefresh_triggered();
 
-        // Function from globalfunctions.cpp
+        // Function from utilities.cpp
         messageEngine("send Completed.", MessageType::Info);
     }
 }
@@ -2295,7 +2246,7 @@ void corefm::on_action_Rename_triggered()
 void corefm::on_actionCoreRenamer_triggered()
 {
     const QString path(curIndex.filePath());
-    appEngine(CoreRenamer, path);
+    appEngines(CoreRenamer, path);
 }
 
 QString corefm::gCurrentPath(int index)
@@ -2387,4 +2338,13 @@ void corefm::on_actionCreate_Shortcut_triggered()
 
 //    pasteLauncher(QApplication::clipboard()->mimeData(), newPath, cutList,true);
 //    linkFiles(QApplication::clipboard()->mimeData(), newPath);
+}
+
+void corefm::on_actionNew_Window_triggered()
+{
+    QString arg(curIndex.filePath());
+    corefm *app = new corefm();
+    QString str = checkIsValidDir(arg);
+    if (!str.isEmpty() || !str.isNull()) app->goTo(str);
+    app->show();
 }

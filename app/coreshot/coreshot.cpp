@@ -50,7 +50,7 @@ void coreshot::on_openInCorePaint_clicked()
     ui->shotPreview->originalPixmap().save(&file, "PNG");
     file.close();
     files = fileName;
-//    appEngine(CorePaint, files);
+//    appEngines(CorePaint, files);
     this->close();
 }
 
@@ -61,7 +61,7 @@ void coreshot::on_save_clicked()
     ui->shotPreview->originalPixmap().save(&file, "PNG");
     file.close();
     files = fileName;
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine("Screenshot Saved", MessageType::Info);
     this->close();
 }
@@ -75,7 +75,7 @@ void coreshot::on_saveAs_clicked()
 
     file.close();
     files = filename;
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     messageEngine("Screenshot Saved", MessageType::Info);
     this->close();
 }
@@ -99,6 +99,6 @@ void coreshot::on_openInCoreImage_clicked()
     ui->shotPreview->originalPixmap().save(&file, "PNG");
     file.close();
     files = fileName;
-//    appEngine(CoreImage, files);
+    appEngine(ImageViewer, files);
     this->close();
 }

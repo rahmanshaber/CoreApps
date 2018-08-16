@@ -163,22 +163,26 @@ closeAllTabs and on_paintTabs_tabCloseRequested in corepaint never exe
 corerenamer line 453 , where the work of "yes"
 add an setting to turn off the highlighter of corepad.
 add updateed udisk2 and add our code in it.
-cut,copy,past ,delete in rightbutton menu in corepaint.
+cut,copy,past,delete in rightbutton menu in corepaint.
 show folder in coreimage use the defult filemanager.
-setting a defult file manager from mime list not possible??
 bookmark.cpp line 49 .rightbutton is not ignored.
 corepad line 25 highlighter not used
 start has apptoint , app name this function.remove??
-create a defult applist like in settings??
+utilities.cpp 96 . same as other.
+all the open function in coreapps in qstringlist
+settingmanage.cpp 22 ,rename corebox to CoreApps
+corefm line 2332 .fix it.
+prgonce in utilites
+
 find the thumbs.cache creation function.
-cfix trash file dobule click
-in clude the dobul click to recent activites
-move to trash fix messagebox
+movetotrash fix messagebox
 
 
-htop like shortcut
+htop like shortcut.create custom coomeand for the coreterminal.corefm.cpp 1834
 
 
 test
 multipal file trash ,like(702mb +1.2 gb)
+stylesheet
+app dose not open in sperate process.
 

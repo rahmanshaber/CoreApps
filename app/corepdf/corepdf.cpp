@@ -61,7 +61,7 @@ void corepdf::openPdfFile(const QString path)
 void corepdf::closeEvent(QCloseEvent *event)
 {
     event->ignore();
-    // Function from globalfunctions.cpp
+    // Function from utilities.cpp
     saveToRecent("CorePDF", workFilePath);
     QPdfWidget *cpdf = qobject_cast<QPdfWidget*>(this->children().at(1));
     cpdf->closeDocument();

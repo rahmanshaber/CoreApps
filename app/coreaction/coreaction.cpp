@@ -249,7 +249,7 @@ void coreaction::ShowWindow(QSystemTrayIcon::ActivationReason Reason)
 
 void coreaction::on_corepad_clicked()
 {
-    appEngine(CorePad,"");
+    appEngines(CorePad,"");
     this->hide();
 }
 
@@ -262,25 +262,25 @@ void coreaction::on_screenshot_clicked()
 
 void coreaction::on_corepaint_clicked()
 {
-    appEngine(CorePaint,"");
+    appEngines(CorePaint,"");
     this->hide();
 }
 
 void coreaction::on_corefm_clicked()
 {
-    appEngine(CoreFM,"");
+    appEngines(CoreFM,"");
     this->hide();
 }
 
 void coreaction::on_start_clicked()
 {
-    appEngine(StartView,"");
+    appEngines(StartView,"");
     this->hide();
 }
 
 void coreaction::on_search_clicked()
 {
-    appEngine(Search,"");
+    appEngines(Search,"");
     this->hide();
 }
 
