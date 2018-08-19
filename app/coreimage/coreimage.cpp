@@ -459,7 +459,7 @@ void coreimage::on_cProperties_clicked(bool checked)
 
 void coreimage::on_openincorepaint_clicked()
 {
-//    GlobalFunc::appEngines(GlobalFunc::AppsName::CorePaint, currentImagePath);
+    GlobalFunc::appEngines("CorePaint", currentImagePath);
 }
 
 void coreimage::on_openThumbview_clicked()
@@ -503,7 +503,8 @@ void coreimage::on_cTrashIt_clicked()
     }
 }
 
-void coreimage::sendFiles(const QStringList &paths) {
+void coreimage::sendFiles(const QStringList &paths)
+{
     if (paths.count()) {
         loadFile(Utilities::checkIsValidFile(paths.at(0)));
     }

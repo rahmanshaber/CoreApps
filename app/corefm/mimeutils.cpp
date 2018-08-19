@@ -130,7 +130,15 @@ void MimeUtils::openInApp(QString exe, const QFileInfo &file,QObject *processOwn
 
   // Start application
   QProcess *myProcess = new QProcess(processOwner);
-  myProcess->startDetached(name, QStringList() << args);
+
+  if(args.contains(" ")){
+      if(args.split(" ").count()){
+          myProcess->startDetached(name,QStringList() << QString (args.split(" ").at(0))<< args.sprintf(" ").at(1));
+      }
+  }else{
+      myProcess->startDetached(name, QStringList() << args);
+  }
+
   myProcess->waitForFinished(1000);
   //myProcess->terminate();
 }

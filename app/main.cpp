@@ -191,6 +191,7 @@ int main(int argc, char *argv[])
     } else if ( parser.isSet( "coreimage" ) ) {
         coreimage *cimg = new coreimage;
         // Create sendFiles( QStringList ) function for sending paths
+        cimg->sendFiles(paths);
         cimg->show();
     } else if ( parser.isSet( "corepad" ) ) {
         corepad *cpad = new corepad;
@@ -308,8 +309,8 @@ int main(int argc, char *argv[])
 //    corefm a;
 //    a.show();
 
-//    coreaction e;
-//    e.show();
+    coreshotdialog e;
+    e.show();
 
     return app.exec();
 }

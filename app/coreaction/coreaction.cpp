@@ -249,38 +249,37 @@ void coreaction::ShowWindow(QSystemTrayIcon::ActivationReason Reason)
 
 void coreaction::on_corepad_clicked()
 {
-    GlobalFunc::appEngines(GlobalFunc::AppsName::CorePad,"");
+    GlobalFunc::appEngines("CorePad","");
     this->hide();
 }
 
 void coreaction::on_screenshot_clicked()
 {
-    coreshotdialog *w = new coreshotdialog();
-    w->show();
+    GlobalFunc::appEngines("CoreShot","");
     this->hide();
 }
 
 void coreaction::on_corepaint_clicked()
 {
-    GlobalFunc::appEngines(GlobalFunc::AppsName::CorePaint,"");
+    GlobalFunc::appEngines("CorePaint","");
     this->hide();
 }
 
 void coreaction::on_corefm_clicked()
 {
-    GlobalFunc::appEngines(GlobalFunc::AppsName::CoreFM,"");
+    GlobalFunc::appEngines("CoreFM","");
     this->hide();
 }
 
 void coreaction::on_start_clicked()
 {
-    GlobalFunc::appEngines(GlobalFunc::AppsName::StartView,"");
+    GlobalFunc::appEngines("Start","");
     this->hide();
 }
 
 void coreaction::on_search_clicked()
 {
-    GlobalFunc::appEngines(GlobalFunc::AppsName::Search,"");
+    GlobalFunc::appEngines("Search","");
     this->hide();
 }
 

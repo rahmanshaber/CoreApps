@@ -73,7 +73,7 @@ Start::~Start()
 // ======== Core Apps ==========
 void Start::on_appCollect_itemDoubleClicked(QListWidgetItem *item) // open SpeedDial on CoreApps
 {
-    GlobalFunc::appEngines(nameToInt(item->text()),"");
+    GlobalFunc::appEngines(item->text(),"");
 }
 // =============================
 
@@ -207,11 +207,11 @@ void Start::on_sessionsList_itemDoubleClicked(QTreeWidgetItem *item, int column)
             QTreeWidgetItem *midChildT = item->child(i);
             if (midChildT->childCount()) {
                 for (int j = 0; j < midChildT->childCount(); j++) {
-                    GlobalFunc::appEngines(nameToInt(midChildT->text(0)), midChildT->child(j)->text(0));
+                    GlobalFunc::appEngines(midChildT->text(0), midChildT->child(j)->text(0));
                 }
             } else {
                 // Need to fix session
-                GlobalFunc::appEngines(nameToInt(midChildT->text(0)));
+                GlobalFunc::appEngines(midChildT->text(0));
             }
         }
         Utilities::messageEngine("Session restored successfully", Utilities::MessageType::Info);

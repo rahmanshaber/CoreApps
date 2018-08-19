@@ -6,8 +6,10 @@
 #include <QMimeData>
 #include <QTextBrowser>
 #include <QTreeWidget>
+#include <QDebug>
 
 #include "Core.h"
+#include "configtreetext.h"
 
 #include <ZenLib/Ztring.h>
 #include <ZenLib/ZtringListList.h>
@@ -28,20 +30,21 @@ class coreinfo : public QWidget
     Q_OBJECT
 
 public:
-    explicit coreinfo(QWidget *parent = 0);
+    explicit coreinfo(QWidget *parent = nullptr);
     ~coreinfo();
 
     void sendFiles(const QStringList &paths);
-
     void openFiles(QStringList fileNames);
     void refreshDisplay();
     QDir getCommonDir(Core *C);
 
 private:
     Ui::coreinfo *ui;
+
     Core* C;
     QTreeWidget *showTreeView(bool completeDisplay);
     QString shortName(QDir d, QString name);
+
 };
 
 #endif // COREINFO_H

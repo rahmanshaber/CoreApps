@@ -135,6 +135,7 @@ in-future
 *remove unwanted function from all cpp files.
 *code merge
 
+corefm > openwithDialog>> needs sort
 move to trash need qstringlist as parameter
 corearchiver not working with .desktop file
 marcus pdfwidget download, see issues, get two files from newbreeze

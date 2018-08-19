@@ -1899,7 +1899,7 @@ void corefm::on_showHidden_clicked(bool checked)
 void corefm::on_searchHere_clicked()
 {
     const QString folderPath(ui->pathEdit->itemText(0));
-    GlobalFunc::appEngines(GlobalFunc::AppsName::Search, folderPath);
+    GlobalFunc::appEngines("Search", folderPath);
 }
 
 void corefm::on_actionExtract_Here_triggered()
@@ -2255,7 +2255,7 @@ void corefm::on_action_Rename_triggered()
 void corefm::on_actionCoreRenamer_triggered()
 {
     const QString path(curIndex.filePath());
-    GlobalFunc::appEngines(GlobalFunc::AppsName::CoreRenamer, path);
+    GlobalFunc::appEngines("CoreRenamer", path);
 }
 
 QString corefm::gCurrentPath(int index)

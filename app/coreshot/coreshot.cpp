@@ -50,7 +50,7 @@ void coreshot::on_openInCorePaint_clicked()
     ui->shotPreview->originalPixmap().save(&file, "PNG");
     file.close();
     files = fileName;
-//    GlobalFunc::appEngines(CorePaint, files);
+    GlobalFunc::appEngines("CorePaint", files);
     this->close();
 }
 

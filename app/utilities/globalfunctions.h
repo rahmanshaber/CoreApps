@@ -62,7 +62,7 @@ enum Category {
 
 void appEngine(GlobalFunc::Category ctg , const QString path);
 
-void appEngines(GlobalFunc::AppsName i, const QString &arg = nullptr);
+void appEngines(QString appName, const QString &arg = nullptr);
 
 // bool checkRecentActivityFile();
 
