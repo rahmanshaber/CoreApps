@@ -341,6 +341,7 @@ SizeAndCountText FileUtils::getF(const QStringList &paths)
     qint64 totalSize = 0;
     int files = 0;
     int folders = 0;
+    int hfCount = 0;
     Q_FOREACH( QString path, paths ) {
         if ( QFileInfo( path ).isDir() ) {
             QDirIterator it( path, QDir::AllEntries | QDir::System | QDir::NoDotAndDotDot | QDir::NoSymLinks | QDir::Hidden, QDirIterator::Subdirectories );
@@ -352,11 +353,13 @@ SizeAndCountText FileUtils::getF(const QStringList &paths)
 
                     folders++;
                 } else {
+                    if (it.fileInfo().isHidden()) hfCount++;
                     files++;
                     totalSize += it.fileInfo().size();
                 }
             }
         } else {
+            if (QFileInfo(path).isHidden()) hfCount++;
             files++;
             totalSize += getSize( path );
         }
@@ -364,13 +367,13 @@ SizeAndCountText FileUtils::getF(const QStringList &paths)
 
     SizeAndCountText sc;
     sc.countText = QString("%1 Files, %2 Folders").arg(files).arg(folders);
-    sc.sizeText = formatSize(totalSize);
+    sc.sizeText = Utilities::formatSize(totalSize);
+    sc.hiddenFileCount = QString("%1 Hidden Files").arg(hfCount);
     return sc;
 }
 
 qint64 FileUtils::getSize(const QString &path)
 {
-
     struct stat statbuf;
     if ( stat( path.toLocal8Bit().constData(), &statbuf ) != 0 )
         return 0;

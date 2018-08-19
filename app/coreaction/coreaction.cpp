@@ -24,13 +24,13 @@ coreaction::coreaction(QWidget *parent) : QWidget(parent, Qt::Dialog),ui(new Ui:
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/CoreAction.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/CoreAction.qss"));
 
     widget();
     widgetList();
     tryicon();
 
-    addDropShadow(ui->appsW, 60, 50);
+    Utilities::addDropShadow(ui->appsW, 60, 50);
 }
 
 coreaction::~coreaction()
@@ -41,9 +41,9 @@ coreaction::~coreaction()
 void coreaction::widget()  //setup coreaction widget
 {
     // set window size
-    int x = static_cast<int>(screensize().width()* .23);
-    int y = screensize().height();
-    int sw = screensize().width() - x;
+    int x = static_cast<int>(Utilities::screensize().width()* .23);
+    int y = Utilities::screensize().height();
+    int sw = Utilities::screensize().width() - x;
 
     ui->widgetsL->setFixedWidth(x);
 
@@ -249,7 +249,7 @@ void coreaction::ShowWindow(QSystemTrayIcon::ActivationReason Reason)
 
 void coreaction::on_corepad_clicked()
 {
-    appEngines(CorePad,"");
+    GlobalFunc::appEngines(GlobalFunc::AppsName::CorePad,"");
     this->hide();
 }
 
@@ -262,25 +262,25 @@ void coreaction::on_screenshot_clicked()
 
 void coreaction::on_corepaint_clicked()
 {
-    appEngines(CorePaint,"");
+    GlobalFunc::appEngines(GlobalFunc::AppsName::CorePaint,"");
     this->hide();
 }
 
 void coreaction::on_corefm_clicked()
 {
-    appEngines(CoreFM,"");
+    GlobalFunc::appEngines(GlobalFunc::AppsName::CoreFM,"");
     this->hide();
 }
 
 void coreaction::on_start_clicked()
 {
-    appEngines(StartView,"");
+    GlobalFunc::appEngines(GlobalFunc::AppsName::StartView,"");
     this->hide();
 }
 
 void coreaction::on_search_clicked()
 {
-    appEngines(Search,"");
+    GlobalFunc::appEngines(GlobalFunc::AppsName::Search,"");
     this->hide();
 }
 

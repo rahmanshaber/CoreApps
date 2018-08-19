@@ -37,6 +37,8 @@ public:
     explicit corearchiver(QWidget *parent = nullptr);
     ~corearchiver();
 
+    void sendFiles(const QStringList &paths, bool archive);
+
     void compress(const QStringList &filePathList, const QDir &currentDir);
     void extract(const QString &archiveFilePath, const QDir &dest);
     void setFilename(const QString &fileName);

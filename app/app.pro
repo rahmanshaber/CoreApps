@@ -22,6 +22,23 @@ LIBS += -L../library/libcarchiver/ -lcarchiver
 INCLUDEPATH += ../library/libcsys/
 LIBS += -L../library/libcsys/ -lcsys
 
+#================= Contents for Coreinfo for adding mediainfo===============
+#!defined(packagesExist, test) {
+#    defineTest(packagesExist) {
+#        system(pkg-config $$ARGS): return(true)
+#        return(false)
+#    }
+#}
+
+LIBS += -ldl -lz
+
+DEFINES += _UNICODE
+
+# Default rules for deployment.
+#qnx: target.path = /tmp/$${TARGET}/bin
+#else: unix:!android: target.path = /opt/$${TARGET}/bin
+#!isEmpty(target.path): INSTALLS += target
+#==========================================
 
 
 RESOURCES += \
@@ -56,6 +73,38 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 }
 
 unix {
+#================= Adding libmediainfo=================
+    exists(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config) {
+        INCLUDEPATH += ../../../../MediaInfoLib/Source
+        contains(STATIC_LIBS, yes|1) {
+            LIBS += $$system(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS_Static)
+            message("custom libmediainfo: yes (static)")
+        } else {
+            LIBS += $$system(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS)
+            message("custom libmediainfo: yes (shared)")
+        }
+    } else {
+        !packagesExist(libmediainfo) {
+            error("libmediainfo not found on system")
+        }
+        LIBS += $$system(pkg-config --libs libmediainfo)
+    }
+
+    exists(../../../../ZenLib/Project/GNU/Library/libzen-config) {
+        INCLUDEPATH      += ../../../../ZenLib/Source
+        contains(STATIC_LIBS, yes|1) {
+            LIBS += $$system(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS_Static)
+            message("custom libzen       : yes (static)")
+        } else {
+            LIBS += $$system(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)
+            message("custom libzen       : yes (shared)")
+        }
+    } else {
+        PKGCONFIG += libzen
+        message("libzen      : system")
+    }
+#===========================
+
         isEmpty(PREFIX) {
                 PREFIX = /usr
         }
@@ -66,10 +115,10 @@ unix {
         #QMAKE_RPATHDIR += $$PREFIX/lib/corebox/
 
         desktop.path = $$PREFIX/share/applications/
-        desktop.files = ../CoreBox.desktop
+        desktop.files = ../docs/DesktopFiles/*.desktop
 
-        icons.path = $$PREFIX/share/icons/hicolor/scalable/apps/
-        icons.files = ../CoreBox.svg
+        icons.path = $$PREFIX/share/icons/CoreBox/
+        icons.files = ./icons/app-icons/*.svg
 
         data.path = $$PREFIX/share/corebox/
         data.files = ../docs/ChangeLog ../docs/ReleaseNotes
@@ -113,7 +162,8 @@ FORMS += \
     search/search.ui \
     settings/settings.ui \
     start/sessionsavedialog.ui \
-    start/start.ui
+    start/start.ui \
+    coreinfo/coreinfo.ui
 
 HEADERS += \
     about/about.h \
@@ -208,7 +258,10 @@ HEADERS += \
     start/slidingstackedwidget.h \
     start/start.h \
     utilities/globalfunctions.h \
-    utilities/utilities.h
+    utilities/utilities.h \
+    coreinfo/configtreetext.h \
+    coreinfo/Core.h \
+    coreinfo/coreinfo.h
 
 SOURCES += \
     about/about.cpp \
@@ -301,6 +354,9 @@ SOURCES += \
     start/start.cpp \
     utilities/globalfunctions.cpp \
     utilities/utilities.cpp \
-    main.cpp
+    main.cpp \
+    coreinfo/configtreetext.cpp \
+    coreinfo/Core.cpp \
+    coreinfo/coreinfo.cpp
 
 

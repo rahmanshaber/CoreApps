@@ -23,11 +23,11 @@ Start::Start(QWidget *parent) :QWidget(parent),ui(new Ui::Start)
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/Start.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/Start.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     // Configure Settings
@@ -53,6 +53,16 @@ Start::Start(QWidget *parent) :QWidget(parent),ui(new Ui::Start)
     }
 
     loadSession();
+
+    fswStart = new QFileSystemWatcher();
+    connect(fswStart, &QFileSystemWatcher::fileChanged, [=](const QString &path) {
+        qDebug() << path;
+        reload(path);
+    });
+
+    fswStart->addPaths(QStringList() << QString(QDir::homePath() + "/.config/coreBox/RecentActivity"));
+                                     /*<< QString(QDir::homePath() + "/.config/coreBox/CoreBoxBook")
+                                     << QString(QDir::homePath() + "/.config/coreBox/Sessions"));*/
 }
 
 Start::~Start()
@@ -63,7 +73,7 @@ Start::~Start()
 // ======== Core Apps ==========
 void Start::on_appCollect_itemDoubleClicked(QListWidgetItem *item) // open SpeedDial on CoreApps
 {
-    appEngines(nameToInt(item->text()),"");
+    GlobalFunc::appEngines(nameToInt(item->text()),"");
 }
 // =============================
 
@@ -73,7 +83,7 @@ void Start::on_speedDialB_itemDoubleClicked(QListWidgetItem *item) // open Speed
 {
     BookmarkManage bk;
     // Function from utilities.cpp
-    appSelectionEngine(bk.bookmarkPath("Speed Dial", item->text()));
+    GlobalFunc::appSelectionEngine(bk.bookmarkPath("Speed Dial", item->text()));
 }
 
 void Start::loadSpeedDial() // populate SpeedDial list
@@ -91,7 +101,7 @@ void Start::loadSpeedDial() // populate SpeedDial list
     foreach (QString s, list) {
         dateTimeList.append(bk.bookingTime("Speed Dial", s));
     }
-    sortDateTime(dateTimeList);
+    Utilities::sortDateTime(dateTimeList);
 
     int count = list.count();
     int reverse = count - 1;
@@ -111,7 +121,7 @@ void Start::loadSpeedDial() // populate SpeedDial list
         if (i == 15) {
             return;
         } else {
-            ui->speedDialB->addItem(new QListWidgetItem(getFileIcon(bk.bookmarkPath("Speed Dial", mList.at(i))), mList.at(i)));
+            ui->speedDialB->addItem(new QListWidgetItem(Utilities::getFileIcon(bk.bookmarkPath("Speed Dial", mList.at(i))), mList.at(i)));
         }
     }
 }
@@ -133,7 +143,7 @@ void Start::on_recentActivitesL_itemDoubleClicked(QTreeWidgetItem *item, int col
 
     // Function from utilities.cpp
     QString mess = appName + " opening " ;
-    messageEngine(mess, MessageType::Info);
+    Utilities::messageEngine(mess, Utilities::MessageType::Info);
 }
 
 void Start::loadRecent() // populate RecentActivity list
@@ -141,21 +151,21 @@ void Start::loadRecent() // populate RecentActivity list
     ui->recentActivitesL->clear();
     QSettings recentActivity(QDir::homePath() + "/.config/coreBox/RecentActivity", QSettings::IniFormat);
     QStringList topLevel = recentActivity.childGroups();
-    sortDate(topLevel);
+    Utilities::sortDate(topLevel);
     foreach (QString group, topLevel) {
         QTreeWidgetItem *topTree = new QTreeWidgetItem();
-        QString groupL = sentDateText(group);
+        QString groupL = Utilities::sentDateText(group);
         topTree->setText(0, groupL);
         recentActivity.beginGroup(group);
         QStringList keys = recentActivity.childKeys();
-        sortTime(keys);
-        sortTime(keys, sortOrder::DESCENDING);
+        Utilities::sortTime(keys);
+        Utilities::sortTime(keys, Utilities::sortOrder::DESCENDING);
 
         foreach (QString key, keys) {
             QTreeWidgetItem *child = new QTreeWidgetItem();
             QString value = recentActivity.value(key).toString();
             child->setText(0, value);
-            child->setIcon(0, getAppIcon(value.split("\t\t\t").at(0)));
+            child->setIcon(0, Utilities::getAppIcon(value.split("\t\t\t").at(0)));
             topTree->addChild(child);
         }
         recentActivity.endGroup();
@@ -197,18 +207,16 @@ void Start::on_sessionsList_itemDoubleClicked(QTreeWidgetItem *item, int column)
             QTreeWidgetItem *midChildT = item->child(i);
             if (midChildT->childCount()) {
                 for (int j = 0; j < midChildT->childCount(); j++) {
-                    appEngines(nameToInt(midChildT->text(0)), midChildT->child(j)->text(0));
+                    GlobalFunc::appEngines(nameToInt(midChildT->text(0)), midChildT->child(j)->text(0));
                 }
             } else {
-//                uti->tabEngine(nameToInt(midChildT->text(0)));
+                // Need to fix session
+                GlobalFunc::appEngines(nameToInt(midChildT->text(0)));
             }
         }
-//        cBox->show();
-
-        messageEngine("Session restored successfully", MessageType::Info);
+        Utilities::messageEngine("Session restored successfully", Utilities::MessageType::Info);
     }
 }
-
 
 void Start::loadSession()
 {
@@ -218,18 +226,18 @@ void Start::loadSession()
 
     // Date list
     QStringList topLevel = session.childGroups();
-    sortDate(topLevel,sortOrder::DESCENDING);
+    Utilities::sortDate(topLevel, Utilities::sortOrder::DESCENDING);
 
     foreach (QString group, topLevel) {
         QTreeWidgetItem *topTree = new QTreeWidgetItem(ui->sessionsList);
-        QString groupL = sentDateText(group);
+        QString groupL = Utilities::sentDateText(group);
 
         topTree->setText(0, groupL);
 
         session.beginGroup(group);
 
         QStringList nameList = session.childGroups();
-        sortList(nameList);
+        Utilities::sortList(nameList);
 
         foreach (QString name, nameList) {
             QTreeWidgetItem *nameTree = new QTreeWidgetItem;
@@ -248,14 +256,14 @@ void Start::loadSession()
                     midChildT->setIcon(0, appsIcon(gKey));
 
                     QStringList keys = session.childKeys();
-                    sortTime(keys, sortOrder::DESCENDING, "hh.mm.ss.zzz");
+                    Utilities::sortTime(keys, Utilities::sortOrder::DESCENDING, "hh.mm.ss.zzz");
 
                     foreach (QString key, keys) {
                         QString value = session.value(key).toString();
                         if (value.count()) {
                             QTreeWidgetItem *child = new QTreeWidgetItem;
                             child->setText(0, value);
-                            child->setIcon(0, value.count() ? getAppIcon(value) : appsIcon(gKey));
+                            child->setIcon(0, value.count() ? Utilities::getAppIcon(value) : appsIcon(gKey));
                             midChildT->addChild(child);
                         }
                     }
@@ -383,42 +391,58 @@ void Start::reload()
     else on_coreApps_clicked();
 }
 
-AppsName Start::nameToInt(QString appName)
+void Start::reload(const QString &path)
+{
+    QFileInfo fi(path);
+    if (fi.fileName() == "RecentActivity") {
+        if (!sm.getDisableRecent())
+            loadRecent();
+        // Hopefully this is not needed
+        else on_coreApps_clicked();
+    } else if (fi.fileName() == "CoreBoxBook") {
+        qDebug() << path;
+        loadSpeedDial();
+    } else if (fi.fileName() == "Sessions") {
+        loadSession();
+    }
+}
+
+GlobalFunc::AppsName Start::nameToInt(QString appName)
 {
     if (appName == "CoreFM" || appName == "corefm") {
-        return CoreFM;
+        return GlobalFunc::AppsName::CoreFM;
     } else if (appName == "CoreImage" || appName == "coreimage") {
-        return CoreImage;
+        return GlobalFunc::AppsName::CoreImage;
     } else if (appName == "CorePad" || appName == "corepad") {
-        return CorePad;
+        return GlobalFunc::AppsName::CorePad;
     } else if (appName == "CorePaint" || appName == "corepaint") {
-        return CorePaint;
+        return GlobalFunc::AppsName::CorePaint;
     } else if (appName == "CorePlayer" || appName == "coreplayer") {
-        return CorePlayer;
+        return GlobalFunc::AppsName::CorePlayer;
     } else if (appName == "DashBoard" || appName == "dashboard") {
-        return Dashboard;
+        return GlobalFunc::AppsName::Dashboard;
     } else if (appName == "Bookmarks" || appName == "bookmarks") {
-        return Bookmarks;
+        return GlobalFunc::AppsName::Bookmarks;
     } else if (appName == "About" || appName == "about") {
-        return About;
+        return GlobalFunc::AppsName::About;
     } else if (appName == "Start" || appName == "start") {
-        return StartView;
+        return GlobalFunc::AppsName::StartView;
     } else if (appName == "Help" || appName == "help") {
-        return Help;
+        return GlobalFunc::AppsName::Help;
     } else if (appName == "Settings" || appName == "settings") {
-        return Settings;
+        return GlobalFunc::AppsName::Settings;
     } else if (appName == "Search" || appName == "search") {
-        return Search;
+        return GlobalFunc::AppsName::Search;
     } else if (appName == "CoreTime" || appName == "coretime") {
-        return CoreTime;
+        return GlobalFunc::AppsName::CoreTime;
     } else if (appName == "CoreRenamer" || appName == "corerenamer") {
-        return CoreRenamer;
+        return GlobalFunc::AppsName::CoreRenamer;
     } else if (appName == "CorePDF" || appName == "corepdf") {
-        return CorePDF;
+        return GlobalFunc::AppsName::CorePDF;
     } else if (appName == "CoreTerminal" || appName == "coreterminal") {
-        return CoreTerminal;
+        return GlobalFunc::AppsName::CoreTerminal;
     } else {
-        return damn;
+        return GlobalFunc::AppsName::damn;
     }
 }
 

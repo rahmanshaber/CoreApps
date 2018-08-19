@@ -45,6 +45,8 @@ public:
     explicit corepad(QWidget *parent = nullptr);
     ~corepad();
 
+    void sendFiles(const QStringList &paths);
+
     QString workFilePath;
     void openText(const QString &filePath);
     bool initializeNewTab(const QString &filePath);

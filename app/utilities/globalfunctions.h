@@ -14,32 +14,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
+#pragma once
+
 #ifndef GLOBALFUNCTIONS_H
 #define GLOBALFUNCTIONS_H
 
 #include <QApplication>
-
 #include <QFile>
 #include <QDir>
-
-
 #include <QMessageBox>
 #include <QFileInfo>
 #include <QSettings>
-
 #include <QDirIterator>
 #include <QProcess>
-
-
-
 #include <QTextStream>
 
 #include "settings/settingsmanage.h"
 
-
-
-
-
+namespace GlobalFunc {
 
 enum AppsName {
     damn = -1,
@@ -61,7 +53,6 @@ enum AppsName {
     CoreTerminal
 };
 
-
 enum Category {
     FileManager,
     TextEditor,
@@ -69,24 +60,14 @@ enum Category {
     Terminal
 };
 
+void appEngine(GlobalFunc::Category ctg , const QString path);
 
-
-void appEngine(Category ctg , const QString path);
-
-  void appEngines(AppsName i, const QString arg);
-
+void appEngines(GlobalFunc::AppsName i, const QString &arg = nullptr);
 
 // bool checkRecentActivityFile();
 
+void appSelectionEngine(const QString &path);
 
- void appSelectionEngine(const QString &path);
-
-
-
-
-
-
-
-
+}
 
 #endif // GLOBALFUNCTIONS_H

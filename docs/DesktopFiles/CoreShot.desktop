@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=CoreShot
+Comment=Take Screenshot
+Exec=coreBox --coreshot
+Icon=/usr/share/icons/CoreBox/CoreShot.svg
+Type=Application
+Categories=Utility;
+Terminal=false
+StartupNotify=true

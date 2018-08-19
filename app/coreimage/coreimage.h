@@ -59,6 +59,8 @@ public:
     explicit coreimage(QWidget *parent = nullptr);
     ~coreimage();
 
+    void sendFiles(const QStringList &paths);
+
     bool loadFile(const QString &);
     QString currentImagePath;
 

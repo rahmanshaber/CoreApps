@@ -15,18 +15,38 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 #include "utilities.h"
-
-
-
-#include <QApplication>
 #include <QScreen>
-QRect screensize() // gives the system screen size
+#include <QFileInfo>
+
+
+
+#include <QMessageBox>
+#include <QFile>
+#include <QDir>
+#include <QDateTime>
+#include <QLabel>
+#include <QFont>
+#include <QWidget>
+#include <QVBoxLayout>
+#include <QFrame>
+#include <QTimer>
+#include <QFontMetrics>
+#include <QIcon>
+#include <QMimeDatabase>
+#include <QMimeType>
+#include <QApplication>
+#include <QDate>
+#include <QTime>
+#include <QCollator>
+
+
+QRect Utilities::screensize() // gives the system screen size
 {
     QScreen * screen = QGuiApplication::primaryScreen();
     return screen->availableGeometry();
 }
 
-QString checkIsValidDir(QString str) // cheack if a folder/dir is valid
+QString Utilities::checkIsValidDir(QString str) // check if a folder/dir is valid
 {
     if (str.isEmpty() || str.isNull()) {
         return "";
@@ -43,7 +63,7 @@ QString checkIsValidDir(QString str) // cheack if a folder/dir is valid
     return "";
 }
 
-QString checkIsValidFile(const QString str) // cheack if a file is valid
+QString Utilities::checkIsValidFile(const QString str) // check if a file is valid
 {
     if (str.isEmpty() || str.isNull()) {
         return "";
@@ -56,24 +76,20 @@ QString checkIsValidFile(const QString str) // cheack if a file is valid
     return "";
 }
 
-#include <QMessageBox>
-#include <QDateTime>
-#include <corefm/fileutils.h>
-bool moveToTrash(const QString &fileName) // moves a file or folder to trash folder
+// FIX ME
+// Need QStringlist As parameter
+bool Utilities::moveToTrash(const QString &fileName) // moves a file or folder to trash folder
 {
     if (FileUtils::getSize(fileName) >= 1073741824) {
 
-//        QMessageBox message(QMessageBox::warning, tr("Warning!"),"File size is about 1 GB or larger.\nPlease delete it instead of moveing to trash.\nDo you want to delete it?"", QMessageBox::No | QMessageBox::Yes);
-//        message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
-//        message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
+        QMessageBox message(QMessageBox::Warning, "Warning!","File size is about 1 GB or larger.\nPlease delete it instead of moveing to trash.\nDo you want to delete it?", QMessageBox::No | QMessageBox::Yes);
+        message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
+        message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
 
-//        int merge = message.exec();
+        int reply = message.exec();
 
-        QMessageBox::StandardButton replyC;
-        replyC = QMessageBox::warning(qApp->activeWindow(), "Warning!", "File size is about 1 GB or larger.\nPlease delete it instead of moveing to trash.\nDo you want to delete it?", QMessageBox::Yes | QMessageBox::No);
-        if (replyC == QMessageBox::No) {
+        if (reply == QMessageBox::No) {
             return false;
-
         } else {
             QFile::remove(fileName);
             return true;
@@ -81,20 +97,17 @@ bool moveToTrash(const QString &fileName) // moves a file or folder to trash fol
     }
     else {
         // Check the trash folder for it't existence
-        setupFolder(TrashFolder);
+        Utilities::setupFolder(Utilities::FolderSetup::TrashFolder);
 
         QDir trash(QDir::homePath() + "/.local/share/Trash");
         QFile directorySizes(trash.path() + "/directorysizes");
         directorySizes.open(QFile::Append);
 
-        QMessageBox::StandardButton reply;
-        reply = QMessageBox::warning(qApp->activeWindow(), "Warning!", "Do you want to Trash the '" + fileName + "' ?", QMessageBox::Yes | QMessageBox::No);
+        QMessageBox message(QMessageBox::Warning, "Warning!", "Do you want to Trash the '" + fileName + "' ?", QMessageBox::No | QMessageBox::Yes);
+        message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
+        message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
 
-//        QMessageBox message(QMessageBox::warning, tr("Delete Section"),"Do you want to Trash the '" + fileName + "' ?", QMessageBox::No | QMessageBox::Yes);
-//        message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
-//        message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
-
-//        int merge = message.exec();
+        int reply = message.exec();
         if (reply == QMessageBox::Yes) {
             QString fileLocation = fileName;
             if (QFile(fileLocation).exists()) {
@@ -109,17 +122,14 @@ bool moveToTrash(const QString &fileName) // moves a file or folder to trash fol
             trashinfo.write(QString("DeletionDate=" + QDateTime::currentDateTime().toString("yyyy-MM-ddThh:mm:ss") + "\n").toUtf8());trashinfo.close();
 
             // Function from utilities.cpp
-            messageEngine("File Moved to Trash", MessageType::Info);
+            Utilities::messageEngine("File Moved to Trash", Utilities::MessageType::Info);
             return true;
         }
     }
     return false;
 }
 
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QTimer>
-void messageEngine(const QString &message, MessageType messageType) // engine show any message with type in desktop corner
+void Utilities::messageEngine(const QString &message, Utilities::MessageType messageType) // engine show any message with type in desktop corner
 {
     QLabel *l = new QLabel(message);
     QFont f ("Arial", 14, QFont::Bold);
@@ -140,29 +150,342 @@ void messageEngine(const QString &message, MessageType messageType) // engine sh
     bi->addWidget(l);
     bi->setContentsMargins(0, 0, 0, 0);
     QString stylesheet;
-    if (messageType == MessageType::Info) {
+    if (messageType == Utilities::MessageType::Info) {
         stylesheet = "QWidget { background-color: rgba(35, 35, 35, 200); color: #ffffff; border: 1px #2A2A2A; border-radius: 3px; }";
-    } else if (messageType == MessageType::Warning) {
+    } else if (messageType == Utilities::MessageType::Warning) {
         stylesheet = "QWidget { background-color: rgba(240, 0, 0, 150); color: #ffffff; border: 1px #2A2A2A; border-radius: 3px; }";
-    } else if (messageType == MessageType::Tips) {
+    } else if (messageType == Utilities::MessageType::Tips) {
         stylesheet = "QWidget { background-color: rgba(0, 0, 240, 150); color: #ffffff; border: 1px #2A2A2A; border-radius: 3px; }";
     } else {
         return;
     }
 
     mbox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    addDropShadow(mbox, 60);
+    Utilities::addDropShadow(mbox, 60);
     mbox->setStyleSheet(stylesheet);
     mbox->show();
 
-    int x = screensize().width() - (mbox->width() + 5);
-    int y = screensize().height() - (mbox->height() + 5);
+    int x = Utilities::screensize().width() - (mbox->width() + 5);
+    int y = Utilities::screensize().height() - (mbox->height() + 5);
     mbox->move(x,y);
 
     QTimer::singleShot(3000, mbox, SLOT(close()));
+}
+
+QSettings * Utilities::getStylesheetValue()
+{
+    SettingsManage sm;
+    QSettings *mStyleValues;
+    QString appThemePath;
+
+    // Load view mode
+    if (sm.getStyleMode()) {
+        appThemePath = ":/theme/style/modeLight.ini";
+    }else {
+        appThemePath = ":/theme/style/modeDark.ini";
+    }
+
+    mStyleValues = new QSettings(appThemePath, QSettings::IniFormat);
+
+    return mStyleValues;
+}
+
+QString Utilities::getStylesheetFileContent(const QString &path)
+{
+    SettingsManage sm;
+    QSettings *mStyleValues;
+    QString mStylesheetFileContent;
+    QString appThemePath;
+
+    // Load view mode
+    if (sm.getStyleMode()) {
+        appThemePath = ":/theme/style/modeLight.ini";
+    }else {
+        appThemePath = ":/theme/style/modeDark.ini";
+    }
+
+    mStyleValues = new QSettings(appThemePath, QSettings::IniFormat);
+    mStylesheetFileContent = Utilities::readStringFromFile(QString(path),QIODevice::ReadOnly);
+
+    // set values example: @color01 => #fff
+    for (const QString &key : mStyleValues->allKeys()) {
+        mStylesheetFileContent.replace(key, mStyleValues->value(key).toString());
+    }
+
+    return mStylesheetFileContent;
+
+//    @color01=apps mainWidget Color
+//    @color02=dialogBox Color
+//    @color03=apps topBar Color
+//    @color04=highLight Color
+//    @color05=border Color
+//    @color06=apps seconderyWidget Color
+//    @color07=apps text Color
+//    @color08=apps HightlightText color
+//    @color09=apps sidebarText color
+}
+
+QString Utilities::readStringFromFile(const QString &path, const QIODevice::OpenMode &mode)
+{
+    QSharedPointer<QFile> file(new QFile(path));
+    QString data;
+
+    if(file->open(mode)) {
+      data = file->readAll();
+      file->close();
+    }
+
+    return data;
+}
+
+QStringList Utilities::fStringList(QStringList left, QStringList right, QFont font) // add two stringlist with ":"
+{
+    QFontMetrics *fm = new QFontMetrics(font);
+    int large = 0;
+
+    for (int i = 0; i < left.count(); i++) {
+        if (large < fm->width(left.at(i))) {
+            large = fm->width(left.at(i));
+        }
+    }
+
+    large = large + fm->width('\t');
+
+    for (int i = 0; i < left.count(); i++) {
+        while (large >= fm->width(left.at(i))) {
+             left.replace(i, QString(left.at(i) + QString('\t')));
+        }
+    }
+
+    for (int i = 0; i < left.count(); i++) {
+        QString total = left.at(i);
+        QString firstWoard = total.at(0).toUpper();
+        QString otherWord = total.right(total.length() - 1 );
+        QString s = left.at(i);
+        left.replace(i, firstWoard + otherWord + ": " + right.at(i));
+    }
+
+    return left;
+}
+
+QString Utilities::formatSize(qint64 num) // separete size in universal size format
+{
+    QString total;
+    const qint64 kb = 1024;
+    const qint64 mb = 1024 * kb;
+    const qint64 gb = 1024 * mb;
+    const qint64 tb = 1024 * gb;
+
+    if (num >= tb) total = QString("%1TB").arg(QString::number(qreal(num) / tb, 'f', 2));
+    else if(num >= gb) total = QString("%1GB").arg(QString::number(qreal(num) / gb, 'f', 2));
+    else if(num >= mb) total = QString("%1MB").arg(QString::number(qreal(num) / mb, 'f', 1));
+    else if(num >= kb) total = QString("%1KB").arg(QString::number(qreal(num) / kb,'f', 1));
+    else total = QString("%1 bytes").arg(num);
+
+    return total;
+}
+
+// ======================== Recent Activity =============================
+QString Utilities::sentDateText(const QString &dateTime)
+{
+    QDateTime given = QDateTime::fromString(dateTime, "dd.MM.yyyy");
+    if (QDate::currentDate().toString("dd.MM.yyyy") == dateTime) {
+        return QString("Today");
+    } else {
+        return QString(given.toString("MMMM dd"));
+    }
+}
+
+bool Utilities::saveToRecent(const QString &appName, const QString &pathName) // save file path and app name for recent activites
+{
+    SettingsManage sm;
+    if (sm.getDisableRecent() == false) {
+        if (appName.count() && pathName.count()) {
+            QSettings recentActivity(QDir::homePath() + "/.config/coreBox/RecentActivity", QSettings::IniFormat);
+            QDateTime currentDT = QDateTime::currentDateTime();
+            QString group = currentDT.toString("dd.MM.yyyy");
+            QString key = currentDT.toString("hh.mm.ss");
+            recentActivity.beginGroup(group);
+            recentActivity.setValue(key, appName + "\t\t\t" + pathName);
+            recentActivity.endGroup();
+            return true;
+        }
+    }
+    return false;
+}
+//+++++++++++++++++++++++
+
+void Utilities::setupFolder(Utilities::FolderSetup fs)
+{
+    switch (fs) {
+    case Utilities::FolderSetup::BookmarkFolder: {
+        // Setup corebox folder for bookmarks
+        const QString b = QDir::homePath() + ".config/coreBox";
+        if (!QDir(b).exists()) {
+            QDir::home().mkdir(".config/coreBox");
+        }
+        break;
+    }
+    case Utilities::FolderSetup::DriveMountFolder: {
+        // Setup drive mount folder
+        const QString d = QDir::homePath() + "/.coreBox";
+        if(!QDir(d).exists()) {
+            QDir::home().mkdir(".coreBox");
+        }
+        break;
+    }
+    case Utilities::FolderSetup::TrashFolder: {
+        // Setup trash folder
+        const QString t = QDir::homePath() + ".local/share/Trash";
+        if (!QDir(t).exists()) {
+            QDir trash = QDir::home();
+            trash.cd(".local/share/");
+            trash.mkdir("Trash");
+            trash.cd("Trash");
+            trash.mkdir("files");
+            trash.mkdir("info");
+        }
+        break;
+    }
+
+    }
+}
+
+QIcon Utilities::getAppIcon(const QString &appName) // gives a app icon from selected theme
+{
+    QStringList apps;
+    apps << "About" << "Bookmarks" << "CoreAction" << "CoreArchiver" << "CoreFM"
+         << "CoreImage" << "CoreInfo" << "CorePad" << "CorePaint" << "CorePDF"
+         << "CorePlayer" << "CoreRenamer" << "CoreShot" << "CoreTerminal" << "CoreTime"
+         << "Search" << "DashBoard" << "Help" << "Settings" << "Start";
+
+    SettingsManage sm;
+    QIcon icon;
+
+    if (apps.contains(appName)) {
+        icon = QIcon(QString(":/app/icons/app-icons/%1.svg").arg(appName));
+    } else {
+        icon = QIcon::fromTheme(appName, QIcon::fromTheme(sm.getThemeName()));
+    }
+
+    if (icon.isNull())
+        return QApplication::style()->standardIcon(QStyle::SP_DesktopIcon);
+    else
+        return icon;
+}
+
+QIcon Utilities::getFileIcon(const QString &filePath) // gives a file or folder icon from system
+{
+    SettingsManage sm;
+    QIcon icon;
+    QFileInfo info(filePath);
+
+    QMimeDatabase mime;
+    QMimeType mType;
+
+    mType = mime.mimeTypeForFile(filePath);
+    icon = QIcon::fromTheme(mType.iconName());
+
+    if (icon.isNull())
+        return QApplication::style()->standardIcon(QStyle::SP_FileIcon);
+    else
+        return icon;
 
 }
 
+QStringList Utilities::sortDate(QStringList &dateList, Utilities::sortOrder s)
+{
+    QList<QDate> dates;
+
+    foreach (QString str, dateList) {
+        dates.append(QDate::fromString(str, "dd.MM.yyyy"));
+    }
+
+    std::sort(std::begin(dates), std::end(dates));
+
+    if (s == Utilities::ASCENDING) {
+        for (int i = 0; i < dateList.count(); i++) {
+            dateList.replace(i, dates[i].toString("dd.MM.yyyy"));
+        }
+    } else {
+        int reverse = dateList.count() - 1;
+        for (int i = 0; i < dateList.count(); i++) {
+            dateList.replace(reverse, dates[i].toString("dd.MM.yyyy"));
+            reverse--;
+        }
+    }
+
+    dates.clear();
+    return dateList;
+}
+
+QStringList Utilities::sortTime(QStringList &timeList, Utilities::sortOrder s, QString format)
+{
+    QList<QTime> times;
+
+    foreach (QString str, timeList) {
+        times.append(QTime::fromString(str, format));
+    }
+
+    std::sort(std::begin(times), std::end(times));
+
+    if (s == Utilities::ASCENDING) {
+        for (int i = 0; i < timeList.count(); i++) {
+            timeList.replace(i, times[i].toString(format));
+        }
+    } else {
+        int reverse = timeList.count() - 1;
+        for (int i = 0; i < timeList.count(); i++) {
+            timeList.replace(reverse, times[i].toString(format));
+            reverse--;
+        }
+    }
+
+    times.clear();
+    return timeList;
+}
+
+QStringList Utilities::sortList(QStringList &list, Utilities::sortOrder s)
+{
+    QCollator sortNum;
+    sortNum.setNumericMode(true);
+
+    if (s == Utilities::ASCENDING) {
+        std::sort(list.begin(), list.end(), sortNum);
+    } else {
+        std::sort(list.begin(), list.end(), [&sortNum](const QString &s1, const QString &s2) {
+            return sortNum.compare(s1, s2) > 0;
+        });
+    }
+
+    return list;
+}
+
+QStringList Utilities::sortDateTime(QStringList &dateTimeList, Utilities::sortOrder s)
+{
+    QList<QDateTime> dts;
+
+    foreach (QString str, dateTimeList) {
+        dts.append(QDateTime::fromString(str, "hh.mm.ss - dd.MM.yyyy"));
+    }
+
+    std::sort(std::begin(dts), std::end(dts));
+
+    if (s == Utilities::ASCENDING) {
+        for (int i = 0; i < dateTimeList.count(); i++) {
+            dateTimeList.replace(i, dts[i].toString("hh.mm.ss - dd.MM.yyyy"));
+        }
+    } else {
+        int reverse = dateTimeList.count() - 1;
+        for (int i = 0; i < dateTimeList.count(); i++) {
+            dateTimeList.replace(reverse, dts[i].toString("hh.mm.ss - dd.MM.yyyy"));
+            reverse--;
+        }
+    }
+
+    dts.clear();
+    return dateTimeList;
+}
 
 //void utilities::reload(int index) // reload the apps if related app is clicked
 //{
@@ -307,320 +630,3 @@ void messageEngine(const QString &message, MessageType messageType) // engine sh
 
 //    messageEngine("Session Saved Successfully", MessageType::Info);
 //}
-
-QString formatSize(qint64 num) // separete size in universal size format
-{
-    QString total;
-    const qint64 kb = 1024;
-    const qint64 mb = 1024 * kb;
-    const qint64 gb = 1024 * mb;
-    const qint64 tb = 1024 * gb;
-
-    if (num >= tb) total = QString("%1TB").arg(QString::number(qreal(num) / tb, 'f', 2));
-    else if(num >= gb) total = QString("%1GB").arg(QString::number(qreal(num) / gb, 'f', 2));
-    else if(num >= mb) total = QString("%1MB").arg(QString::number(qreal(num) / mb, 'f', 1));
-    else if(num >= kb) total = QString("%1KB").arg(QString::number(qreal(num) / kb,'f', 1));
-    else total = QString("%1 bytes").arg(num);
-
-    return total;
-}
-
-
-#include <QFont>
-#include <QFontMetrics>
-QStringList fStringList(QStringList left, QStringList right, QFont font) // add two stringlist with ":"
-{
-    QFontMetrics *fm = new QFontMetrics(font);
-    int large = 0;
-
-    for (int i = 0; i < left.count(); i++) {
-        if (large < fm->width(left.at(i))) {
-            large = fm->width(left.at(i));
-        }
-    }
-
-    large = large + fm->width('\t');
-
-    for (int i = 0; i < left.count(); i++) {
-        while (large >= fm->width(left.at(i))) {
-             left.replace(i, QString(left.at(i) + QString('\t')));
-        }
-    }
-
-    for (int i = 0; i < left.count(); i++) {
-        QString total = left.at(i);
-        QString firstWoard = total.at(0).toUpper();
-        QString otherWord = total.right(total.length() - 1 );
-        QString s = left.at(i);
-        left.replace(i, firstWoard + otherWord + ": " + right.at(i));
-    }
-
-    return left;
-}
-
-
-QString readStringFromFile(const QString &path, const QIODevice::OpenMode &mode)
-{
-    QSharedPointer<QFile> file(new QFile(path));
-    QString data;
-
-    if(file->open(mode)) {
-      data = file->readAll();
-      file->close();
-    }
-
-    return data;
-}
-
-
-QString getStylesheetFileContent(const QString &path)
-{
-    SettingsManage sm;
-    QSettings *mStyleValues;
-    QString mStylesheetFileContent;
-    QString appThemePath;
-
-    // Load view mode
-    if (sm.getStyleMode()) {
-        appThemePath = ":/theme/style/modeLight.ini";
-    }else {
-        appThemePath = ":/theme/style/modeDark.ini";
-    }
-
-    mStyleValues = new QSettings(appThemePath, QSettings::IniFormat);
-    mStylesheetFileContent = readStringFromFile(QString(path),QIODevice::ReadOnly);
-
-    // set values example: @color01 => #fff
-    for (const QString &key : mStyleValues->allKeys()) {
-        mStylesheetFileContent.replace(key, mStyleValues->value(key).toString());
-    }
-
-    return mStylesheetFileContent;
-
-//    @color01=apps mainWidget Color
-//    @color02=dialogBox Color
-//    @color03=apps topBar Color
-//    @color04=highLight Color
-//    @color05=border Color
-//    @color06=apps seconderyWidget Color
-//    @color07=apps text Color
-//    @color08=apps HightlightText color
-//    @color09=apps sidebarText color
-}
-
-QSettings *getStylesheetValue()
-{
-    SettingsManage sm;
-    QSettings *mStyleValues;
-    QString appThemePath;
-
-    // Load view mode
-    if (sm.getStyleMode()) {
-        appThemePath = ":/theme/style/modeLight.ini";
-    }else {
-        appThemePath = ":/theme/style/modeDark.ini";
-    }
-
-    mStyleValues = new QSettings(appThemePath, QSettings::IniFormat);
-
-    return mStyleValues;
-}
-
-void setupFolder(FolderSetup fs)
-{
-    switch (fs) {
-    case FolderSetup::BookmarkFolder: {
-        // Setup corebox folder for bookmarks
-        const QString b = QDir::homePath() + ".config/coreBox";
-        if (!QDir(b).exists()) {
-            QDir::home().mkdir(".config/coreBox");
-        }
-        break;
-    }
-    case FolderSetup::DriveMountFolder: {
-        // Setup drive mount folder
-        const QString d = QDir::homePath() + "/.coreBox";
-        if(!QDir(d).exists()) {
-            QDir::home().mkdir(".coreBox");
-        }
-        break;
-    }
-    case FolderSetup::TrashFolder: {
-        // Setup trash folder
-        const QString t = QDir::homePath() + ".local/share/Trash";
-        if (!QDir(t).exists()) {
-            QDir trash = QDir::home();
-            trash.cd(".local/share/");
-            trash.mkdir("Trash");
-            trash.cd("Trash");
-            trash.mkdir("files");
-            trash.mkdir("info");
-        }
-        break;
-    }
-
-    }
-}
-
-QIcon getAppIcon(const QString &appName) // gives a app icon from selected theme
-{
-    SettingsManage sm;
-    QIcon icon;
-    icon = QIcon::fromTheme(appName, QIcon::fromTheme(sm.getThemeName()));
-
-    if (icon.isNull())
-        return QApplication::style()->standardIcon(QStyle::SP_DesktopIcon);
-    else
-        return icon;
-}
-
-#include <QMimeDatabase>
-#include <QMimeType>
-QIcon getFileIcon(const QString &filePath) // gives a file or folder icon from system
-{
-    SettingsManage sm;
-    QIcon icon;
-    QFileInfo info(filePath);
-
-    QMimeDatabase mime;
-    QMimeType mType;
-
-    mType = mime.mimeTypeForFile(filePath);
-    icon = QIcon::fromTheme(mType.iconName());
-
-    if (icon.isNull())
-        return QApplication::style()->standardIcon(QStyle::SP_FileIcon);
-    else
-        return icon;
-
-}
-
-// ======================== Recent Activity =============================
-#include <QDateTime>
-QString sentDateText(const QString &dateTime)
-{
-    QDateTime given = QDateTime::fromString(dateTime, "dd.MM.yyyy");
-    if (QDate::currentDate().toString("dd.MM.yyyy") == dateTime) {
-        return QString("Today");
-    } else {
-        return QString(given.toString("MMMM dd"));
-    }
-}
-
-#include <QDateTime>
-bool saveToRecent(QString appName, const QString &pathName) // save file path and app name for recent activites
-{
-    SettingsManage sm;
-    if (sm.getDisableRecent() == false) {
-        if (appName.count() && pathName.count()) {
-            QSettings recentActivity(QDir::homePath() + "/.config/coreBox/RecentActivity", QSettings::IniFormat);
-            QDateTime currentDT = QDateTime::currentDateTime();
-            QString group = currentDT.toString("dd.MM.yyyy");
-            QString key = currentDT.toString("hh.mm.ss");
-            recentActivity.beginGroup(group);
-            recentActivity.setValue(key, appName + "\t\t\t" + pathName);
-            recentActivity.endGroup();
-            return true;
-        }
-    }
-    return false;
-}
-
-
-
-QStringList sortDate(QStringList &dateList, sortOrder s)
-{
-    QList<QDate> dates;
-
-    foreach (QString str, dateList) {
-        dates.append(QDate::fromString(str, "dd.MM.yyyy"));
-    }
-
-    std::sort(std::begin(dates), std::end(dates));
-
-    if (s == ASCENDING) {
-        for (int i = 0; i < dateList.count(); i++) {
-            dateList.replace(i, dates[i].toString("dd.MM.yyyy"));
-        }
-    } else {
-        int reverse = dateList.count() - 1;
-        for (int i = 0; i < dateList.count(); i++) {
-            dateList.replace(reverse, dates[i].toString("dd.MM.yyyy"));
-            reverse--;
-        }
-    }
-
-    dates.clear();
-    return dateList;
-}
-
-QStringList sortTime(QStringList &timeList, sortOrder s, QString format)
-{
-    QList<QTime> times;
-
-    foreach (QString str, timeList) {
-        times.append(QTime::fromString(str, format));
-    }
-
-    std::sort(std::begin(times), std::end(times));
-
-    if (s == ASCENDING) {
-        for (int i = 0; i < timeList.count(); i++) {
-            timeList.replace(i, times[i].toString(format));
-        }
-    } else {
-        int reverse = timeList.count() - 1;
-        for (int i = 0; i < timeList.count(); i++) {
-            timeList.replace(reverse, times[i].toString(format));
-            reverse--;
-        }
-    }
-
-    times.clear();
-    return timeList;
-}
-
-#include <QCollator>
-QStringList sortList(QStringList &list, sortOrder s)
-{
-    QCollator sortNum;
-    sortNum.setNumericMode(true);
-
-    if (s == ASCENDING) {
-        std::sort(list.begin(), list.end(), sortNum);
-    } else {
-        std::sort(list.begin(), list.end(), [&sortNum](const QString &s1, const QString &s2) {
-            return sortNum.compare(s1, s2) > 0;
-        });
-    }
-
-    return list;
-}
-
-QStringList sortDateTime(QStringList &dateTimeList, sortOrder s)
-{
-    QList<QDateTime> dts;
-
-    foreach (QString str, dateTimeList) {
-        dts.append(QDateTime::fromString(str, "hh.mm.ss - dd.MM.yyyy"));
-    }
-
-    std::sort(std::begin(dts), std::end(dts));
-
-    if (s == ASCENDING) {
-        for (int i = 0; i < dateTimeList.count(); i++) {
-            dateTimeList.replace(i, dts[i].toString("hh.mm.ss - dd.MM.yyyy"));
-        }
-    } else {
-        int reverse = dateTimeList.count() - 1;
-        for (int i = 0; i < dateTimeList.count(); i++) {
-            dateTimeList.replace(reverse, dts[i].toString("hh.mm.ss - dd.MM.yyyy"));
-            reverse--;
-        }
-    }
-
-    dts.clear();
-    return dateTimeList;
-}
-
-

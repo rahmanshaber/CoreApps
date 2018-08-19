@@ -36,6 +36,8 @@ public:
     corepdf(QWidget *parent = nullptr);
     ~corepdf();
 
+    void sendFiles(const QStringList &paths);
+
     void openPdfFile(const QString path);
     QString workFilePath;
 

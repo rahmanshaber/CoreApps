@@ -70,6 +70,8 @@ public:
     explicit corepaint(QWidget *parent = nullptr);
     ~corepaint();
 
+    void sendFiles(const QStringList &paths);
+
     void initializeNewTab(const bool &isOpen = false, const QString &filePath = "");
     int tabsCount();
     QString saveLocation;

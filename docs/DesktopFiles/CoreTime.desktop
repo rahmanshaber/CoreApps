@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=CoreTime
+Comment=Show date time
+Exec=coreBox --coretime
+Icon=/usr/share/icons/CoreBox/CoreTime.svg
+Type=Application
+Categories=System;
+Terminal=false
+StartupNotify=true

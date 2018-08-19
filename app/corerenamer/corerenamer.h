@@ -63,6 +63,8 @@ public:
     explicit corerenamer(QWidget *parent = nullptr);
     ~corerenamer();
 
+    void sendFiles(const QStringList &paths);
+
     void addFiles(const QStringList &list);
     void addPath(const QString &path);
     QString workFilePath;

@@ -135,7 +135,7 @@ void myModelItem::changeName(QString newName)
 myModelItem* myModelItem::matchPath(const QStringList& path, int startIndex)
 {
     QStringList temp = path;
-    temp.replace(0,"/");
+    temp.replace(0, "/");
     temp.removeAll("");
 
     if(walked == 0)     //not populated yet
@@ -154,8 +154,8 @@ myModelItem* myModelItem::matchPath(const QStringList& path, int startIndex)
 
         if(child->fileName() == match)
         {
-            if(startIndex + 1 == temp.count()) return child;
-            else return child->matchPath(path,startIndex + 1);
+            if ((startIndex + 1) == temp.count()) return child;
+            else return child->matchPath(path, startIndex + 1);
         }
     }
 

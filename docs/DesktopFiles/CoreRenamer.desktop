@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=CoreRenamer
+Comment=Rename files
+Exec=coreBox --corerenamer %F
+Icon=/usr/share/icons/CoreBox/CoreRenemer.svg
+Type=Application
+Categories=System;
+Terminal=false
+StartupNotify=true

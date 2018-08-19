@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Dashboard
+Comment=Show system information
+Exec=coreBox --dashboard
+Icon=/usr/share/icons/CoreBox/DashBoard.svg
+Type=Application
+Categories=Utility;
+Terminal=false
+StartupNotify=true

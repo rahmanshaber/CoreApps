@@ -22,7 +22,7 @@ wNetwork::wNetwork(QWidget *parent) :QWidget(parent),ui(new Ui::wNetwork),
     info(InfoManager::ins())
 {
     ui->setupUi(this);
-    addDropShadow(this, 40);
+    Utilities::addDropShadow(this, 40);
 
     checkNetwork();
     QTimer *timer = new QTimer();
@@ -50,8 +50,8 @@ void wNetwork::checkNetwork()
     quint64 d_TXbytes = (TXbytes - l_TXbytes);
 
     // Function from utilities.cpp
-    QString downText = formatSize(static_cast<int>(d_RXbytes));
-    QString upText = formatSize(static_cast<int>(d_TXbytes));
+    QString downText = Utilities::formatSize(static_cast<int>(d_RXbytes));
+    QString upText = Utilities::formatSize(static_cast<int>(d_TXbytes));
 
     ui->dspeed->setText(downText);
     ui->uspeed->setText(upText);

@@ -24,11 +24,11 @@ coreimage::coreimage(QWidget *parent) :QWidget(parent), ui(new Ui::coreimage)
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/CoreImage.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/CoreImage.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     scaleFactor = 1.0;
@@ -106,7 +106,7 @@ void coreimage::closeEvent(QCloseEvent *event)
 {
     event->ignore();
     // Function from utilities.cpp
-    saveToRecent("CoreImage", currentImagePath);
+    Utilities::saveToRecent("CoreImage", currentImagePath);
     event->accept();
 }
 
@@ -184,7 +184,7 @@ bool coreimage::loadFile(const QString &fileName)
         if (newImage.isNull()) {
             // Function from utilities.cpp
             QString mess = tr("Cannot load \n%1 \n%2").arg(QFileInfo(fileName).baseName(), reader.errorString()) ;
-            messageEngine(mess,MessageType::Warning);
+            Utilities::messageEngine(mess, Utilities::MessageType::Warning);
             return false;
         }
         setImage(newImage);
@@ -250,7 +250,7 @@ void coreimage::setImage(const QImage &newImage)
     ui->name->setText("Name : " + nam + " ; ");
     ui->height->setText("Height : " + h + " px ; ");
     ui->width->setText("Width : " + w + " px ; ");
-    ui->size->setText("Size : " + formatSize(info.size()) + " ; "); // Function from utilities.cpp
+    ui->size->setText("Size : " + Utilities::formatSize(info.size()) + " ; "); // Function from utilities.cpp
     ui->type->setText("Type : " + typ + " ; ");
 }
 
@@ -358,12 +358,12 @@ bool coreimage::saveFile(const QString &fileName)
     if (!writer.write(image)) {
         // Function from utilities.cpp
         QString mess = tr("Cannot write %1: %2").arg(QDir::toNativeSeparators(fileName)).arg(writer.errorString());
-        messageEngine(mess, MessageType::Info);
+        Utilities::messageEngine(mess, Utilities::MessageType::Info);
 
         return false;
     } else {
         // Function from utilities.cpp
-        messageEngine("Image Saved", MessageType::Info);
+        Utilities::messageEngine("Image Saved", Utilities::MessageType::Info);
     }
     return true;
 }
@@ -373,7 +373,7 @@ void coreimage::on_cSave_clicked()
     QImageWriter wr(currentImagePath);
     if (wr.write(image)) {
         // Function from utilities.cpp
-        messageEngine("Image Saved", MessageType::Info);
+        Utilities::messageEngine("Image Saved", Utilities::MessageType::Info);
     }
 }
 
@@ -459,7 +459,7 @@ void coreimage::on_cProperties_clicked(bool checked)
 
 void coreimage::on_openincorepaint_clicked()
 {
-//    appEngines(AppsName::CorePaint, currentImagePath);
+//    GlobalFunc::appEngines(GlobalFunc::AppsName::CorePaint, currentImagePath);
 }
 
 void coreimage::on_openThumbview_clicked()
@@ -475,7 +475,7 @@ void coreimage::on_openThumbview_clicked()
 
 void coreimage::on_containingfolder_clicked()
 {
-    appEngine(FileManager, QFileInfo(currentImagePath).path());
+    GlobalFunc::appEngine(GlobalFunc::Category::FileManager, QFileInfo(currentImagePath).path());
 }
 
 void coreimage::on_thumnailView_itemClicked(QListWidgetItem *item)
@@ -488,7 +488,7 @@ void coreimage::on_cTrashIt_clicked()
     int index = images.indexOf(currentImagePath);
 
     // Function from utilities.cpp
-    if(moveToTrash(currentImagePath) == true){
+    if ( Utilities::moveToTrash( currentImagePath ) == true ) {
         images.removeAt(index);
         if (images.count() == 0) {
             cImageLabel->setPicture(QPicture());
@@ -500,5 +500,11 @@ void coreimage::on_cTrashIt_clicked()
                 on_cNext_clicked();
             }
         }
+    }
+}
+
+void coreimage::sendFiles(const QStringList &paths) {
+    if (paths.count()) {
+        loadFile(Utilities::checkIsValidFile(paths.at(0)));
     }
 }

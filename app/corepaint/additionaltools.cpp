@@ -17,7 +17,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include "additionaltools.h"
 #include "imagearea.h"
 #include "dialogs/resizedialog.h"
-
+#include <QPixmap>
 
 AdditionalTools::AdditionalTools(ImageArea *pImageArea, QObject *parent) :QObject(parent)
 {
@@ -111,6 +111,7 @@ bool AdditionalTools::zoomImage(qreal factor)
     else
     {
         mPImageArea->setImage(mPImageArea->getImage()->transformed(QTransform::fromScale(factor, factor)));
+
         mPImageArea->resize(static_cast<int>((mPImageArea->rect().width())*factor),
                             static_cast<int>((mPImageArea->rect().height())*factor));
         emit sendNewImageSize(mPImageArea->size());

@@ -23,7 +23,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 #include "utilities/utilities.h"
 
-
 namespace Ui {
 class about;
 }

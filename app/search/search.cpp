@@ -23,11 +23,11 @@ search::search(QWidget *parent) :QWidget(parent),ui(new Ui::search)
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/Search.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/Search.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     startsetup();
@@ -113,18 +113,18 @@ void search::loadSearchActivity()
     if (isActivityEnabled) {
         ui->activityList->clear();
         QStringList toplevel = searchActF.childGroups();
-        sortDate(toplevel);
+        Utilities::sortDate(toplevel);
 
         foreach (QString group, toplevel) {
             QTreeWidgetItem *topTree = new QTreeWidgetItem;
 
-            QString groupL = sentDateText(group);
+            QString groupL = Utilities::sentDateText(group);
             topTree->setText(0, groupL);
 
             searchActF.beginGroup(group);
 
             QStringList keys = searchActF.childKeys();
-            sortTime(keys, DESCENDING, "hh.mm.ss");
+            sortTime(keys, Utilities::sortOrder::DESCENDING, "hh.mm.ss");
 
             foreach (QString key, keys) {
                 QTreeWidgetItem *child = new QTreeWidgetItem;
@@ -467,7 +467,7 @@ void search::on_results_itemDoubleClicked(QTableWidgetItem *item)
 {
     // Function from utilities.cpp
     QString path = ui->results->item(item->row(), 1)->text() + "/" + ui->results->item(item->row(), 0)->text();
-    appSelectionEngine(path);
+    GlobalFunc::appSelectionEngine(path);
 }
 
 void search::on_more_clicked(bool checked)

@@ -18,8 +18,8 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 coreterminal::coreterminal(QWidget *parent) : QTermWidget(0, parent)
 {
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     // Terminal Opacity
@@ -78,13 +78,18 @@ coreterminal::coreterminal(QWidget *parent) : QTermWidget(0, parent)
     connect(watcher, SIGNAL(directoryChanged(const QString&)), this, SLOT(handleFSWSignals(QString)));
 
     setFocus();
+
+    // Properties
+    setWindowIcon(QIcon(":/app/icons/app-icons/CoreTerminal.svg"));
+    setWindowTitle("CoreTerminal");
+    setObjectName("coreterminal");
 }
 
 coreterminal::coreterminal(const QString &workDir, QWidget *parent) : QTermWidget(0, parent)
 {
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     // Terminal Opacity
@@ -142,13 +147,17 @@ coreterminal::coreterminal(const QString &workDir, QWidget *parent) : QTermWidge
 
     setFocus();
 
+    // Properties
+    setWindowIcon(QIcon(":/app/icons/app-icons/CoreTerminal.svg"));
+    setWindowTitle("CoreTerminal");
+    setObjectName("coreterminal");
 }
 
 coreterminal::coreterminal(const QString &workDir, const QString &command, QWidget *parent) : QTermWidget(0, parent)
 {
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     // Terminal Opacity
@@ -209,11 +218,7 @@ coreterminal::coreterminal(const QString &workDir, const QString &command, QWidg
 
     startShellProgram();
 
-    //fix
-    connect(this, &coreterminal::finished, [this]() {
-//        CoreBox *cBox = static_cast<CoreBox*>(qApp->activeWindow());
-//        cBox->closeCurrentTab();
-    });
+    connect(this, &coreterminal::finished, this, &coreterminal::close);
 
     QShortcut *shortcut;
 
@@ -224,6 +229,11 @@ coreterminal::coreterminal(const QString &workDir, const QString &command, QWidg
 
     setFocusPolicy(Qt::StrongFocus);
     setFocus();
+
+    // Properties
+    setWindowIcon(QIcon(":/app/icons/app-icons/CoreTerminal.svg"));
+    setWindowTitle("CoreTerminal");
+    setObjectName("coreterminal");
 }
 
 QString coreterminal::currentWorkingDirectory()
@@ -244,8 +254,8 @@ void coreterminal::handleFSWSignals(QString)
 void coreterminal::closeEvent(QCloseEvent *cEvent)
 {
     cEvent->ignore();
+    sendText(QString::fromLocal8Bit("exit\n"));
     emit finished();
-    sendText("exit\n");
     cEvent->accept();
 }
 

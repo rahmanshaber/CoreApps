@@ -20,7 +20,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 void BookmarkManage::createBook()
 {
     // Function from utilities.cpp setupFolder...
-    setupFolder(FolderSetup::BookmarkFolder);
+    setupFolder(Utilities::FolderSetup::BookmarkFolder);
 
     QFile file(cbookFullPath);
     file.open(QFile::ReadWrite);

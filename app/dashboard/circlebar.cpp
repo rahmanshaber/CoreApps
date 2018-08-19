@@ -56,7 +56,7 @@ void CircleBar::init()
 //    connect(SignalMapper::ins(), &SignalMapper::sigChangedAppTheme, [=] {
 //        mChartView->setBackgroundBrush(QColor("#232729"));
 //        mSeries->slices().last()->setColor("#1b252f");
-        mChartView->setBackgroundBrush(QColor(getStylesheetValue()->value("@color01").toString()));
+        mChartView->setBackgroundBrush(QColor(Utilities::getStylesheetValue()->value("@color01").toString()));
         mSeries->slices().last()->setColor("#1b252f");
 //    });
 }

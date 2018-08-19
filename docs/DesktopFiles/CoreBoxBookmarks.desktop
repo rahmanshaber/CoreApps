@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=CoreBoxBookmarks
+Comment=Bookmark files
+Exec=coreBox --bookmarks %F
+Icon=/usr/share/icons/CoreBox/Bookmarks.svg
+Type=Application
+Categories=Settings;
+Terminal=false
+StartupNotify=true

@@ -23,11 +23,11 @@ corepad::corepad(QWidget *parent) : QWidget(parent), ui(new Ui::corepad)
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/CorePad.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/CorePad.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     ui->searchBar->setVisible(false);
@@ -117,7 +117,7 @@ bool corepad::initializeNewTab(const QString &filePath)
         return true;
     } else {
         // Function from utilities.cpp
-        messageEngine("Reached page limit.\nClose some tab.", MessageType::Warning);
+        Utilities::messageEngine("Reached page limit.\nClose some tab.", Utilities::MessageType::Warning);
     }
     return false; //Return an exception - There is some other causes happening.
 }
@@ -160,20 +160,18 @@ bool corepad::closeTab(int index)
     if ((checkIsUpdate && checkIsSaved) || (checkIsUpdate && !checkIsSaved)) {
 
         QString msg = QString("This file contains unsaved changes.\nHow would you like to proceed?");
-        long reply = QMessageBox::warning(this, tr("Save Changes - \"%1\"").arg(currentFilePath(index)),
-                                          "This file contains unsaved changes.\nHow would you like to proceed?",
-                                          QMessageBox::Cancel, QMessageBox::Discard, QMessageBox::Save);
+        QMessageBox message(QMessageBox::Question, QString("Save Changes - \"%1\"").arg(currentFilePath(index)), msg,
+                                          QMessageBox::Cancel | QMessageBox::Discard | QMessageBox::Save, this);
+        message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
+        message.setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
 
-//        QMessageBox message(QMessageBox::Question , tr("Save Changes - \"%1\"").arg(currentFilePath(index)),msg,
-//                                          QMessageBox::Cancel, QMessageBox::Discard, QMessageBox::Save);
+        int reply = message.exec();
 
-//        message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
-//        message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
         if (reply == QMessageBox::Save) {
             bool closed = on_cSave_clicked();
             if (closed) {
                 // Function from utilities.cpp
-                saveToRecent("CorePad", currentFilePath(index));
+                Utilities::saveToRecent("CorePad", currentFilePath(index));
                 goto CLOSE_THE_TAB;
             } else {
                 return false;
@@ -181,14 +179,14 @@ bool corepad::closeTab(int index)
         } else if (reply == QMessageBox::Discard) {
             if (checkIsSaved)
                 // Function from utilities.cpp
-                saveToRecent("CorePad", currentFilePath(index));
+                Utilities::saveToRecent("CorePad", currentFilePath(index));
             goto CLOSE_THE_TAB;
         } else {
             return false;
         }
     } else if ((!checkIsUpdate && checkIsSaved) || (!checkIsUpdate && !checkIsSaved)) {
         // Function from utilities.cpp
-        saveToRecent("CorePad", currentFilePath(index));
+        Utilities::saveToRecent("CorePad", currentFilePath(index));
         CLOSE_THE_TAB:
         ui->notes->widget(index)->deleteLater();
         ui->notes->removeTab(index);
@@ -303,13 +301,13 @@ void corepad::on_cOpen_clicked()
     workFilePath = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::homePath() + "/Documents", tr("Text Files (*.*)"));
     if (workFilePath.isEmpty()) {
         // Function from utilities.cpp
-        messageEngine("Empty File Name", MessageType::Warning);
+        Utilities::messageEngine("Empty File Name", Utilities::MessageType::Warning);
         return;
     }
     else {
         bool open = initializeNewTab(workFilePath);
-        if (open) messageEngine("File Opened", MessageType::Info);
-        else messageEngine("Can't open file", MessageType::Warning);
+        if (open) Utilities::messageEngine("File Opened", Utilities::MessageType::Info);
+        else Utilities::messageEngine("Can't open file", Utilities::MessageType::Warning);
     }
 }
 
@@ -327,7 +325,7 @@ bool corepad::on_cSave_clicked()
         workFilePath = QFileDialog::getSaveFileName(this, tr("Save File"), ui->notes->tabText(ui->notes->currentIndex()).remove(0, 1) ,tr("Text Files (*.*)"));
         if (workFilePath.isEmpty()) {
             // Function from utilities.cpp
-            messageEngine("Empty File Name", MessageType::Warning);
+            Utilities::messageEngine("Empty File Name", Utilities::MessageType::Warning);
             return false;
         } else {
             goto SAVE_FILE;
@@ -340,11 +338,11 @@ bool corepad::on_cSave_clicked()
             setCurrent(index, 1, 0, workFilePath);
             ui->notes->setTabText(index, QFileInfo(workFilePath).fileName());
             // Function from utilities.cpp
-            messageEngine("File Saved", MessageType::Info);
+            Utilities::messageEngine("File Saved", Utilities::MessageType::Info);
             return true;
         } else {
             // Function from utilities.cpp
-            messageEngine("Can't open file", MessageType::Warning);
+            Utilities::messageEngine("Can't open file", Utilities::MessageType::Warning);
         }
     }
     return false;
@@ -363,7 +361,7 @@ void corepad::on_cSaveAs_clicked()
     int index = ui->notes->currentIndex();
     if (fileName.isEmpty()) {
         // Function from utilities.cpp
-        messageEngine("Empty File Name", MessageType::Warning);
+        Utilities::messageEngine("Empty File Name", Utilities::MessageType::Warning);
         return;
     }
     else {
@@ -372,10 +370,10 @@ void corepad::on_cSaveAs_clicked()
             ui->notes->setTabText(index, QFileInfo(fileName).fileName());
             setCurrent(index, 1, 0, fileName);
             // Function from utilities.cpp
-            messageEngine("File Saved", MessageType::Info);
+            Utilities::messageEngine("File Saved", Utilities::MessageType::Info);
         } else {
             // Function from utilities.cpp
-            messageEngine("Can't open file", MessageType::Warning);
+            Utilities::messageEngine("Can't open file", Utilities::MessageType::Warning);
             return;
         }
     }
@@ -420,7 +418,7 @@ void corepad::on_bookMarkIt_clicked()
     if (!currentFilePath(ui->notes->currentIndex()).isNull()) {
         if (!QFileInfo(workFilePath).exists()) {
             // Function from utilities.cpp
-            messageEngine("File Not saved.", MessageType::Warning);
+            Utilities::messageEngine("File Not saved.", Utilities::MessageType::Warning);
             return;
         }
         bookmarks bookMarks;
@@ -456,12 +454,10 @@ void corepad::quitClicked()
 
     if (ui->notes->count() == 0) {
         if (this->close()) {
-//            CoreBox *cBox = qobject_cast<CoreBox*>(this->parent()->parent()->parent()->parent());
-//            cBox->closeCurrentTab();
             deleteLater();
         }
     }
-    else messageEngine("There are still some changes needs to be saved.", MessageType::Warning);
+    else Utilities::messageEngine("There are still some changes needs to be saved.", Utilities::MessageType::Warning);
 }
 
 void corepad::closeEvent(QCloseEvent *event)
@@ -506,5 +502,14 @@ void corepad::on_search_clicked()
     } else {
         ui->searchBar->setVisible(true);
         ui->searchHere->setFocus();
+    }
+}
+
+void corepad::sendFiles(const QStringList &paths) {
+    qDebug() << paths;
+    if (paths.count()) {
+        foreach (QString str, paths) {
+            openText(Utilities::checkIsValidFile(str));
+        }
     }
 }

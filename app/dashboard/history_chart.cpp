@@ -66,9 +66,9 @@ void HistoryChart::init()
 //        QString chartLabelColor = "#7d8ea0";
 //        QString chartGridColor = "#7d8ea0";
 //        QString historyChartBackground = "#2B2A32";
-    QString chartLabelColor = getStylesheetValue()->value("@color07").toString();
-    QString chartGridColor = getStylesheetValue()->value("@color05").toString();
-    QString historyChartBackground = getStylesheetValue()->value("@color06").toString();
+    QString chartLabelColor = Utilities::getStylesheetValue()->value("@color07").toString();
+    QString chartGridColor = Utilities::getStylesheetValue()->value("@color05").toString();
+    QString historyChartBackground = Utilities::getStylesheetValue()->value("@color06").toString();
 
         mChart->axisX()->setLabelsColor(chartLabelColor);
         mChart->axisX()->setGridLineColor(chartGridColor);

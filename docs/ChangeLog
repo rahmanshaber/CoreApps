@@ -9,10 +9,12 @@ Version 2.3
 - fixed trah folder files dobuleclick.
 - appEngine now support system apps.
 - fixed recent activites not opening with the app.
-
-
-
-
+- add namespace at globalfunction and utilities.
+- add all the desktop file.
+- quiting the coreaction closing all the opend app.
+- fix the coreterminal open and close.
+- fixed all the messageBox style.
+- bookmark list rightbutton is not ignored fixed.
 
 
 
@@ -259,7 +261,7 @@ Version 2,Released date Monday, March 26, 2018.
 - fixed alarm edit button not working properly.
 - creating archive in all all format added in corefm.
 - fixed extract here problem in corefm.
-- upgraded AppsName to enum in corebox.
+- upgraded GlobalFunc::AppsName to enum in corebox.
 - fixed not going to the currently opened tab in corebox.
 - bookmark location changed to .config/coreBox folder
 - added coreaction section in settings.

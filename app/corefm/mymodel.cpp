@@ -30,6 +30,7 @@ myModel::myModel(bool realMime)
   folderIcons = new QHash<QString,QIcon>;
   thumbs = new QHash<QString,QByteArray>;
   icons = new QCache<QString,QIcon>;
+  thumbCount = 0;
   icons->setMaxCost(500);
 
   // Loads cached mime icons
@@ -134,7 +135,8 @@ QModelIndex myModel::index(int row, int column, const QModelIndex &parent) const
 
 QModelIndex myModel::index(const QString& path) const
 {
-    myModelItem *item = rootItem->matchPath(path.split(SEPARATOR),0);
+    QString p = path;
+    myModelItem *item = rootItem->matchPath(path.split(SEPARATOR), 0);
 
     if(item) return createIndex(item->childNumber(),0,item);
 
@@ -521,7 +523,7 @@ void myModel::cacheInfo()
     out << *folderIcons;
     fileIcons.close();
 
-    if(thumbs->count() > thumbCount)
+    if (thumbs->count() > thumbCount)
     {
         fileIcons.setFileName(QDir::homePath() + "/.config/coreBox/thumbs.cache");
         if(fileIcons.size() > 10000000) fileIcons.remove();
@@ -615,6 +617,7 @@ void myModel::loadThumbs(QModelIndexList indexes) {
     }
     foreach (QString item, files) {
       if (!thumbs->contains(item)) thumbs->insert(item, getThumb(item));
+      index(item);
       emit thumbUpdate(index(item));
     }
   }
@@ -718,8 +721,7 @@ QVariant myModel::data(const QModelIndex & index, int role) const
         data = item->fileName();
         break;
       case 1 :
-        data = item->fileInfo().isDir() ? "" : formatSize(
-               item->fileInfo().size());
+        data = item->fileInfo().isDir() ? "" : Utilities::formatSize(item->fileInfo().size());
         break;
       case 2 :
         if (item->mMimeType.isNull()) {

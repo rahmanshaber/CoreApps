@@ -229,7 +229,7 @@ QString UDisks2Block::toStringToSeperate(int i) {
         return name;
         break;
     case 2:
-        return formatSize(size);// Function from utilities.cpp
+        return Utilities::formatSize(size);// Function from utilities.cpp
         break;
     case 3:
         return dev;
@@ -338,7 +338,7 @@ QString UDisks2Drive::toStringToSeperate(int i) {
         return name;
         break;
     case 2:
-        return formatSize(static_cast<qint64>(size));
+        return Utilities::formatSize(static_cast<qint64>(size));
         break;
     case 3:
         return vendor;

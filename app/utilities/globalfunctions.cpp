@@ -51,13 +51,13 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QString>
 #include <QStringList>
 #include <settings/settingsmanage.h>
-void appEngine(Category ctg ,const QString path)
+void GlobalFunc::appEngine(GlobalFunc::Category ctg ,const QString path)
 {
     SettingsManage sm;
 
     switch (ctg) {
 
-    case FileManager: {
+    case GlobalFunc::Category::FileManager: {
 
         QString defultFileManager = sm.getFileManager(); // selected FileManager name from settings.
 
@@ -65,11 +65,11 @@ void appEngine(Category ctg ,const QString path)
 
         // Function from utilities.cpp
         QString mess = defultFileManager + " opening " ;
-        messageEngine(mess, MessageType::Info);
+        Utilities::messageEngine(mess, Utilities::MessageType::Info);
 
         break;
     }
-    case TextEditor: {
+    case GlobalFunc::Category::TextEditor: {
 
         QString defultTextEditor = sm.getTextEditor(); // selected TextEditor name from settings.
 
@@ -77,11 +77,11 @@ void appEngine(Category ctg ,const QString path)
 
         // Function from utilities.cpp
         QString mess = defultTextEditor + " opening " ;
-        messageEngine(mess, MessageType::Info);
+        Utilities::messageEngine(mess, Utilities::MessageType::Info);
 
         break;
     }
-    case ImageViewer: {
+    case GlobalFunc::Category::ImageViewer: {
 
         QString defultImageViewer = sm.getImageViewer(); // selected ImageViewer name from settings.
 
@@ -89,11 +89,11 @@ void appEngine(Category ctg ,const QString path)
 
         // Function from utilities.cpp
         QString mess = defultImageViewer + " opening " ;
-        messageEngine(mess, MessageType::Info);
+        Utilities::messageEngine(mess, Utilities::MessageType::Info);
 
         break;
     }
-    case Terminal: {
+    case GlobalFunc::Category::Terminal: {
 
         QString defultTerminal = sm.getTerminal(); // selected terminal name from settings.
         QStringList args(defultTerminal.split(" "));
@@ -101,14 +101,14 @@ void appEngine(Category ctg ,const QString path)
         args.removeAt(0);
 
         if (name == "CoreTerminal") {
-            appEngines(CoreTerminal,path);
+            GlobalFunc::appEngines(GlobalFunc::AppsName::CoreTerminal,path);
         } else {
             QProcess::startDetached(name, args, path);
         }
 
         // Function from utilities.cpp
         QString mess = defultTerminal + " opening " ;
-        messageEngine(mess, MessageType::Info);
+        Utilities::messageEngine(mess, Utilities::MessageType::Info);
 
         break;
     }
@@ -117,122 +117,124 @@ void appEngine(Category ctg ,const QString path)
 }
 
 
-void appEngines(AppsName i,const QString arg) // engine to open app in window
+void GlobalFunc::appEngines(GlobalFunc::AppsName i, const QString &arg) // engine to open app in window
 {
     switch (i) {
-    case CoreFM: {
+    case GlobalFunc::AppsName::CoreFM: {
         corefm *app = new corefm();
-        QString str = checkIsValidDir(arg);
+        QString str = Utilities::checkIsValidDir(arg);
         if (!str.isEmpty() || !str.isNull()) app->goTo(str);
         app->show();
 
         break;
     }
-    case CoreImage: {
+    case GlobalFunc::AppsName::CoreImage: {
         coreimage *app = new coreimage();
-        QString str = checkIsValidFile(arg);
-        if (!str.isEmpty() || !str.isNull()) app->loadFile(str);
+        QString str = Utilities::checkIsValidFile(arg);
+        if (str.count())
+            app->loadFile(str);
         app->show();
 
         break;
     }
-    case CorePad: {
+    case GlobalFunc::AppsName::CorePad: {
         corepad *app = new corepad();
-        app->openText(checkIsValidFile(arg));
+        app->openText(Utilities::checkIsValidFile(arg));
         app->show();
 
         break;
     }
-    case CorePaint: {
+    case GlobalFunc::AppsName::CorePaint: {
         corepaint *app = new corepaint();
-        const QString str = checkIsValidFile(arg);
-        if (!str.isEmpty() || !str.isNull()) app->initializeNewTab(true, str);
+        const QString str = Utilities::checkIsValidFile(arg);
+        if (str.count()) app->initializeNewTab(true, str);
         else app->initializeNewTab();
         app->show();
 
         break;
     }
-    case CorePlayer: {
+    case GlobalFunc::AppsName::CorePlayer: {
         coreplayer *app = new coreplayer();
-        const QString str = checkIsValidFile(arg);
+        const QString str = Utilities::checkIsValidFile(arg);
         if (!str.isEmpty() || !str.isNull()) app->openPlayer(str);
         app->show();
 
         break;
     }
-    case Dashboard: {
+    case GlobalFunc::AppsName::Dashboard: {
         dashboard *app = new dashboard();
         app->show();
 
         break;
     }
-    case Bookmarks: {
+    case GlobalFunc::AppsName::Bookmarks: {
         bookmarks *app = new bookmarks();
         app->show();
 
         break;
     }
-    case About: {
+    case GlobalFunc::AppsName::About: {
         about *app = new about();
         app->show();
 
         break;
     }
-    case StartView: {
+    case GlobalFunc::AppsName::StartView: {
         Start *app = new Start();
         app->show();
 
         break;
     }
-    case Help: {
+    case GlobalFunc::AppsName::Help: {
         help *app = new help();
         app->show();
 
         break;
     }
-    case Settings: {
+    case GlobalFunc::AppsName::Settings: {
         settings *app = new settings();
         app->show();
 
         break;
     }
-    case Search: {
+    case GlobalFunc::AppsName::Search: {
         search *app = new search();
-        QString str = checkIsValidDir(arg);
+        QString str = Utilities::checkIsValidDir(arg);
         if (!str.isEmpty() || !str.isNull()) app->setPath(str);
         app->show();
 
         break;
     }
-    case CoreTime: {
+    case GlobalFunc::AppsName::CoreTime: {
         coretime *app = new coretime();
         app->show();
 
         break;
     }
-    case CorePDF: {
+    case GlobalFunc::AppsName::CorePDF: {
         corepdf *app = new corepdf();
-        const QString str = checkIsValidFile(arg);
+        const QString str = Utilities::checkIsValidFile(arg);
         if (!str.isEmpty() || !str.isNull()) app->openPdfFile(str);
         app->show();
 
         break;
     }
-    case CoreTerminal: {
+    case GlobalFunc::AppsName::CoreTerminal: {
         QString workDir = arg;
         if (!arg.count())
             workDir = QDir::homePath();
         if (QFileInfo(workDir).isFile())
             workDir = QFileInfo(arg).path();
-//        coreterminal *app = new coreterminal(workDir, "", this);
-//        app->show();
+
+        coreterminal *cterm = new coreterminal( workDir, "" /*, Parent Needed */);
+        cterm->show();
 
         break;
     }
-    case CoreRenamer: {
+    case GlobalFunc::AppsName::CoreRenamer: {
         corerenamer *app = new corerenamer();
-        const QString str = checkIsValidDir(arg);
-        if (!str.isEmpty() || !str.isNull()) app->addPath(str);
+        const QString str = Utilities::checkIsValidDir(arg);
+        if (str.count()) app->addPath(str);
         app->show();
 
         break;
@@ -243,12 +245,12 @@ void appEngines(AppsName i,const QString arg) // engine to open app in window
 }
 
 
-void appSelectionEngine(const QString &path) // engine send right file to coreapps or system
+void GlobalFunc::appSelectionEngine(const QString &path) // engine send right file to coreapps or system
 {
     QFileInfo info(path);
     if(!info.exists() && !path.isEmpty()){
         // Function from utilities.cpp
-        messageEngine("File not exists", MessageType::Warning);
+        Utilities::messageEngine("File not exists", Utilities::MessageType::Warning);
         return;
     }
 
@@ -261,25 +263,25 @@ void appSelectionEngine(const QString &path) // engine send right file to coreap
 
     //CoreFM
     if (info.isDir()) {
-        appEngine(FileManager, info.absoluteFilePath());
+        GlobalFunc::appEngine(GlobalFunc::Category::FileManager, info.absoluteFilePath());
         return;
     }
 
     //CoreImage
     else if (image.contains(suffix, Qt::CaseInsensitive)) {
-        appEngine(ImageViewer, info.absoluteFilePath());
+        GlobalFunc::appEngine(GlobalFunc::Category::ImageViewer, info.absoluteFilePath());
         return;
     }
 
     //CorePad
     else if (txts.contains(suffix, Qt::CaseInsensitive)) {
-        appEngine(TextEditor, info.absoluteFilePath());
+        GlobalFunc::appEngine(GlobalFunc::Category::TextEditor, info.absoluteFilePath());
         return;
     }
 
     //CorePDF
     else if (pdf.contains(suffix, Qt::CaseInsensitive)) {
-        appEngines(CorePDF, info.absoluteFilePath());
+        GlobalFunc::appEngines(GlobalFunc::AppsName::CorePDF, info.absoluteFilePath());
         return;
     }
 

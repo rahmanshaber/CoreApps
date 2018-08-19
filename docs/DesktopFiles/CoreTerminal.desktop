@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=CoreTerminal
+Comment=Terminal Emulator
+Exec=coreBox --coreterminal %F
+Icon=/usr/share/icons/CoreBox/CoreTerminal.svg
+Type=Application
+Categories=System;
+Terminal=false
+StartupNotify=true

@@ -24,11 +24,11 @@ coreplayer::coreplayer(QWidget *parent):QWidget(parent),ui(new Ui::coreplayer)
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/CorePlayer.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/CorePlayer.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     startsetup();
@@ -77,7 +77,7 @@ void coreplayer::startsetup()
     if (!isPlayerAvailable()) {
         // Function from utilities.cpp
         QString mess = tr("The QMediaPlayer object does not have a valid service\nPlease check the media service plugins are installed.") ;
-        messageEngine(mess,MessageType::Warning);
+        Utilities::messageEngine(mess, Utilities::MessageType::Warning);
      }
 }
 
@@ -221,18 +221,18 @@ void coreplayer::statusChanged(QMediaPlayer::MediaStatus status)
         break;
     case QMediaPlayer::LoadingMedia:
         // Function from utilities.cpp
-        messageEngine("Loading...", MessageType::Info);
+        Utilities::messageEngine("Loading...", Utilities::MessageType::Info);
         break;
     case QMediaPlayer::StalledMedia:
         // Function from utilities.cpp
-        messageEngine("Media Stalled", MessageType::Info);
+        Utilities::messageEngine("Media Stalled", Utilities::MessageType::Info);
         break;
     case QMediaPlayer::EndOfMedia:
         QApplication::alert(this);
         break;
     case QMediaPlayer::InvalidMedia:
         // Function from utilities.cpp
-        messageEngine("Invalid Media", MessageType::Warning);
+        Utilities::messageEngine("Invalid Media", Utilities::MessageType::Warning);
         break;
     }
 }
@@ -252,13 +252,13 @@ void coreplayer::handleCursor(QMediaPlayer::MediaStatus status)
 void coreplayer::bufferingProgress(int progress)
 {
     // Function from utilities.cpp
-    messageEngine(tr("Buffering %4%").arg(progress), MessageType::Info);
+    Utilities::messageEngine(tr("Buffering %4%").arg(progress), Utilities::MessageType::Info);
 }
 
 void coreplayer::displayErrorMessage()
 {
     // Function from utilities.cpp
-    messageEngine(player->errorString(), MessageType::Warning);
+    Utilities::messageEngine(player->errorString(), Utilities::MessageType::Warning);
 }
 
 void coreplayer::updateDurationInfo(qint64 currentInfo)
@@ -346,7 +346,7 @@ void coreplayer::openPlayer(const QString path)
         ui->playing->setText(QFileInfo(path).fileName());
         folderpath = QFileInfo(path).path();
         // Function from utilities.cpp
-        messageEngine("Playing", MessageType::Info);
+        Utilities::messageEngine("Playing", Utilities::MessageType::Info);
     }
 
 }
@@ -366,7 +366,7 @@ void coreplayer::on_open_clicked()
         openPlayer(filepath);
 
         // Function from utilities.cpp
-        messageEngine("Files Collected", MessageType::Info);
+        Utilities::messageEngine("Files Collected", Utilities::MessageType::Info);
 
         for (QToolButton *b : ui->toolBar->findChildren<QToolButton*>()){
             b->setEnabled(true);
@@ -375,7 +375,7 @@ void coreplayer::on_open_clicked()
         ui->volume->setEnabled(true);
     } else {
         // Function from utilities.cpp
-        messageEngine("Files collection rejected", MessageType::Info);
+        Utilities::messageEngine("Files collection rejected", Utilities::MessageType::Info);
     }
 }
 
@@ -417,13 +417,13 @@ void coreplayer::on_play_clicked(bool checked)
         else{play(0);}
         if(ui->shortcut->isVisible()){ui->shortcut->setVisible(false);}
         // Function from utilities.cpp
-        messageEngine("Playing", MessageType::Info);
+        Utilities::messageEngine("Playing", Utilities::MessageType::Info);
     }
     else{
         setState(QMediaPlayer::PausedState);
         player->pause();
         // Function from utilities.cpp
-        messageEngine("Paused", MessageType::Info);
+        Utilities::messageEngine("Paused", Utilities::MessageType::Info);
     }
 }
 
@@ -519,7 +519,7 @@ void coreplayer::on_medialist_doubleClicked(const QModelIndex &index)
     play(index.row());
     ui->play->setChecked(true);
     // Function from utilities.cpp
-    messageEngine("Playing", MessageType::Info);
+    Utilities::messageEngine("Playing", Utilities::MessageType::Info);
 }
 
 void coreplayer::seekLeft()
@@ -554,5 +554,11 @@ void coreplayer::on_playlist_clicked(bool checked)
         ui->shortcut->setVisible(1);
     } else{
         ui->shortcut->setVisible(0);
+    }
+}
+
+void coreplayer::sendFiles(const QStringList &paths) {
+    if (paths.count()) {
+        openPlayer(paths.at(0));
     }
 }

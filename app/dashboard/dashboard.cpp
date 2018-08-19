@@ -23,11 +23,11 @@ dashboard::dashboard(QWidget *parent) :QWidget(parent),ui(new Ui::dashboard)
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/DashBoard.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/DashBoard.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     on_Bgeneral_clicked();

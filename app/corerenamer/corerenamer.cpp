@@ -21,11 +21,11 @@ corerenamer::corerenamer(QWidget *parent) :QWidget(parent),ui(new Ui::corerename
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/CoreRenamer.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/CoreRenamer.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     uStack = new QUndoStack(this);
@@ -48,7 +48,7 @@ corerenamer::corerenamer(QWidget *parent) :QWidget(parent),ui(new Ui::corerename
     customSortM = new customSortProxyM();
     m_Model = new QStandardItemModel(0,3);
 
-    addDropShadow(ui->renameTools,40);
+    Utilities::addDropShadow(ui->renameTools,40);
 
     shotcuts();
     startsetup(false);
@@ -466,11 +466,12 @@ void corerenamer::on_saveRenamed_clicked()
         long reply = QMessageBox::warning(this, "Warning", "File exists.\nDo you want to overwrite it.", QMessageBox::Yes, QMessageBox::No);
         if (reply == QMessageBox::No) return;
     }
-    if (file.open(QIODevice::WriteOnly)) {
+
+    if (file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text)) {
         file.write(textFile.toLatin1());
         file.close();
         // Function from utilities.cpp
-        messageEngine("Renamed List Saved.", Info);
+        Utilities::messageEngine("Renamed List Saved.", Utilities::MessageType::Info);
     }
 }
 
@@ -486,14 +487,13 @@ void corerenamer::on_bRedo_clicked()
 
 void corerenamer::on_rename_clicked()
 {
-//    QString msg = QString("Are you sure to rename those files?\nIf you once rename them it is not possible to go back...");
-//    QMessageBox message(QMessageBox::Question, "Permission", msg,QMessageBox::Yes, QMessageBox::No);
-//    message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreRenemer.svg"));
-//    message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
-//    int merge = message.exec();
+    QString msg = QString("Are you sure to rename those files?\nIf you once rename them it is not possible to go back...");
+    QMessageBox message(QMessageBox::Question, "Permission", msg, QMessageBox::Yes | QMessageBox::No, this);
+    message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreRenemer.svg"));
+    message.setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
 
-    long reply = QMessageBox::information(this, "Permission", "Are you sure to rename those files?\nIf you once rename them it is not possible to go back...",
-                                          QMessageBox::Yes, QMessageBox::No);
+    int reply = message.exec();
+
     if (reply == QMessageBox::Yes) {
         ui->FLists->selectAll();
         foreach (QModelIndex i, ui->FLists->selectionModel()->selectedIndexes()) {
@@ -510,7 +510,7 @@ void corerenamer::on_rename_clicked()
         uStack->clear();
         ui->FLists->clearSelection();
         // Function from utilities.cpp
-        messageEngine("File Renamed Successfully.", Info);
+        messageEngine("File Renamed Successfully.", Utilities::MessageType::Info);
     }
 }
 
@@ -590,5 +590,11 @@ void corerenamer::on_doRemoveAddNum_clicked()
                 uStack->push(new ARRTextCommand(m_Model->item(i.row(), 1), numing, NUMBER));
             }
         }
+    }
+}
+
+void corerenamer::sendFiles(const QStringList &paths) {
+    if (paths.count()) {
+        addFiles(paths);
     }
 }

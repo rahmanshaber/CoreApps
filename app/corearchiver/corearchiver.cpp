@@ -23,7 +23,7 @@ corearchiver::corearchiver(QWidget *parent) :QWidget(parent),ui(new Ui::corearch
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/CoreArchiver.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/CoreArchiver.qss"));
 
     startsetup();
 }
@@ -154,4 +154,15 @@ void corearchiver::updateDirName()
 void corearchiver::updateFormat(const QString &fmt )
 {
     format = QString( fmt );
+}
+
+void corearchiver::sendFiles(const QStringList &paths, bool archive) {
+    if (!paths.count())
+        return;
+
+    if (archive) {
+        compress(paths, QDir(paths.at(0)));
+    } else {
+        extract(paths.at(0), QDir(paths.at(0)).path());
+    }
 }

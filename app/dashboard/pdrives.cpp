@@ -23,10 +23,10 @@ pDrives::pDrives(QWidget *parent) :QWidget(parent),ui(new Ui::pDrives)
     ui->setupUi(this);
     setupDisksPage();
     ui->mm->setText("Select a Partition to");
-    addDropShadow(ui->alldrives,40);
-    addDropShadow(ui->logs,40);
-    addDropShadow(ui->partiton,40);
-    addDropShadow(ui->properties,40);
+    Utilities::addDropShadow(ui->alldrives,40);
+    Utilities::addDropShadow(ui->logs,40);
+    Utilities::addDropShadow(ui->partiton,40);
+    Utilities::addDropShadow(ui->properties,40);
 }
 
 pDrives::~pDrives()
@@ -46,7 +46,7 @@ QString pDrives::getDriveInfo(const QString path)
     double f = QStorageInfo(path).bytesFree();
 
     // Function from utilities.cpp
-    return QString("%1  /  %2  (%3%)").arg(formatSize(static_cast<int>(f))).arg(formatSize(static_cast<int>(t))).arg((t - f)*100/t);
+    return QString("%1  /  %2  (%3%)").arg(Utilities::formatSize(static_cast<int>(f))).arg(Utilities::formatSize(static_cast<int>(t))).arg((t - f)*100/t);
 }
 
 void pDrives::setupDisksPage()
@@ -107,7 +107,7 @@ void pDrives::on_drives_currentTextChanged(const QString &currentText)
           << dr->toStringToSeperate(10);
 
 
-    QStringListModel *systemInfoModel = new QStringListModel(fStringList(left, right, ui->info->font()));
+    QStringListModel *systemInfoModel = new QStringListModel(Utilities::fStringList(left, right, ui->info->font()));
 
     ui->info->setModel(systemInfoModel);
 }
@@ -129,7 +129,7 @@ void pDrives::on_blocks_currentTextChanged(const QString &currentText)
               << block->toStringToSeperate(7) << block->toStringToSeperate(8) << path
               << getDriveInfo(path);
 
-        QStringListModel *systemInfoModel = new QStringListModel(fStringList(left, right, ui->info->font()));
+        QStringListModel *systemInfoModel = new QStringListModel(Utilities::fStringList(left, right, ui->info->font()));
 
         ui->info->setModel(systemInfoModel);
     }
@@ -195,7 +195,7 @@ void pDrives::on_mount_2_clicked()
     auto fs = disks->blockDevice(ui->blocks->currentItem()->text())->fileSystem();
 
     if (fs)
-        messageEngine("Directory '" + fs->mount() + "' mounted.", MessageType::Info);
+        Utilities::messageEngine("Directory '" + fs->mount() + "' mounted.", Utilities::MessageType::Info);
 }
 
 void pDrives::on_unmount_2_clicked()
@@ -205,7 +205,7 @@ void pDrives::on_unmount_2_clicked()
     auto fs = disks->blockDevice(ui->blocks->currentItem()->text())->fileSystem();
     if (fs) {
         fs->unmount();
-        messageEngine("Partition '" + fs->name + "' unmounted.", MessageType::Info);
+        Utilities::messageEngine("Partition '" + fs->name + "' unmounted.", Utilities::MessageType::Info);
     }
 }
 

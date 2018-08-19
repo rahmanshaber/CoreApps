@@ -57,7 +57,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include "bookmarks/bookmarks.h"
 #include "corearchiver/corearchiver.h"
 
-
 namespace Ui {
 class corefm;
 }
@@ -69,6 +68,8 @@ class corefm : public QWidget
 public:
     explicit corefm(QWidget *parent = nullptr);
     ~corefm();
+
+    void sendFiles(const QStringList &paths);
 
     void goTo(const QString path);
     QString gCurrentPath(int index);

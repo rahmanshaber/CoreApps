@@ -88,7 +88,7 @@ void MimeUtils::openInApp(const QFileInfo &file, QObject *processOwner)
       openInApp(df.getExec(), file, processOwner);
     } else {
         // Function from utilities.cpp
-        messageEngine(tr("No default application for mime:\n %1!").arg(mime),MessageType::Warning);
+        Utilities::messageEngine(tr("No default application for mime:\n %1!").arg(mime), Utilities::MessageType::Warning);
     }
 }
 
@@ -126,7 +126,7 @@ void MimeUtils::openInApp(QString exe, const QFileInfo &file,QObject *processOwn
   }
 
   // Function from utilities.cpp
-  saveToRecent(name,args);
+  Utilities::saveToRecent(name, args);
 
   // Start application
   QProcess *myProcess = new QProcess(processOwner);

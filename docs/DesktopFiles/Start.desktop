@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Start
+Comment=Open start
+Exec=coreBox --start
+Icon=/usr/share/icons/CoreBox/Start.svg
+Type=Application
+Categories=System;
+Terminal=false
+StartupNotify=true

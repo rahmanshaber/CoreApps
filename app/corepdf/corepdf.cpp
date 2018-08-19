@@ -21,8 +21,8 @@ corepdf::corepdf(QWidget *parent):QWidget(parent)
 {
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     QVBoxLayout * mainLayout = new QVBoxLayout();
@@ -62,8 +62,14 @@ void corepdf::closeEvent(QCloseEvent *event)
 {
     event->ignore();
     // Function from utilities.cpp
-    saveToRecent("CorePDF", workFilePath);
+    Utilities::saveToRecent("CorePDF", workFilePath);
     QPdfWidget *cpdf = qobject_cast<QPdfWidget*>(this->children().at(1));
     cpdf->closeDocument();
     event->accept();
+}
+
+void corepdf::sendFiles(const QStringList &paths) {
+    if (paths.count()) {
+        openPdfFile(Utilities::checkIsValidFile(paths.at(0)));
+    }
 }

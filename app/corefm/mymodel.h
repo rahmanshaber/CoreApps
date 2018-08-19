@@ -26,9 +26,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <sys/ioctl.h>
 #include <QApplication>
 
-
-QString formatSize(qint64);
-
 /**
  * @class myModel
  * @brief holding information about files in FS

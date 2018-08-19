@@ -23,11 +23,11 @@ coreshot::coreshot(QWidget *parent) :QWidget(parent),ui(new Ui::coreshot)
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/CoreShot.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/CoreShot.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .55);
-    int y = static_cast<int>(screensize().height()  * .6);
+    int x = static_cast<int>(Utilities::screensize().width()  * .55);
+    int y = static_cast<int>(Utilities::screensize().height()  * .6);
     this->resize(x, y);
 
     files = "";
@@ -50,7 +50,7 @@ void coreshot::on_openInCorePaint_clicked()
     ui->shotPreview->originalPixmap().save(&file, "PNG");
     file.close();
     files = fileName;
-//    appEngines(CorePaint, files);
+//    GlobalFunc::appEngines(CorePaint, files);
     this->close();
 }
 
@@ -62,7 +62,7 @@ void coreshot::on_save_clicked()
     file.close();
     files = fileName;
     // Function from utilities.cpp
-    messageEngine("Screenshot Saved", MessageType::Info);
+    Utilities::messageEngine("Screenshot Saved", Utilities::MessageType::Info);
     this->close();
 }
 
@@ -76,7 +76,7 @@ void coreshot::on_saveAs_clicked()
     file.close();
     files = filename;
     // Function from utilities.cpp
-    messageEngine("Screenshot Saved", MessageType::Info);
+    Utilities::messageEngine("Screenshot Saved", Utilities::MessageType::Info);
     this->close();
 }
 
@@ -99,6 +99,6 @@ void coreshot::on_openInCoreImage_clicked()
     ui->shotPreview->originalPixmap().save(&file, "PNG");
     file.close();
     files = fileName;
-    appEngine(ImageViewer, files);
+    GlobalFunc::appEngine(GlobalFunc::Category::ImageViewer, files);
     this->close();
 }

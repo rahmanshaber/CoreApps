@@ -73,6 +73,10 @@ ImageArea::ImageArea(const bool &isOpen, const QString &filePath, QWidget *paren
     mInstrumentsHandlers[CURVELINE] = new CurveLineInstrument(this);
     mInstrumentsHandlers[TEXT] = new TextInstrument(this);
 
+    this->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(this, &ImageArea::customContextMenuRequested, [this](const QPoint &pos) {
+        contextMenu()->exec(this->mapToGlobal(pos));
+    });
 }
 
 ImageArea::~ImageArea()
@@ -121,7 +125,7 @@ void ImageArea::open(const QString &filePath)
     {
         QApplication::restoreOverrideCursor();
         // Function from utilities.cpp
-        messageEngine(tr("Can't open file \"%1\".").arg(filePath) ,MessageType::Warning);
+        Utilities::messageEngine(tr("Can't open file \"%1\".").arg(filePath), Utilities::MessageType::Warning);
     }
 }
 
@@ -135,7 +139,7 @@ bool ImageArea::save()
     if (!mImage->save(mFilePath))
     {
         // Function from utilities.cpp
-        messageEngine(tr("Can't save file \"%1\".").arg(mFilePath),MessageType::Warning);
+        Utilities::messageEngine(tr("Can't save file \"%1\".").arg(mFilePath), Utilities::MessageType::Warning);
         return false;
     }
     mIsEdited = false;
@@ -187,7 +191,7 @@ bool ImageArea::saveAs()
         {
             result = false;
             // Function from utilities.cpp
-            messageEngine(tr("Can't save file \"%1\".").arg(filePath) ,MessageType::Warning);
+            Utilities::messageEngine(tr("Can't save file \"%1\".").arg(filePath), Utilities::MessageType::Warning);
 
         }
     } else { result = false;}
@@ -496,6 +500,28 @@ void ImageArea::makeFormatsFilters()
         mSaveFilter += ";;X11 Bitmap(*.xbm)";
     if(ba.contains("xpm"))
         mSaveFilter += ";;X11 Pixmap(*.xpm)";
+}
+
+QMenu *ImageArea::contextMenu()
+{
+    QMenu *popup = new QMenu(this);
+
+    QAction *copyAct = new QAction("Copy", popup);
+    QAction *cutAct = new QAction("Cut", popup);
+    QAction *pasteAct = new QAction("Paste", popup);
+    QAction *delAct = new QAction("Delete", popup);
+
+    popup->addAction(copyAct);
+    popup->addAction(cutAct);
+    popup->addAction(pasteAct);
+    popup->addAction(delAct);
+
+    connect(copyAct, &QAction::triggered, this, &ImageArea::copyImage);
+    connect(cutAct, &QAction::triggered, this, &ImageArea::cutImage);
+    connect(pasteAct, &QAction::triggered, this, &ImageArea::pasteImage);
+    connect(delAct, &QAction::triggered, this, &ImageArea::clearBackground);
+
+    return popup;
 }
 
 void ImageArea::saveImageChanges()

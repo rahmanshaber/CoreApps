@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=CoreImage
+Comment=Image Viewer
+Exec=coreBox --coreimage %F
+Icon=/usr/share/icons/CoreBox/CoreImage.svg
+Type=Application
+Categories=Graphics;
+Terminal=false
+StartupNotify=true

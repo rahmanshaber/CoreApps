@@ -21,7 +21,7 @@ myProgressDialog::myProgressDialog(QString title)
 {
    setWindowTitle(title);
    setWindowIcon(QIcon(":/app/icons/app-icons/CoreFM.svg"));
-   setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
+   setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
 
 
    filename = new QLabel(tr("Initializing..."));

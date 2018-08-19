@@ -30,15 +30,16 @@ bookmarks::bookmarks(QWidget *parent) :QWidget(parent),ui(new Ui::bookmarks)
     ui->boklist->setFocusPolicy(Qt::NoFocus);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/Bookmarks.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/Bookmarks.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     bk.checkBook();
     sectionRefresh();
+    ui->boklist->viewport()->installEventFilter(this);
 }
 
 bookmarks::~bookmarks()
@@ -52,13 +53,13 @@ bool bookmarks::eventFilter(QObject *obj, QEvent *event)
         if (event->type() == QEvent::MouseButtonDblClick) {
             QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
             if (mouseEvent->button() == Qt::RightButton) {
-                mouseEvent->ignore();
-                QMessageBox::information(this,"","RIGHT");
+                return true;
+            } else {
                 return false;
             }
         }
     }
-    return false;
+    return QWidget::eventFilter(obj, event);
 }
 
 void bookmarks::sectionRefresh()
@@ -105,7 +106,7 @@ void bookmarks::callBookMarkDialog(QWidget *parent, const QString &currentPath)
     const QString str = bm.checkingBookPathEx(currentPath);
     if (str.isEmpty() || str.isNull()) {
         bookmarkDialog *bkdlg = new bookmarkDialog(parent);
-        QIcon ico = getFileIcon(currentPath);
+        QIcon ico = Utilities::getFileIcon(currentPath);
         QPixmap pix = ico.pixmap(QSize(100, 80));
         bkdlg->setBookPath(currentPath);
         bkdlg->setBookName(info.fileName() + "");
@@ -121,7 +122,7 @@ void bookmarks::callBookMarkDialog(QWidget *parent, const QString &currentPath)
         sectionRefresh();
     } else {
         // Function from utilities.cpp
-        messageEngine(str, MessageType::Info);
+        messageEngine(str, Utilities::MessageType::Info);
     }
 }
 
@@ -155,7 +156,7 @@ void bookmarks::on_section_itemClicked(QListWidgetItem *item)
         dateTimeList.append(bk.bookingTime(ui->section->currentItem()->text(), list.at(i)));
     }
 
-    sortDateTime(dateTimeList);
+    Utilities::sortDateTime(dateTimeList);
     QStringList mList;
     mList.clear();
     int reverse = count - 1;
@@ -174,7 +175,7 @@ void bookmarks::on_section_itemClicked(QListWidgetItem *item)
     QTableWidgetItem *items;
     for (int i = 0; i < count; i++) {
         items = new QTableWidgetItem(mList.at(i));
-        items->setIcon(getFileIcon(bk.bookmarkPath(ui->section->currentItem()->text(), mList.at(i))));
+        items->setIcon(Utilities::getFileIcon(bk.bookmarkPath(ui->section->currentItem()->text(), mList.at(i))));
 
         ui->boklist->setItem(i, 0, items);
         ui->boklist->setItem(i, 1, new QTableWidgetItem(bk.bookmarkPath(ui->section->currentItem()->text(), mList.at(i))));
@@ -195,14 +196,14 @@ void bookmarks::on_deleteSection_clicked()
 {
     QMessageBox message(QMessageBox::Question, tr("Delete Section"), "Do you want to delete this section?", QMessageBox::No | QMessageBox::Yes);
     message.setWindowIcon(QIcon(":/app/icons/app-icons/Bookmarks.svg"));
-    message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
+    message.setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
 
     int merge = message.exec();
     if (merge == QMessageBox::Yes) {
         bk.delSection(ui->section->currentItem()->text());
         ui->section->takeItem(ui->section->currentIndex().row());
         // Function from utilities.cpp
-        messageEngine("Section Deleted", MessageType::Info);
+        Utilities::messageEngine("Section Deleted", Utilities::MessageType::Info);
     }
     sectionRefresh();
 }
@@ -217,7 +218,7 @@ void bookmarks::on_sectionDone_clicked()
     ui->addSectionBox->setVisible(false);
 
     // Function from utilities.cpp
-    messageEngine("Section Added", MessageType::Info);
+    Utilities::messageEngine("Section Added", Utilities::MessageType::Info);
     on_cTools_clicked();
 }
 
@@ -261,7 +262,7 @@ void bookmarks::on_bookmarkDelete_clicked()
 {
     QMessageBox message(QMessageBox::Question, tr("Delete Bookmark"), "Do you want to delete the bookmark?", QMessageBox::No | QMessageBox::Yes);
     message.setWindowIcon(QIcon(":/app/icons/app-icons/Bookmarks.svg"));
-    message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
+    message.setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
 
     int merge = message.exec();
     if (merge == QMessageBox::Yes) {
@@ -269,7 +270,7 @@ void bookmarks::on_bookmarkDelete_clicked()
         int r = ui->boklist->currentItem()->row();
         ui->boklist->removeRow(r);
         // Function from utilities.cpp
-        messageEngine("Bookmark Deleted", MessageType::Info);
+        Utilities::messageEngine("Bookmark Deleted", Utilities::MessageType::Info);
     }
     ui->bookmarkCount->setText(QString::number(ui->boklist->rowCount()) + " item(s)");
     sectionRefresh();
@@ -289,7 +290,7 @@ void bookmarks::on_editDone_clicked()
         ui->boklist->removeRow(ui->boklist->currentRow());
     }
     // Function from utilities.cpp
-    messageEngine("Edit Done", MessageType::Info);
+    Utilities::messageEngine("Edit Done", Utilities::MessageType::Info);
     sectionRefresh();
     on_editCancel_clicked();
 }
@@ -369,9 +370,9 @@ void bookmarks::on_pathName_textChanged(const QString &arg1)
 void bookmarks::on_boklist_itemDoubleClicked(QTableWidgetItem *item)
 {
     QString s = bk.bookmarkPath(ui->section->currentItem()->text(), ui->boklist->item(item->row(),0)->text());
-
+qDebug() << s;
     // Function from utilities.cpp
-    appSelectionEngine(s);
+    GlobalFunc::appSelectionEngine(s);
 }
 
 void bookmarks::on_boklist_itemSelectionChanged()
@@ -425,4 +426,10 @@ void bookmarks::on_cTools_clicked()
 void bookmarks::reload()
 {
     sectionRefresh();
+}
+
+void bookmarks::sendFiles(const QStringList &paths) {
+    foreach ( QString str, paths ) {
+        callBookMarkDialog(this, str);
+    }
 }

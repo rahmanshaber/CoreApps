@@ -26,7 +26,7 @@ pgeneral::pgeneral(QWidget *parent) :QWidget(parent),ui(new Ui::pgeneral),
 {
     ui->setupUi(this);
 
-    addDropShadow(ui->sysInfo,40);
+    Utilities::addDropShadow(ui->sysInfo,40);
 
     init();
     systemInformationInit();
@@ -76,7 +76,7 @@ void pgeneral::systemInformationInit()
           << sysInfo.getKernel() << sysInfo.getCpuModel() << sysInfo.getCpuSpeed()
           << sysInfo.getCpuCore() << scr << QT_VERSION_STR;
 
-    QStringListModel *systemInfoModel = new QStringListModel(fStringList(left, right, ui->systemInfoList->font()));
+    QStringListModel *systemInfoModel = new QStringListModel(Utilities::fStringList(left, right, ui->systemInfoList->font()));
 
     ui->systemInfoList->setModel(systemInfoModel);
 }
@@ -97,8 +97,8 @@ void pgeneral::updateMemoryBar()
         memUsedPercent = static_cast<int>((static_cast<double>(im->getMemUsed()) / static_cast<double>(im->getMemTotal()) ) * 100.0);
 
     // Function from utilities.cpp
-    QString f_memUsed  = formatSize(static_cast<int>(im->getMemUsed()));
-    QString f_memTotal = formatSize(static_cast<int>(im->getMemTotal()));
+    QString f_memUsed  = Utilities::formatSize(static_cast<int>(im->getMemUsed()));
+    QString f_memTotal = Utilities::formatSize(static_cast<int>(im->getMemTotal()));
 
     memBar->setValue(memUsedPercent, QString("%1 / %2").arg(f_memUsed).arg(f_memTotal));
 }
@@ -122,8 +122,8 @@ void pgeneral::updateNetworkBar()
     quint64 d_TXbytes = (TXbytes - l_TXbytes);
 
     // Function from utilities.cpp
-    QString downText = formatSize(static_cast<int>(d_RXbytes));
-    QString upText = formatSize(static_cast<int>(d_TXbytes));
+    QString downText = Utilities::formatSize(static_cast<int>(d_RXbytes));
+    QString upText = Utilities::formatSize(static_cast<int>(d_TXbytes));
 
     int downPercent = static_cast<int>((static_cast<double>(d_RXbytes) / static_cast<double>(max_RXbytes) ) * 100.0);
     int upPercent = static_cast<int>((static_cast<double>(d_TXbytes) / static_cast<double>(max_TXbytes) ) * 100.0);
@@ -136,8 +136,8 @@ void pgeneral::updateNetworkBar()
     ui->uspeed->setText(upText);
 
     // Function from utilities.cpp
-    ui->dtotal->setText(formatSize(static_cast<int>(RXbytes)));
-    ui->utotal->setText(formatSize(static_cast<int>(TXbytes)));
+    ui->dtotal->setText(Utilities::formatSize(static_cast<int>(RXbytes)));
+    ui->utotal->setText(Utilities::formatSize(static_cast<int>(TXbytes)));
 
     max_RXbytes = qMax(max_RXbytes, d_RXbytes);
     max_TXbytes = qMax(max_TXbytes, d_TXbytes);

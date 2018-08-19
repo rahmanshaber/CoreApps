@@ -24,11 +24,11 @@ corepaint::corepaint( QWidget *parent):QWidget(parent),ui(new Ui::corepaint),
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/CorePaint.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/CorePaint.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
     mUndoStackGroup = new QUndoGroup(this);
 
@@ -109,7 +109,7 @@ void corepaint::initializeNewTab(const bool &isOpen, const QString &filePath)
             QScrollArea *scrollArea = new QScrollArea();
             scrollArea->setAttribute(Qt::WA_DeleteOnClose);
             //color for core paint
-            QString color(getStylesheetValue()->value("@color06").toString());
+            QString color(Utilities::getStylesheetValue()->value("@color06").toString());
             scrollArea->setStyleSheet("QScrollArea { background-color: " + color + ";border-style: none; }");
 
             //scrollArea->setBackgroundRole(QPalette::Shadow);
@@ -149,15 +149,15 @@ void corepaint::initializeNewTab(const bool &isOpen, const QString &filePath)
 
         if (!fileName.isEmpty()) {
             // Function from utilities.cpp
-            messageEngine("File Opened Successfully.", MessageType::Info);
+            Utilities::messageEngine("File Opened Successfully.", Utilities::MessageType::Info);
         } else {
             // Function from utilities.cpp
-            messageEngine("File not Opened Successfully.", MessageType::Info);
+            Utilities::messageEngine("File not Opened Successfully.", Utilities::MessageType::Info);
         }
     }
     else {
         // Function from utilities.cpp
-        messageEngine("Reached page limit.", MessageType::Warning);
+        Utilities::messageEngine("Reached page limit.", Utilities::MessageType::Warning);
     }
 }
 
@@ -311,7 +311,7 @@ void corepaint::closeEvent(QCloseEvent *event)
     {
         event->ignore();
         // Function from utilities.cpp
-        saveToRecent("CorePaint", currentFile);
+        Utilities::saveToRecent("CorePaint", currentFile);
         event->accept();
     }
     else
@@ -517,10 +517,10 @@ void corepaint::on_save_clicked()
 
         filepath = getCurrentImageArea()->mFilePath;
         // Function from utilities.cpp
-        messageEngine("File Saved", MessageType::Info);
+        Utilities::messageEngine("File Saved", Utilities::MessageType::Info);
     } else {
         // Function from utilities.cpp
-        messageEngine("File not Saved", MessageType::Info);
+        Utilities::messageEngine("File not Saved", Utilities::MessageType::Info);
     }
 }
 
@@ -532,10 +532,10 @@ void corepaint::on_saveas_clicked()
 
         filepath = getCurrentImageArea()->mFilePath;
         // Function from utilities.cpp
-        messageEngine("File Saved", MessageType::Info);
+        Utilities::messageEngine("File Saved", Utilities::MessageType::Info);
     } else {
         // Function from utilities.cpp
-        messageEngine("File not Saved", MessageType::Info);
+        Utilities::messageEngine("File not Saved", Utilities::MessageType::Info);
     }
 }
 
@@ -576,7 +576,7 @@ void corepaint::on_bookMarkIt_clicked()
     if (!QFile(filepath).exists()) {
         // Function from utilities.cpp
         QString mess = "File: " + currentFile + "' not exists Or not saved";
-        messageEngine(mess, MessageType::Info);
+        Utilities::messageEngine(mess, Utilities::MessageType::Info);
     } else {
         bookmarks bookMarks;
         bookMarks.callBookMarkDialog(this, filepath);
@@ -647,4 +647,12 @@ void corepaint::on_toolsB_clicked()
 void corepaint::on_colorB_clicked()
 {
     pageClick(ui->colorB,4);
+}
+
+void corepaint::sendFiles(const QStringList &paths) {
+    if (paths.count()) {
+        foreach (QString str, paths) {
+            initializeNewTab(true, Utilities::checkIsValidFile(str));
+        }
+    }
 }

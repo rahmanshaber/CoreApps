@@ -54,6 +54,8 @@ public:
     explicit coreplayer(QWidget *parent = nullptr);
     ~coreplayer();
 
+    void sendFiles(const QStringList &paths);
+
     void openPlayer(const QString path);
     bool isPlayerAvailable() const;
     QMediaPlayer::State state() const;

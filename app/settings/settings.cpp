@@ -23,11 +23,11 @@ settings::settings(QWidget *parent) :QWidget(parent),ui(new Ui::settings)
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/Settings.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/Settings.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     on_setDefaultApp_toggled(false);
@@ -396,7 +396,7 @@ void settings::on_ok_clicked()
 
     //inform the user
     // Function from utilities.cpp
-    messageEngine("Settings Applied\nCoreBox needs to restart", MessageType::Info);
+    Utilities::messageEngine("Settings Applied\nCoreBox needs to restart", Utilities::MessageType::Info);
     QIcon::setThemeName(sm.getThemeName());
 }
 
@@ -453,7 +453,7 @@ void settings::on_backUp_clicked()
     arc->compress(QStringList() << backupFilePath , cPath);
 
     // Function from utilities.cpp
-    messageEngine("Backup for settings successfully done.", MessageType::Info);
+    Utilities::messageEngine("Backup for settings successfully done.", Utilities::MessageType::Info);
 }
 
 void settings::on_restore_clicked()
@@ -473,14 +473,13 @@ void settings::on_restore_clicked()
             }
 
             if (files) {
-//                QString msg = QString("There are old settings file\nDo you want to delete them?");
-//                QMessageBox message(QMessageBox::Question, "File Exists", msg,QMessageBox::Yes, QMessageBox::No);
-//                message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreRenemer.svg"));
-//                message.setStyleSheet(getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
-//                int merge = message.exec();
+                QString msg = QString("There are old settings file\nDo you want to delete them?");
+                QMessageBox message(QMessageBox::Question, "File Exists", msg, QMessageBox::Yes | QMessageBox::No, this);
+                message.setWindowIcon(QIcon(":/app/icons/app-icons/CoreRenemer.svg"));
+                message.setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/Dialog.qss"));
 
+                int reply = message.exec();
 
-                long reply = QMessageBox::warning(this, "File Exists", "There are old settings file\nDo you want to delete them?", QMessageBox::Yes, QMessageBox::No);
                 if (reply == QMessageBox::No)
                     return;
                 else {
@@ -489,13 +488,13 @@ void settings::on_restore_clicked()
                         corearchiver *arc = new corearchiver;
                         arc->extract(path, QDir(QDir::homePath() + "/.config/"));
                         // Function from utilities.cpp
-                        messageEngine("Backup for settings successfully done.", MessageType::Info);
+                        Utilities::messageEngine("Backup for settings successfully done.", Utilities::MessageType::Info);
                     }
                 }
             }
         } else {
             // Function from utilities.cpp
-            messageEngine("Wrong file selected!!!", MessageType::Warning);
+            Utilities::messageEngine("Wrong file selected!!!", Utilities::MessageType::Warning);
         }
     }
 }

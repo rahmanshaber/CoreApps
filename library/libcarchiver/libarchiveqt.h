@@ -75,7 +75,7 @@ class LibArchive {
 
         //Abrar
         /* Get the base name */
-        QString getBaseName( QString );
+        QString getBaseName(const QString &path );
 
 		ArchiveEntries list();
 

@@ -29,6 +29,8 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QFuture>
 #include <QtConcurrent/QtConcurrent>
 
+#include <QFileSystemWatcher>
+
 #include "settings/settingsmanage.h"
 #include "utilities/utilities.h"
 #include "bookmarks/bookmarkmanage.h"
@@ -48,6 +50,7 @@ public:
     explicit Start(QWidget *parent = nullptr);
     ~Start();
     void reload();
+    void reload(const QString &path);
 
 
 private slots:
@@ -65,13 +68,14 @@ private slots:
 private:
     Ui::Start *ui;
     SettingsManage sm;
+    QFileSystemWatcher *fswStart;
 
     void loadsettings();
     void loadSpeedDial();
     void loadRecent();
     void loadSession();
     void pageClick(QPushButton *btn, int i);
-    AppsName nameToInt(QString appName);
+    GlobalFunc::AppsName nameToInt(QString appName);
     QIcon appsIcon(QString appName);
 };
 

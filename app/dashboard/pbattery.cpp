@@ -22,8 +22,8 @@ pBattery::pBattery(QWidget *parent) :QWidget(parent),ui(new Ui::pBattery)
 {
     ui->setupUi(this);
     setupBatteryPage();
-    addDropShadow(ui->overviewF,40);
-    addDropShadow(ui->morinfoF,40);
+    Utilities::addDropShadow(ui->overviewF,40);
+    Utilities::addDropShadow(ui->morinfoF,40);
 }
 
 pBattery::~pBattery()
@@ -110,7 +110,7 @@ void pBattery::on_batteriesList_currentIndexChanged(int index)
     }
 
     // Funstion from globalfunctions.cpp fStringList
-    QStringListModel *infoModel = new QStringListModel(fStringList(left, right, ui->batProperties->font()));
+    QStringListModel *infoModel = new QStringListModel(Utilities::fStringList(left, right, ui->batProperties->font()));
 
     ui->batProperties->setModel(infoModel);
 }

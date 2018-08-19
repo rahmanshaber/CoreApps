@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=AboutCoreBox
+Comment=Open about window
+Exec=coreBox --about
+Icon=/usr/share/icons/CoreBox/About.svg
+Type=Application
+Categories=Settings;
+Terminal=false
+StartupNotify=true

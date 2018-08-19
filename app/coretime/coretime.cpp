@@ -23,11 +23,11 @@ coretime::coretime(QWidget *parent) :QWidget(parent),ui(new Ui::coretime)
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/CoreTime.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/CoreTime.qss"));
 
     // set window size
-    int x = static_cast<int>(screensize().width()  * .8);
-    int y = static_cast<int>(screensize().height()  * .7);
+    int x = static_cast<int>(Utilities::screensize().width()  * .8);
+    int y = static_cast<int>(Utilities::screensize().height()  * .7);
     this->resize(x, y);
 
     //Create / load Schedule
@@ -304,7 +304,7 @@ void coretime::PMWarning()
     // Function from utilities.cpp
     QString mess = "Your selected time is set for PM.\n"
                    " If you intended to wake in the morning, now is your chance to fix it";
-    messageEngine(mess, MessageType::Warning);
+    Utilities::messageEngine(mess, Utilities::MessageType::Warning);
 }
 
 void coretime::displayTimeMode()

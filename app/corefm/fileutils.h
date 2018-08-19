@@ -43,7 +43,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 
 struct SizeAndCountText
 {
-    QString sizeText ,countText;
+    QString sizeText, countText, hiddenFileCount;
 };
 
 class ProgressWatcher;

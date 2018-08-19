@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=CoreBoxHelp
+Comment=Show help
+Exec=coreBox --help
+Icon=/usr/share/icons/CoreBox/Help.svg
+Type=Application
+Categories=Settings;
+Terminal=false
+StartupNotify=true

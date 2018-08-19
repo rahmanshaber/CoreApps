@@ -50,6 +50,7 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QUndoStack>
 #include <QDir>
 #include <QClipboard>
+#include <QMenu>
 
 #include "settings/settingsmanage.h"
 #include "utilities/utilities.h"
@@ -127,6 +128,8 @@ private:
     QVector<AbstractInstrument*> mInstrumentsHandlers;
     AbstractInstrument *mInstrumentHandler;
 
+    QMenu *contextMenu();
+
 signals:
     void sendPrimaryColorView();
     void sendSecondaryColorView();
@@ -143,7 +146,7 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void paintEvent(QPaintEvent *event);
-    
+
 };
 
 #endif // IMAGEAREA_H

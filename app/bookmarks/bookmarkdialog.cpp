@@ -23,7 +23,7 @@ bookmarkDialog::bookmarkDialog(QWidget *parent) : QDialog(parent),ui(new Ui::boo
     ui->setupUi(this);
 
     // set stylesheet from style.qrc
-    setStyleSheet(getStylesheetFileContent(":/appStyle/style/BookmarkIt.qss"));
+    setStyleSheet(Utilities::getStylesheetFileContent(":/appStyle/style/BookmarkIt.qss"));
 
     connect(ui->cancel, &QToolButton::clicked, this, &bookmarkDialog::close);
 
@@ -46,7 +46,7 @@ void bookmarkDialog::on_done_clicked()
         accepted = true;
         QTimer::singleShot(100, this, SLOT(close()));
         // Function from utilities.cpp
-        messageEngine("Bookmark Added at '" + ui->bkSection->currentText() + "'", MessageType::Info);
+        messageEngine("Bookmark Added at '" + ui->bkSection->currentText() + "'", Utilities::MessageType::Info);
     }
 }
 
