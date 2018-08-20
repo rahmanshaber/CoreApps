@@ -35,7 +35,7 @@ corepaint::corepaint( QWidget *parent):QWidget(parent),ui(new Ui::corepaint),
     qRegisterMetaType<InstrumentsEnum>("InstrumentsEnum");
     DataSingleton::Instance()->setIsInitialized();
 
-    if(filepath.isEmpty()){
+    if(workFilePath.isEmpty()){
         ui->save->setEnabled(false);
         ui->saveas->setEnabled(false);
         ui->bookMarkIt->setEnabled(false);
@@ -135,8 +135,8 @@ void corepaint::initializeNewTab(const bool &isOpen, const QString &filePath)
             delete imageArea;
         }
 
-        currentFile = fileName;
-        filepath = filePath;
+        workFilePath = fileName;
+
         if (ui->paintTabs->count() >= 1) {
             ui->save->setEnabled(true);
             ui->saveas->setEnabled(true);
@@ -311,7 +311,7 @@ void corepaint::closeEvent(QCloseEvent *event)
     {
         event->ignore();
         // Function from utilities.cpp
-        Utilities::saveToRecent("CorePaint", currentFile);
+        Utilities::saveToRecent("CorePaint", workFilePath);
         event->accept();
     }
     else
@@ -442,11 +442,11 @@ void corepaint::on_paintTabs_currentChanged(int index)
 
     if(!getCurrentImageArea()->getFileName().isEmpty())
     {
-        currentFile = QDir(currentFile).path() + "/" + getCurrentImageArea()->getFileName();
+        workFilePath = QDir(workFilePath).path() + "/" + getCurrentImageArea()->getFileName();
     }
     else
     {
-        currentFile = "Untitled Image";
+        workFilePath = "Untitled Image";
     }
     mUndoStackGroup->setActiveStack(getCurrentImageArea()->getUndoStack());
 
@@ -515,7 +515,7 @@ void corepaint::on_save_clicked()
         ui->paintTabs->setTabText(ui->paintTabs->currentIndex(), getCurrentImageArea()->getFileName().isEmpty() ?
                                       tr("Untitled Image") : getCurrentImageArea()->getFileName() );
 
-        filepath = getCurrentImageArea()->mFilePath;
+        workFilePath = getCurrentImageArea()->mFilePath;
         // Function from utilities.cpp
         Utilities::messageEngine("File Saved", Utilities::MessageType::Info);
     } else {
@@ -530,7 +530,7 @@ void corepaint::on_saveas_clicked()
         ui->paintTabs->setTabText(ui->paintTabs->currentIndex(), getCurrentImageArea()->getFileName().isEmpty() ?
                                       tr("Untitled Image") : getCurrentImageArea()->getFileName() );
 
-        filepath = getCurrentImageArea()->mFilePath;
+        workFilePath = getCurrentImageArea()->mFilePath;
         // Function from utilities.cpp
         Utilities::messageEngine("File Saved", Utilities::MessageType::Info);
     } else {
@@ -573,13 +573,12 @@ void corepaint::on_zoomout_clicked()
 
 void corepaint::on_bookMarkIt_clicked()
 {
-    if (!QFile(filepath).exists()) {
+    if (!QFile(workFilePath).exists()) {
         // Function from utilities.cpp
-        QString mess = "File: " + currentFile + "' not exists Or not saved";
+        QString mess = "File: " + workFilePath + "' not exists Or not saved";
         Utilities::messageEngine(mess, Utilities::MessageType::Info);
     } else {
-        bookmarks bookMarks;
-        bookMarks.callBookMarkDialog(this, filepath);
+        GlobalFunc::appEngines("BookMarkIt",workFilePath);
     }
 }
 
@@ -649,7 +648,8 @@ void corepaint::on_colorB_clicked()
     pageClick(ui->colorB,4);
 }
 
-void corepaint::sendFiles(const QStringList &paths) {
+void corepaint::sendFiles(const QStringList &paths)
+{
     if (paths.count()) {
         foreach (QString str, paths) {
             initializeNewTab(true, Utilities::checkIsValidFile(str));

@@ -49,7 +49,7 @@ coreimage::coreimage(QWidget *parent) :QWidget(parent), ui(new Ui::coreimage)
     ui->line->setVisible(false);
     ui->thumnailView->setVisible(false);
 
-    if(currentImagePath.isNull()){
+    if(workFilePath.isNull()){
         for (QPushButton *b : ui->shortcut->findChildren<QPushButton*>()){
             b->setEnabled(false);
         }
@@ -106,7 +106,7 @@ void coreimage::closeEvent(QCloseEvent *event)
 {
     event->ignore();
     // Function from utilities.cpp
-    Utilities::saveToRecent("CoreImage", currentImagePath);
+    Utilities::saveToRecent("CoreImage", workFilePath);
     event->accept();
 }
 
@@ -177,7 +177,7 @@ QStringList coreimage::getImages(const QString path)
 bool coreimage::loadFile(const QString &fileName)
 {
     if (!fileName.isNull()) {
-        currentImagePath = fileName;
+        workFilePath = fileName;
         QImageReader reader(fileName);
         reader.setAutoTransform(true);
         const QImage newImage = reader.read();
@@ -232,7 +232,7 @@ void coreimage::setImage(const QImage &newImage)
     }
     if (!(images.count() > 0)) {
         QtConcurrent::run([this]() {
-            QStringList l = getImages(QFileInfo(currentImagePath).path());
+            QStringList l = getImages(QFileInfo(workFilePath).path());
             for (int i = 0; i < l.count(); ++i) {
                 QListWidgetItem *item = new QListWidgetItem(QIcon(QPixmap(l.at(i))), l.at(i));
                 item->setFont(QFont(item->font().family(), 1));
@@ -241,7 +241,7 @@ void coreimage::setImage(const QImage &newImage)
         });
     }
 
-    QFileInfo info (currentImagePath);
+    QFileInfo info (workFilePath);
     QString typ = info.suffix();
     QString nam = info.fileName();
     QString h = QString::number(image.height()) ;
@@ -370,7 +370,7 @@ bool coreimage::saveFile(const QString &fileName)
 
 void coreimage::on_cSave_clicked()
 {
-    QImageWriter wr(currentImagePath);
+    QImageWriter wr(workFilePath);
     if (wr.write(image)) {
         // Function from utilities.cpp
         Utilities::messageEngine("Image Saved", Utilities::MessageType::Info);
@@ -395,16 +395,15 @@ void coreimage::on_cTools_clicked(bool checked)
 
 void coreimage::on_bookMarkIt_clicked()
 {
-    if (!currentImagePath.isNull()) {
-        bookmarks bookMarks;
-        bookMarks.callBookMarkDialog(this, currentImagePath);
+    if (!workFilePath.isNull()) {
+        GlobalFunc::appEngines("BookMarkIt",workFilePath);
     }
 }
 
 void coreimage::on_cPrevious_clicked()
 {
     if (images.count() != 0) {
-        int currentIndex = images.indexOf(currentImagePath);
+        int currentIndex = images.indexOf(workFilePath);
         if (currentIndex != 0) {
             loadFile(images.at(currentIndex - 1));
         } else {
@@ -416,7 +415,7 @@ void coreimage::on_cPrevious_clicked()
 void coreimage::on_cNext_clicked()
 {
     if (images.count() != 0) {
-        int currentIndex = images.indexOf(currentImagePath);
+        int currentIndex = images.indexOf(workFilePath);
         int lastIndex = images.count() - 1;
         if (!(currentIndex == lastIndex)) {
             loadFile(images.at(currentIndex + 1));
@@ -459,7 +458,7 @@ void coreimage::on_cProperties_clicked(bool checked)
 
 void coreimage::on_openincorepaint_clicked()
 {
-    GlobalFunc::appEngines("CorePaint", currentImagePath);
+    GlobalFunc::appEngines("CorePaint", workFilePath);
 }
 
 void coreimage::on_openThumbview_clicked()
@@ -475,7 +474,7 @@ void coreimage::on_openThumbview_clicked()
 
 void coreimage::on_containingfolder_clicked()
 {
-    GlobalFunc::appEngine(GlobalFunc::Category::FileManager, QFileInfo(currentImagePath).path());
+    GlobalFunc::appEngine(GlobalFunc::Category::FileManager, QFileInfo(workFilePath).path());
 }
 
 void coreimage::on_thumnailView_itemClicked(QListWidgetItem *item)
@@ -485,10 +484,10 @@ void coreimage::on_thumnailView_itemClicked(QListWidgetItem *item)
 
 void coreimage::on_cTrashIt_clicked()
 {
-    int index = images.indexOf(currentImagePath);
+    int index = images.indexOf(workFilePath);
 
     // Function from utilities.cpp
-    if ( Utilities::moveToTrash( currentImagePath ) == true ) {
+    if ( Utilities::moveToTrash(workFilePath) == true ) {
         images.removeAt(index);
         if (images.count() == 0) {
             cImageLabel->setPicture(QPicture());

@@ -121,11 +121,8 @@ void GlobalFunc::appEngine(GlobalFunc::Category ctg ,const QString path)
 #include <QStringList>
 void GlobalFunc::appEngines(QString appName, const QString &arg) // engine to open app in window
 {
-//    QString cmd = "coreBox --corepad /home/shaber/Desktop/task";
-    QProcess l;
-
-//    qDebug()<< cmd;
-    l.start("coreBox" , QStringList() << "--corepad /home/shaber/Desktop/task");
+    QString cmd = "coreBox";
+    QProcess::startDetached(cmd ,QStringList() <<  QString ("--" + appName.toLower()) << arg);
 
     // Function from utilities.cpp
     QString mess = appName + " opening " ;

@@ -1849,8 +1849,7 @@ void corefm::on_STrash_clicked()
 void corefm::on_SBookMarkIt_clicked()
 {
     const QString path(curIndex.filePath());
-    bookmarks bookMarks;
-    bookMarks.callBookMarkDialog(this,path);
+    GlobalFunc::appEngines("BookMarkIt",path);
 }
 
 void corefm::on_Tools_clicked(bool checked)

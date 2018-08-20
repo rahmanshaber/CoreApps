@@ -79,6 +79,7 @@ void Start::on_appCollect_itemDoubleClicked(QListWidgetItem *item) // open Speed
 
 
 // ======== Speed Dial ==========
+
 void Start::on_speedDialB_itemDoubleClicked(QListWidgetItem *item) // open SpeedDial on doubleclick
 {
     BookmarkManage bk;

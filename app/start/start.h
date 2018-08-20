@@ -29,8 +29,6 @@ along with this program; if not, see {http://www.gnu.org/licenses/}. */
 #include <QFuture>
 #include <QtConcurrent/QtConcurrent>
 
-#include <QFileSystemWatcher>
-
 #include "settings/settingsmanage.h"
 #include "utilities/utilities.h"
 #include "bookmarks/bookmarkmanage.h"

@@ -47,7 +47,6 @@ public:
     ~bookmarks();
 
     void sendFiles(const QStringList &paths);
-
     void saveBookMark(QString section, QString bookmarkName, QString bookmarkPath, QString bookmarkIcon);
     void callBookMarkDialog(QWidget *parent, const QString &currentPath);
     void reload();

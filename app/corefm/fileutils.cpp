@@ -326,11 +326,6 @@ QString FileUtils::getMultipleFileSize(const QStringList &paths) // get file siz
     return getF(paths).sizeText;
 }
 
-QString FileUtils::getMultipleCountText(const QStringList &paths)
-{
-    return getF(paths).countText;
-}
-
 QString FileUtils::getCountText(const QString path) //get size of single file in string
 {
     return getF(QStringList() << path).countText;

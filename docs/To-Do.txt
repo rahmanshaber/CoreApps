@@ -136,13 +136,12 @@ in-future
 *code merge
 
 corefm > openwithDialog>> needs sort
+help dose not open
 move to trash need qstringlist as parameter
 corearchiver not working with .desktop file
-marcus pdfwidget download, see issues, get two files from newbreeze
-qtav example seperate the example and library, get email from rahmanshaber
 
 Y - all the open function in coreapps in qstringlist
-Y - add itregation of bookmarkit, coreshot through desktop file
+- bookmarkit, and bookmark desktop file needs to fix
 
 Y - Hidden file count at fileutils.cpp struct
 all close function name will be same
@@ -156,11 +155,11 @@ all close function name will be same
 
 [Need to check after save session fixed] restore session dose not restore all the app.
 
-Discuss - user unselectable (coreapps) list in coreaction
+
 Discuss - see the itemtotext function in corefm line 2325 .discuss the result in every folder.
 [Need check from you] - fix movetotrash function.
 
-? - open in corefm with select a folder
+
   - closeAllTabs and on_paintTabs_tabCloseRequested in corepaint never executed
 
 Discuss - add updated udisk2 and add our code in it.

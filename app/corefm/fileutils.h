@@ -66,7 +66,6 @@ public:
     static QString getMountPathByName(const QString displayName);
     static QString getFileSize(const QString &path);
     static QString getMultipleFileSize(const QStringList &paths);
-    static QString getMultipleCountText(const QStringList &paths);
     static QString getCountText(const QString path);
     static SizeAndCountText getF(const QStringList &paths);
     static qint64 getSize(const QString &path);

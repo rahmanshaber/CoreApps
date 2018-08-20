@@ -71,7 +71,6 @@ public:
     ~corepaint();
 
     void sendFiles(const QStringList &paths);
-
     void initializeNewTab(const bool &isOpen = false, const QString &filePath = "");
     int tabsCount();
     QString saveLocation;
@@ -81,21 +80,6 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event);
-
-private:
-    Ui::corepaint *ui;
-    void initializeMainMenu();
-    void loadSettings();
-    void shotcuts();
-    void pageClick(QToolButton *btn, int i);
-    ImageArea* getCurrentImageArea();
-    bool closeAllTabs();
-    bool isSomethingModified();
-    QMap<InstrumentsEnum, QAction*> mInstrumentsActMap;
-    QUndoGroup *mUndoStackGroup;
-    bool mPrevInstrumentSetted;
-    ColorChooser *mPColorChooser, *mSColorChooser;
-    QString filepath,currentFile;
 
 private slots:
     void setNewSizeToSizeLabel(const QSize &size);
@@ -145,6 +129,21 @@ signals:
 public slots:
     void setPrimaryColorView();
     void setSecondaryColorView();   
+
+private:
+    Ui::corepaint *ui;
+    void initializeMainMenu();
+    void loadSettings();
+    void shotcuts();
+    void pageClick(QToolButton *btn, int i);
+    ImageArea* getCurrentImageArea();
+    bool closeAllTabs();
+    bool isSomethingModified();
+    QMap<InstrumentsEnum, QAction*> mInstrumentsActMap;
+    QUndoGroup *mUndoStackGroup;
+    bool mPrevInstrumentSetted;
+    ColorChooser *mPColorChooser, *mSColorChooser;
+    QString workFilePath;
 
 };
 

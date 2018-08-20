@@ -428,7 +428,8 @@ void bookmarks::reload()
     sectionRefresh();
 }
 
-void bookmarks::sendFiles(const QStringList &paths) {
+void bookmarks::sendFiles(const QStringList &paths)
+{
     foreach ( QString str, paths ) {
         callBookMarkDialog(this, str);
     }

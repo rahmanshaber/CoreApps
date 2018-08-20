@@ -62,7 +62,7 @@ public:
     void sendFiles(const QStringList &paths);
 
     bool loadFile(const QString &);
-    QString currentImagePath;
+    QString workFilePath;
 
 private slots:
     void on_cOpen_clicked();

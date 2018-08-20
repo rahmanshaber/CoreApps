@@ -421,8 +421,7 @@ void corepad::on_bookMarkIt_clicked()
             Utilities::messageEngine("File Not saved.", Utilities::MessageType::Warning);
             return;
         }
-        bookmarks bookMarks;
-        bookMarks.callBookMarkDialog(this, workFilePath);
+        GlobalFunc::appEngines("BookMarkIt",workFilePath);
     }
 }
 
