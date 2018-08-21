@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=CorePaint
-Comment=Painter
-Exec=coreBox --corepaint %F
-Icon=/usr/share/icons/CoreBox/CorePaint.svg
-Type=Application
-Categories=Graphics;
-Terminal=false
-StartupNotify=true

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=CoreBoxSettings
-Comment=Edit CoreBox settings
-Exec=coreBox --Settings
-Icon=/usr/share/icons/CoreBox/Settings.svg
-Type=Application
-Categories=Settings;
-Terminal=false
-StartupNotify=true

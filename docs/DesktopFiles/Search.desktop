@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Search
-Comment=Search files
-Exec=coreBox --Search
-Icon=/usr/share/icons/CoreBox/Search.svg
-Type=Application
-Categories=Utility;
-Terminal=false
-StartupNotify=true

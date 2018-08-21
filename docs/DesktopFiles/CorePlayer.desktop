@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=CorePlayer
-Comment=Open media files
-Exec=coreBox --coreplayer %F
-Icon=/usr/share/icons/CoreBox/CorePlayer.svg
-Type=Application
-Categories=AudioVideo;
-Terminal=false
-StartupNotify=true

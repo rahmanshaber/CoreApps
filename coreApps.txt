@@ -1,7 +1,0 @@
-├── app
-├── docs
-└── library
-├── CoreBox.pro
-├── CoreBox.pro.user
-├── LICENSE
-└── README.md

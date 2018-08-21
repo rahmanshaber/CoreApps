@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=CoreArchiverExtract
-Comment=Extract Archive File
-Exec=coreBox --corearchiver -e %F
-Icon=/usr/share/icons/CoreBox/CoreArchiver.svg
-Type=Application
-Categories=Utility;
-Terminal=false
-StartupNotify=true

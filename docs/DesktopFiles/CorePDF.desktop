@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=CorePDF
-Comment=PDF viewer
-Exec=coreBox --corepdf %F
-Icon=/usr/share/icons/CoreBox/CorePDF.svg
-Type=Application
-Categories=Office;
-Terminal=false
-StartupNotify=true

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=CoreArchiverArchive
-Comment=Archive Files
-Exec=coreBox --corearchiver -a %F
-Icon=/usr/share/icons/CoreBox/CoreArchiver.svg
-Type=Application
-Categories=Utility;
-Terminal=false
-StartupNotify=true

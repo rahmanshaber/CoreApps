@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=CoreFM
-Comment=File Manager
-Exec=coreBox --corefm %F
-Icon=/usr/share/icons/CoreBox/CoreFM.svg
-Type=Application
-Categories=Utility;
-Terminal=false
-StartupNotify=true

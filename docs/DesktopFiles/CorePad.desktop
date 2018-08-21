@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=CorePad
-Comment=Text Editor
-Exec=coreBox --corepad %F
-Icon=/usr/share/icons/CoreBox/CorePad.svg
-Type=Application
-Categories=Utility;TextEditor;
-Terminal=false
-StartupNotify=true

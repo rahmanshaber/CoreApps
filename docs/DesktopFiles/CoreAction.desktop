@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=CoreAction
-Comment=Open popup action window
-Exec=coreBox --coreaction %F
-Icon=/usr/share/icons/CoreBox/CoreAction.svg
-Type=Application
-Categories=Utility;
-Terminal=false
-StartupNotify=true

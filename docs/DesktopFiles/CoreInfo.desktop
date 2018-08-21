@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=CoreInfo
-Comment=Show Information about a file
-Exec=coreBox --coreinfo %F
-Icon=/usr/share/icons/CoreBox/CoreAction.svg
-Type=Application
-Categories=Utility;
-Terminal=false
-StartupNotify=true
