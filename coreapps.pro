@@ -7,7 +7,7 @@ SUBDIRS += \
     help\
     bookmarks\
     corefm\
-    corepdf\
+#    corepdf\
     coreimage\
     coreinfo\
     corepad\
