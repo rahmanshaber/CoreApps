@@ -1,3 +1,63 @@
 [submodule "coreinfo"]
 	path = coreinfo
 	url = https://github.com/rahmanshaber/CoreInfo
+[submodule "coreplayer"]
+	path = coreplayer
+	url = https://github.com/rahmanshaber/coreplayer
+[submodule "about"]
+	path = about
+	url = https://github.com/rahmanshaber/about
+[submodule "bookmarks"]
+	path = bookmarks
+	url = https://github.com/rahmanshaber/bookmarks
+[submodule "coreaction"]
+	path = coreaction
+	url = https://github.com/rahmanshaber/coreaction
+[submodule "corearchiver"]
+	path = corearchiver
+	url = https://github.com/rahmanshaber/corearchiver
+[submodule "corefm"]
+	path = corefm
+	url = https://github.com/rahmanshaber/corefm
+[submodule "coreimage"]
+	path = coreimage
+	url = https://github.com/rahmanshaber/coreimage
+[submodule "corepad"]
+	path = corepad
+	url = https://github.com/rahmanshaber/corepad
+[submodule "corepaint"]
+	path = corepaint
+	url = https://github.com/rahmanshaber/corepaint
+[submodule "corerenamer"]
+	path = corerenamer
+	url = https://github.com/rahmanshaber/corerenamer
+[submodule "coreshot"]
+	path = coreshot
+	url = https://github.com/rahmanshaber/coreshot
+[submodule "coreterminal"]
+	path = coreterminal
+	url = https://github.com/rahmanshaber/coreterminal
+[submodule "coretime"]
+	path = coretime
+	url = https://github.com/rahmanshaber/coretime
+[submodule "dashboard"]
+	path = dashboard
+	url = https://github.com/rahmanshaber/dashboard
+[submodule "help"]
+	path = help
+	url = https://github.com/rahmanshaber/help
+[submodule "libcprime"]
+	path = libcprime
+	url = https://github.com/rahmanshaber/libcprime
+[submodule "libcsys"]
+	path = libcsys
+	url = https://github.com/rahmanshaber/libcsys
+[submodule "search"]
+	path = search
+	url = https://github.com/rahmanshaber/search
+[submodule "settings"]
+	path = settings
+	url = https://github.com/rahmanshaber/settings
+[submodule "start"]
+	path = start
+	url = https://github.com/rahmanshaber/start
