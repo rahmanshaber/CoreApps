@@ -1,11 +1,7 @@
-# CoreBox
+# CoreApps
 
-## CoreBox is combination of some common desktop apps .For Linux Only.Licensed under GPL2 .
+## CoreApps is some common desktop apps .For Linux Only.Licensed under GPL2 .
 
-<img src="docs/screenshots/a1.png" width="500">
-<img src="docs/screenshots/a2.png" width="500">
-<img src="docs/screenshots/a3.png" width="500">
-<img src="docs/screenshots/a4.png" width="500">
 
 ### Download
 * Version 2.2 released Thursday, July 26, 2018.
