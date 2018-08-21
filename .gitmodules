@@ -1,0 +1,3 @@
+[submodule "coreinfo"]
+	path = coreinfo
+	url = https://github.com/rahmanshaber/CoreInfo
