@@ -61,3 +61,6 @@
 [submodule "start"]
 	path = start
 	url = https://github.com/rahmanshaber/start
+[submodule "corepdf"]
+	path = corepdf
+	url = https://github.com/rahmanshaber/corepdf
