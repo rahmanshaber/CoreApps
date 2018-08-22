@@ -1,4 +1,4 @@
-# CoreApps
+# CoreApps(beta)
 
 ## CoreApps is some common desktop apps .For Linux Only.Licensed under GPL2 .
 
