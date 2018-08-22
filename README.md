@@ -4,11 +4,13 @@
 
 
 ### Download
-* Version 2.2 released Thursday, July 26, 2018.
-* Here is the app download [link](https://github.com/rahmanshaber/corebox/releases "Title") .
-* See the fixed bug and new features [here](https://github.com/rahmanshaber/corebox/blob/master/docs/ChangeLog "Title") .
+* First open terminal in a New folder.
+* Put this command "git clone https://github.com/rahmanshaber/CoreApps" .
+* After finished that "cd CoreApps/ "
+* Last ,put this command "git submodule update --init --recursive"
 
 ### Changes in latest release
+* Version 2.2 released Thursday, July 26, 2018.
 * Total 130+ fixes in this release.
 * New Dark and Light mode.
 * Redesinged Start.
@@ -16,7 +18,7 @@
 * Improvements in Search and more in [Release Notes](https://github.com/rahmanshaber/corebox/blob/master/docs/ReleaseNotes "Title") .
 
 ### Build
-* To build see the buidinfo.txt in doc folder [here](https://github.com/rahmanshaber/corebox/blob/master/docs/buildinfo.txt "Title") 
+
 
 ### Dependencies:
 * qt5
