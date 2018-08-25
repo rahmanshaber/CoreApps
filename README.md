@@ -3,11 +3,17 @@
 ## CoreApps is some common desktop apps .For Linux Only.Licensed under GPL2 .
 
 
-### Download
+### Download(stable)
+* To download all the CoreApps stable versions.
 * First open terminal in a New folder.
 * Put this command "git clone https://github.com/rahmanshaber/CoreApps" .
 * After finished that "cd CoreApps/ "
 * Last ,put this command "git submodule update --init --recursive"
+
+### Download(beta)
+* To download all the CoreApps devlopment versions.
+* Just add this command after doing all the command for stable.
+* type "git submodule foreach git pull origin master"
 
 ### Changes in latest release
 * Version 2.2 released Thursday, July 26, 2018.
