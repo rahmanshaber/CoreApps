@@ -141,10 +141,6 @@ in-future
 
 
 
-
-Y - all the open function in coreapps in qstringlist
-- bookmarkit, and bookmark desktop file needs to fix
-
 Y - Hidden file count at fileutils.cpp struct
 all close function name will be same
 
@@ -167,11 +163,7 @@ No - start has apptoint , app name this function.remove??
 
 
 - corefm not showing
-- theme is not showing .but shadow effect shows.
-- add updated udisk2 and add our code in it.
-move to trash need qstringlist as parameter
-libcsys in not working in coreaction.
-coreterminal window icon
+
 coreshot preview widgts crashs
 corefm comments backgrounds.png
 fix the corearchiver .
@@ -180,5 +172,4 @@ fix the corearchiver .
 test
 multipal file trash ,like(702mb +1.2 gb)
 stylesheet [coreimage, about, help, corepad search bar]
-app dose not open in sperate process.
 

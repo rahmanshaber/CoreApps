@@ -3,9 +3,6 @@ Version 2.3
 - removed unwanted cpp file from corefm.
 - fixed message box appearence mode not showing.
 - sepearted the less used function in utilites.h
-
-- fixed armv7 releated build issue.
-
 - fixed trah folder files dobuleclick.
 - appEngine now support system apps.
 - fixed recent activites not opening with the app.
@@ -15,10 +12,11 @@ Version 2.3
 - fix the coreterminal open and close.
 - fixed all the messageBox style.
 - bookmark list rightbutton is not ignored fixed.
-
-
-
-
+- fixed corerenamer opening folder.
+- added all desktop file.
+- updated udisk2 and add our code in it.
+- added move to trash qstringlist as parameter.
+- added qstringlist in all app's open fnunction's as parameter.
 
 
 Version 2.2,Released date Thursday, July 26, 2018.
