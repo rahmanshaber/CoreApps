@@ -152,20 +152,12 @@ all close function name will be same
 Discuss - see the itemtotext function in corefm line 2325 .discuss the result in every folder
   - closeAllTabs and on_paintTabs_tabCloseRequested in corepaint never executed
 [can't Fix] - zoom problem in corepaint
-No - start has apptoint , app name this function.remove??
- - corefm line 2332 .fix it.
 [More knowledge needed] - prgonce in utilites
 [MyModel.cpp -> cacheInfo() ] - find the thumbs.cache creation function.
   - occurs problem in thumbs
 
 
-
-
-
-- corefm not showing
-
-coreshot preview widgts crashs
-corefm comments backgrounds.png
+ - corefm line 2348 ,2292 .fix it.
 fix the corearchiver .
 
 

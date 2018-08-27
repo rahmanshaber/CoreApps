@@ -17,6 +17,7 @@ Version 2.3
 - updated udisk2 and add our code in it.
 - added move to trash qstringlist as parameter.
 - added qstringlist in all app's open fnunction's as parameter.
+- fixed coreshot preview widgts crashs.
 
 
 Version 2.2,Released date Thursday, July 26, 2018.
