@@ -5,15 +5,14 @@ SUBDIRS += \
     libcsys\
     about \
     help\
+    dashboard \
     bookmarks\
     corefm\
-#    corepdf\
     coreimage\
     coreinfo\
     corepad\
     corepaint\
     coreterminal\
-    coreplayer\
     corerenamer\
     coreshot\
     coretime\
@@ -21,6 +20,9 @@ SUBDIRS += \
     settings\
     start\
     coreaction\
-    corearchiver\
-    dashboard \
+#    corearchiver\
+#    corepdf\
+#    coreplayer\
+
+
 
